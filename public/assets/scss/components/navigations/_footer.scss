@@ -1,0 +1,60 @@
+#footer {
+    // height: 100vh;
+    padding: 13vw 0 5vw;
+    background: #070707;
+
+    .wrapper {
+        margin: 0 8.3vw;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        z-index: 2;
+        .title-wrapper {
+            grid-column: 1/6;
+            .title {
+                font-size: 170px;
+            }
+        }
+        .sub-title {
+            grid-column: 1/6;
+            font-size: 24px;
+            max-width: 25vw;
+        }
+        .divider {
+            grid-column: 1/13;
+            margin: 4vw 0;
+            height: 1px;
+            width: 100%;
+            background: #e0ccbb;
+        }
+        .address {
+            grid-column: 1/4;
+        }
+        .nav {
+            grid-column: 4/6;
+        }
+        .address, .nav {
+            .item {
+                a {
+                    &::before {
+                        background-color: #e0ccbb;
+                    }
+                }
+            }
+        }
+    }
+
+    .background {
+        position: absolute;
+        z-index: 1;
+        width: 70vw;
+        height: 70vw;
+        top: -10vw;
+        right: -3vw;
+        video {
+            object-fit: contain;
+        }
+    }
+    p, a {
+        color: #e0ccbb;
+    }
+}

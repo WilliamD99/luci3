@@ -1,0 +1,25 @@
+#navigation_header {
+    transition: 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+#navigation_header--scrolled {
+    transition: 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .menu {
+        transition: color 0.5s ease;
+    }
+}

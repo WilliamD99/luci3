@@ -1,0 +1,100 @@
+.hover-btn {
+    position: relative;
+    display: inline-flex;
+    color: #0d0e13;
+
+    &:hover {
+        .circle {
+            clip-path: circle(50% at 50% 50%);
+            background: black;
+            .circle-icon {
+                opacity: 1;
+                transform: translate(50%, 0);
+                transition-delay: 0;
+            }
+            .circle-outline {
+                stroke: none;
+                opacity: 0;
+            }
+        }
+        .label {
+            transform: translate(20px, 0);
+            .border {
+                width: 0;
+                border-width: 0;
+            }
+        }
+    }
+    .circle {
+        position: absolute;
+        top: -0.6vw;
+        left: -2vw;
+        width: 2.7vw;
+        height: 2.7vw;
+        display: flex;
+        border-radius: 100%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: 0.5s ease;
+        clip-path: circle(10% at 50% 50%);
+        // clip-path: circle(50% at 50% 50%);
+
+        // background: black;
+
+        .circle-fill {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 100%;
+            z-index: 1;
+            will-change: transform;
+        }
+        .circle-outline {
+            position: absolute;
+            overflow: visible;
+            width: 0.41vw;
+            height: 0.41vw;
+            fill: none;
+            stroke: black;
+            transition: 0.5s ease;
+        }
+        .circle-icon {
+            position: absolute;
+            top: 0;
+            right: 50%;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            color: white;
+            width: 15px;
+            transition: 0.5s ease;
+            transition-delay: 0.3s;
+            // transform: translate(50%, 0);
+            opacity: 0;
+            transform: translate(-100%, 0);
+        }
+    }
+    .label {
+        position: relative;
+        font-size: 18px;
+        padding-bottom: 0.13vw;
+        transition: 0.5s ease;
+
+        .border {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            transform-origin: right;
+            transition: 0.5s ease;
+            border: 1px solid rgba(13,14,19,0.5);
+        }
+    }
+}

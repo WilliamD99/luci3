@@ -1,0 +1,20 @@
+.underline-effect {
+    position: relative;
+    text-decoration: none;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px; /* Set your desired underline height */
+        background-color: #fff; /* Set your desired underline color */
+        bottom: 0;
+        left: 0;
+        transition: width 0.3s;
+    }
+    &:hover {
+        &::before {
+            width: 100%;
+        }
+    }
+}
