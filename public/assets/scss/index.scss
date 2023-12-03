@@ -1,8 +1,12 @@
-@import './base/base';
-@import './base/color';
-@import './screen/screen';
-@import './effect/effect';
+@import "./base/base";
+@import "./base/color";
+@import "./screen/screen";
+@import "./effect/effect";
 @import "./components/hover-btn/hoverBtn";
-@import './page/home';
-@import './components/navigations/footer';
-@import './components/navigations/header';
+@import "./page/home";
+@import "./components/navigations/footer";
+@import "./components/navigations/header";
+
+html {
+  overflow-x: hidden;
+}
