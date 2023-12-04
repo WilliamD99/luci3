@@ -3,6 +3,7 @@ import Image from 'next/image'
 import gsap from 'gsap-trial';
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import HoverButton from '@/components/HoverButton';
+import headingFont from '@/utils/fonts/heading';
 
 interface MediaRef {
     media1: HTMLDivElement | null;
@@ -81,8 +82,8 @@ export default function InTheMedia() {
                         <p>In the media</p>
                     </div>
                     <div className='mt-10 flex flex-col justify-center w-full'>
-                        <p className='text-center title'>Spread</p>
-                        <p className='text-center title -mt-20'>the News</p>
+                        <p className={`text-center title ${headingFont.className}`}>Spread</p>
+                        <p className={`text-center title -mt-20 ${headingFont.className}`}>the News</p>
                     </div>
                     <div className='flex justify-center mt-10'>
                         <p className='text-center sub-title'>Find out more about our work on these leading design and technology platforms.</p>

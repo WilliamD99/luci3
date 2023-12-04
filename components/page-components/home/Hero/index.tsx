@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap-trial";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
+import headingFont from "@/utils/fonts/heading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,8 +28,6 @@ export default function Hero() {
           filter: "brightness(1)",
         },
         {
-          //   transform: "translate3d(0, 500px, 0)",
-          //   y: "30%",
           objectPosition: "50% 100%",
           filter: "brightness(0.6)",
           ease: "sine.easeInOut",
@@ -64,9 +63,9 @@ export default function Hero() {
           </p>
         </div>
         <div className="text-2 pl-20 flex flex-col">
-          <p className="text-white title">Digital</p>
-          <p className="text-white title">Design</p>
-          <p className="text-white title">Experience</p>
+          <p className={`text-white title ${headingFont.className}`}>Digital</p>
+          <p className={`text-white title ${headingFont.className}`}>Design</p>
+          <p className={`text-white title ${headingFont.className}`}>Experience</p>
         </div>
         <div className="text-3 pl-20">
           <p className="text-white text-2xl">

@@ -14,7 +14,7 @@ export default function Project4() {
     }
     return (
         <>
-            <div className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <div id="project4" className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <Image className='img' fill src="/assets/img/the-st-regis-venice-hero.webp" alt='Project 1'/>
                 <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
                         <source src='/assets/video/hover-st-regis.mp4' type='video/mp4'/>

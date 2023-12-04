@@ -1,7 +1,12 @@
 #home {
   min-height: 100vh;
   &_hero {
-    height: 120.66667vw;
+    @include lg {
+      height: 120.66667vw;
+    }
+    @include xl2 {
+      height: 100vw;
+    }
 
     .hero_background {
       object-fit: cover;
@@ -47,6 +52,13 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         .project {
+          &:hover {
+            .title {
+              p {
+                animation: slideUp ease .5s both 0.2s;
+              }
+            }
+          }
           .img {
             z-index: 2;
           }
@@ -71,6 +83,14 @@
             bottom: -50px;
             color: rgba(13, 14, 19, 0.6);
             white-space: nowrap;
+
+            p {
+                top:40px;
+                left:10px;
+
+            }
+
+
             strong {
               color: #0d0e13;
               margin-right: 5px;
@@ -314,4 +334,14 @@
       }
     }
   }
+}
+
+@keyframes slideUp {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-40px);opacity:1;}
+}
+
+@keyframes slideDown {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(40px);opacity:1;}
 }

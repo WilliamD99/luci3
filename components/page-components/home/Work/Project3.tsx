@@ -15,7 +15,7 @@ export default function Project3() {
 
     return (
         <>
-            <div className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <div id="project3" className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <Image className='img' fill src="/assets/img/aebele-interiors-hero.webp" alt="Project 3" />
                 <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
                         <source src='/assets/video/featured-work-aebele.mp4' type='video/mp4'/>

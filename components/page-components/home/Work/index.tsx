@@ -6,12 +6,14 @@ import Project3 from './Project3'
 import Project4 from './Project4'
 import HoverButton from '@/components/HoverButton'
 
+import headingFont from '@/utils/fonts/heading'
+
 export default function Work() {
     return (
         <>
             <div id="home_work">
                 <div className='wrapper'>
-                    <p className='title'>Work</p>
+                    <p className={`title ${headingFont.className}`}>Work</p>
                     <div className='projects gap-10 mt-20'>
                         <Project1 />
                         <Project2 />

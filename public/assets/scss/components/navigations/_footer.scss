@@ -1,6 +1,6 @@
 #footer {
     // height: 100vh;
-    padding: 13vw 0 5vw;
+    padding: 5vw 0 5vw;
     background: #070707;
 
     .wrapper {
@@ -32,6 +32,9 @@
         .nav {
             grid-column: 4/6;
         }
+        .social {
+            grid-column: 6/9;
+        }
         .address, .nav {
             .item {
                 a {
@@ -48,7 +51,7 @@
         z-index: 1;
         width: 70vw;
         height: 70vw;
-        top: -10vw;
+        top: -15vw;
         right: -3vw;
         video {
             object-fit: contain;

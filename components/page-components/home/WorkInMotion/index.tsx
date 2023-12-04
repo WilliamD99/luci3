@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import gsap from 'gsap-trial'
+import headingFont from '@/utils/fonts/heading'
 
 export default function WorkInMotion() {
     let containerRef = useRef<HTMLDivElement>(null)
@@ -51,8 +52,8 @@ export default function WorkInMotion() {
                     <p className=''>Work in motion</p>
                 </div>
                 <div className='center z-10 flex flex-row justify-between items-center space-x-5'>
-                    <p className='' ref={text1Ref}>Play</p>
-                    <p className='' ref={text2Ref}>Reel</p>
+                    <p className={`${headingFont.className}`} ref={text1Ref}>Play</p>
+                    <p className={`${headingFont.className}`} ref={text2Ref}>Reel</p>
                 </div>
                 <div className='bottom z-10'>
                     <p className=' max-w-sm text-center'>Our work is best experienced in motion. Don't forget to put on your headphones</p>
