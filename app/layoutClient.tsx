@@ -15,8 +15,8 @@ export interface ILayoutClientProps {
 export default function LayoutClient({ children }: ILayoutClientProps) {
   return (
     <>
+      <Header />
       <ScrollSmootherWrapper smooth={0.75}>
-        <Header />
         {children}
         <Footer />
       </ScrollSmootherWrapper>

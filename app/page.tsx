@@ -7,7 +7,7 @@ import WorkInMotion from "@/components/page-components/home/WorkInMotion";
 export default function Home() {
   return (
     <>
-      <main id="home" className="relative">
+      <main id="home" className="relative main">
         <Hero />
         <Work />
         <WorkInMotion />
