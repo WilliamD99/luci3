@@ -41,4 +41,38 @@
     &.active {
         z-index: 1000;
     }
+
+    .left {
+        .img {
+            height: 30.13889vw;
+            width: 21.31944vw;
+            opacity: 0.5;
+        }
+    }
+
+    .right {
+        .navigation {
+            &_link {
+                color: #e4e0db;
+                font-size: 64px;
+                width: fit-content;
+                visibility: hidden;
+                opacity: 0;
+                &:not(:first-child) {
+                    margin-top: -10px;
+                }
+            }
+        }
+        .social {
+            &_link {
+                
+                color: rgba(228,224,219,0.6);
+                font-size: 20px;
+                width: fit-content;
+                visibility: hidden;
+                opacity: 0;
+                
+            }
+        }
+    }
 }

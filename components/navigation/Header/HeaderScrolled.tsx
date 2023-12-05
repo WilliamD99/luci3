@@ -3,6 +3,10 @@ import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { debounce} from 'lodash'
 import gsap from 'gsap-trial'
 
+import Link from 'next/link'
+import Image from 'next/image'
+import headingFont from '@/utils/fonts/heading'
+
 type Props = {
     isActive: boolean
 }
@@ -13,6 +17,7 @@ const HeaderScrolled = ({ isActive }: Props) => {
     let btnCloseRef = useRef<HTMLButtonElement>(null)
     let timelineRef = useRef<any>(null)
     let dropdownMenuRef = useRef<HTMLDivElement>(null)
+    let dropdownMenuImgRef = useRef<HTMLDivElement>(null)
 
     let [theme, setTheme] = useState<"white" | "black" | string>("white")
     let [isOpenMenu, setMenuOpen] = useState<boolean>(false)
@@ -46,16 +51,9 @@ const HeaderScrolled = ({ isActive }: Props) => {
         setTheme('white');
     }, 100), [theme, headerScrolledRef]);
 
-    const handleOpen = () => {
+    const toggleAnimation = () => {
         if (timelineRef.current) {
-            timelineRef.current?.seek(0)
-            timelineRef.current?.play()
-        }
-    }
-
-    const handleClose = () => {
-        if (timelineRef.current) {
-            timelineRef.current.reverse()
+            timelineRef.current.reversed() ? timelineRef.current.play() : timelineRef.current.reverse();
         }
     }
 
@@ -71,65 +69,110 @@ const HeaderScrolled = ({ isActive }: Props) => {
     useEffect(() => {
         if (btnOpenRef.current && btnCloseRef.current && dropdownMenuRef.current) {
             const timeline = gsap.timeline({paused: true})
-    
-            // gsap.set(dropdownMenuRef.current, {
-            //     rotateX: 50,
-            //     y: "-100%"
-            // })
+
+            timeline.reversed(true)
 
             timeline.fromTo(
                 dropdownMenuRef.current, {
-                    clipPath: "polygon(0px 0px, 100% 0, 100% 0, 0px 0)",
+                    clipPath: "polygon(0px 0px, 100% 0, 100% 0%, 0px 0)",
                 }, {
-                    // y: 0,
-                    clipPath: "polygon(0px 0px, 100% 0, 100% 130%, 0px 100%)",
+                    clipPath: "polygon(0px 0px, 100% 0, 100% 115%, 0px 100%)",
                     autoAlpha: 1,
-                    // rotateX: 0,
-                    duration: 1.25,
+                    duration: 1.5,
                     ease: "expo.inOut",
                 }
             )
             timeline.to(
                 document.querySelector(".main"), {
                     ease: "expo.inOut",
-                    rotate: 7,
-                    y: 450,
-                    scale: 1.3,
-                    duration: 1.25
+                    rotate: 6,
+                    y: 1000,
+                    scale: 1.5,
+                    duration: 1.5,
+                    delay: 0.1
                 },
                 "<"
             )
-            // timeline.fromTo(
-            //     btnOpenRef.current.querySelector(".text"), {
-            //         y: 0
-            //     }, {
-            //         y: -30,
-            //         rotateX: 10,
-            //         duration: 0.5,
-            //         ease: "Sine.in"
-            //     },
-            //     "<"
-            // )
-            // timeline.fromTo(btnOpenRef.current.querySelector(".icon"), {
-            //     autoAlpha: 1
-            // }, {
-            //     autoAlpha: 0,
-            //     ease: "Sine.easeInOut",
-            //     onComplete: () => btnOpenRef.current?.classList.remove("z-20"),
-            // }, "<")
-            // timeline.fromTo(btnCloseRef.current.querySelector(".text"), {
-            //     y: 30,
-            //     rotateX: 10
-            // }, {
-            //     y: 0,
-            //     rotateX: 0,
-            //     autoAlpha: 1,
-            //     ease: "Sine.easeInOut"
-            // })
-            // timeline.to(btnCloseRef.current.querySelector(".icon"), {
-            //     autoAlpha: 1,
-            //     ease: "Sine.easeInOut",
-            // })
+            timeline.fromTo(
+                dropdownMenuRef.current.querySelector(".wrapper"), {
+                    autoAlpha: 0.5,
+                    scale: 1.3,
+                    rotate: -5,
+                    y: -400
+                }, {
+                    autoAlpha: 1,
+                    scale: 1,
+                    rotate: 0,
+                    y: 0,
+                    ease: "expo.inOut",
+                    duration: 1.5
+                },
+                "<"
+            )
+            timeline.fromTo(
+                btnOpenRef.current.querySelector(".text"), {
+                    y: 0
+                }, {
+                    y: -30,
+                    rotateX: 10,
+                    duration: 0.5,
+                    ease: "Sine.in"
+                },
+                "<"
+            )
+            
+            timeline.fromTo(btnOpenRef.current.querySelector(".icon"), {
+                autoAlpha: 1
+            }, {
+                autoAlpha: 0,
+                ease: "Sine.easeInOut",
+                onComplete: () => btnOpenRef.current?.classList.remove("z-20"),
+            }, "<")
+            timeline.fromTo(btnCloseRef.current.querySelector(".text"), {
+                y: 30,
+                rotateX: 10
+            }, {
+                y: 0,
+                rotateX: 0,
+                autoAlpha: 1,
+                ease: "Sine.easeInOut",
+                delay: 0.2,
+                onComplete: () => {
+                }
+            }, "<")
+            timeline.to(btnCloseRef.current.querySelector(".icon"), {
+                autoAlpha: 1,
+                ease: "Sine.easeInOut",
+                delay: 0.3
+            }, "<")
+
+            timeline.to(dropdownMenuImgRef.current, {
+                autoAlpha: 1
+            }, "<")
+
+            timeline.fromTo(dropdownMenuRef.current.querySelectorAll(".navigation_link"), {
+                y: 100,
+                rotate: 6
+            }, {
+                y: 0,
+                rotate: 0,
+                autoAlpha: 1,
+                stagger: 0.02,
+                delay: 0.4,
+                ease: "power1.out"
+            }, "<")
+
+            timeline.fromTo(dropdownMenuRef.current.querySelectorAll(".social_link"), {
+                y: 100,
+                rotate: 6
+            }, {
+                y: 0,
+                rotate: 0,
+                autoAlpha: 1,
+                stagger: 0.02,
+                delay: 0.2,
+                ease: "power1.out"
+            }, "<")
 
             timelineRef.current = timeline
         }
@@ -145,11 +188,11 @@ const HeaderScrolled = ({ isActive }: Props) => {
                 </svg>
             </div>
             <div className='menu relative overflow-hidden'>
-                <button ref={btnOpenRef} className='relative flex flex-row space-x-4 open z-20' onClick={handleOpen}>
+                <button ref={btnOpenRef} className='relative flex flex-row space-x-4 open z-20' onClick={toggleAnimation}>
                     <span className={`text text-sm ${theme === "white" ? "text-white" : "text-black"}`}>Menu</span>
                     <Bars3BottomRightIcon className={`icon h-5 w-5 ${theme === "white" ? "text-white" : "text-black"}`}/>
                 </button>
-                <button ref={btnCloseRef} className='flex flex-row space-x-4 absolute top-0 left-0 close z-10' onClick={handleClose}>
+                <button ref={btnCloseRef} className='flex flex-row space-x-4 absolute top-0 left-0 close z-10' onClick={toggleAnimation}>
                     <span className={`text text-sm ${theme === "white" ? "text-white" : "text-black"}`}>Close</span>
                     <XMarkIcon className={`icon h-5 w-5 ${theme === "white" ? "text-white" : "text-black"}`}/>
                 </button>
@@ -157,7 +200,59 @@ const HeaderScrolled = ({ isActive }: Props) => {
         </div>
 
         <div id="dropdown_menu" ref={dropdownMenuRef} className='fixed top-0 left-0 h-screen w-screen bg-black'>
+            <div className='wrapper flex justify-center items-center h-full space-x-72'>
+                <div className='left'>
+                    <div ref={dropdownMenuImgRef} className='relative img'>
+                        <Image fill src="/assets/img/contact-3.webp" alt="Dropdown image 1"/> 
+                    </div>
+                </div>
+                <div className='right pl-20'>
+                    <ul className='navigation flex flex-col'>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='navigation_link overflow-hidden'>
+                                <Link href="#" className={`underline-effect ${headingFont.className}`}>Work</Link>
+                            </div>
+                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='navigation_link overflow-hidden'>
+                                <Link href="#" className={`underline-effect ${headingFont.className}`}>Studio</Link>
+                            </div>                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='navigation_link overflow-hidden'>
+                                <Link href="#" className={`underline-effect ${headingFont.className}`}>News</Link>
+                            </div>                        
+                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='navigation_link overflow-hidden'>
+                                <Link href="#" className={`underline-effect ${headingFont.className}`}>Contact</Link>
+                            </div>                        
+                        </div>
 
+                    </ul>
+                    <ul className='social flex flex-col pt-5 space-y-1'>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='social_link overflow-hidden'>
+                                <Link href="#" className={`social_link link underline-effect ${headingFont.className}`}>Behance</Link>
+                            </div>                        
+                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='social_link overflow-hidden'>
+                                <Link href="#" className={`social_link link underline-effect ${headingFont.className}`}>Dribble</Link>
+                            </div>                        
+                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='social_link overflow-hidden'>
+                                <Link href="#" className={`social_link link underline-effect ${headingFont.className}`}>Twitter</Link>
+                            </div>                        
+                        </div>
+                        <div className='link_wrapper overflow-hidden'>
+                            <div className='social_link overflow-hidden'>
+                                <Link href="#" className={`social_link link underline-effect ${headingFont.className}`}>Instagram</Link>
+                            </div>                        
+                        </div>
+                    </ul>
+                </div>
+            </div>
         </div>
     </>
   )

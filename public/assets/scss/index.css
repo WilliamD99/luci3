@@ -15,7 +15,7 @@ body {
   width: 0;
   height: 1px;
   /* Set your desired underline height */
-  background-color: #fff;
+  background-color: #e4e0db;
   /* Set your desired underline color */
   bottom: 0;
   left: 0;
@@ -746,6 +746,36 @@ body {
 
 #dropdown_menu.active {
   z-index: 1000;
+}
+
+#dropdown_menu .left .img {
+  height: 30.13889vw;
+  width: 21.31944vw;
+  opacity: 0.5;
+}
+
+#dropdown_menu .right .navigation_link {
+  color: #e4e0db;
+  font-size: 64px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#dropdown_menu .right .navigation_link:not(:first-child) {
+  margin-top: -10px;
+}
+
+#dropdown_menu .right .social_link {
+  color: rgba(228, 224, 219, 0.6);
+  font-size: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  visibility: hidden;
+  opacity: 0;
 }
 
 #follower {
