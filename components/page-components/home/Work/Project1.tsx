@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap-trial'
 
@@ -6,30 +6,32 @@ export default function Project1() {
     const videoRef = useRef<HTMLVideoElement>(null)
     const titleRef = useRef<HTMLParagraphElement>(null)
 
-    // const titleAnimationRef = useRef(() => {
-    //     // if (titleRef.current) {
-    //         let tl = gsap.timeline({paused: true})
+    let animationRef = useRef<any>(null)
+
+    useEffect(() => {
+        if (titleRef.current) {
+            let animation = gsap.timeline({ paused: true })
+            animation.reversed(true)
             
-    //         tl.fromTo(
-    //             titleRef.current?.querySelector("p"),
-    //             {
-    //                 autoAlpha: 0,
-    //                 y: 50
-    //             }, {
-    //                 autoAlpha: 1,
-    //                 y: 0
-    //             }
-    //         )
-    //         return tl
-    //     // }
-    // })
+            gsap.set(titleRef.current, { autoAlpha: 1 })
+
+            animation.fromTo(
+                titleRef.current, {
+                    y: 50,
+                }, {
+                    y: 0
+                }
+            )
+
+            animationRef.current = animation
+        }
+    }, [titleRef.current])
 
     const onMouseEnter = () => {
         videoRef.current?.play()
 
-        if (titleRef.current) {
-            // titleAnimationRef.current.play()
-            // console.log(titleAnimationRef.current.play)
+        if (titleRef.current && animationRef.current) {
+            animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
         }
     }
 
@@ -37,14 +39,9 @@ export default function Project1() {
         videoRef.current?.pause()
         videoRef.current!.currentTime = 0
 
-        // gsap.fromTo(titleRef.current?.querySelectorAll("p"), {
-        //     // autoAlpha: 1,
-        //     y: 0
-        // }, {
-        //     // autoAlpha: 0,
-        //     y: 50,
-        //     duration: 2
-        // })
+        if (titleRef.current && animationRef.current) {
+            animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
+        }
     }
 
 
@@ -55,8 +52,8 @@ export default function Project1() {
                     <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
                         <source src='/assets/video/pixel-flakes-hover.mp4' type='video/mp4'/>
                     </video>
-                    <div ref={titleRef} className='title relative'>
-                        <p className='relative overflow-hidden'>
+                    <div className='title relative'>
+                        <p ref={titleRef} className='relative overflow-hidden'>
                             <span><strong>Pixelflakes</strong></span>
                             <span>Architectural marketing agency</span>
                         </p>

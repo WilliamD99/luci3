@@ -70,6 +70,8 @@ const HeaderScrolled = ({ isActive }: Props) => {
         if (btnOpenRef.current && btnCloseRef.current && dropdownMenuRef.current) {
             const timeline = gsap.timeline({paused: true})
 
+            gsap.set(dropdownMenuRef.current, { autoAlpha: 1 })
+
             timeline.reversed(true)
 
             timeline.fromTo(
@@ -89,7 +91,6 @@ const HeaderScrolled = ({ isActive }: Props) => {
                     y: 1000,
                     scale: 1.5,
                     duration: 1.5,
-                    delay: 0.1
                 },
                 "<"
             )
@@ -193,8 +194,8 @@ const HeaderScrolled = ({ isActive }: Props) => {
                     <Bars3BottomRightIcon className={`icon h-5 w-5 ${theme === "white" ? "text-white" : "text-black"}`}/>
                 </button>
                 <button ref={btnCloseRef} className='flex flex-row space-x-4 absolute top-0 left-0 close z-10' onClick={toggleAnimation}>
-                    <span className={`text text-sm ${theme === "white" ? "text-white" : "text-black"}`}>Close</span>
-                    <XMarkIcon className={`icon h-5 w-5 ${theme === "white" ? "text-white" : "text-black"}`}/>
+                    <span className={`text text-sm text-white`}>Close</span>
+                    <XMarkIcon className={`icon h-5 w-5 text-white`}/>
                 </button>
             </div>
         </div>

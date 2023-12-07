@@ -36,8 +36,8 @@
 
 #dropdown_menu {
     z-index: 1000;
-    // visibility: hidden;
-    // opacity: 0;
+    visibility: hidden;
+    opacity: 0;
     &.active {
         z-index: 1000;
     }

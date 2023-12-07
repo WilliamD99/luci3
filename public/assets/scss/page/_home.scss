@@ -45,20 +45,16 @@
     padding-bottom: 20vh;
     .wrapper {
       padding: 0 10vw;
-      .title {
+      .title.title-main {
         font-size: 200px;
+        line-height: 150px;
+        margin-bottom: 50px;
+        display: inline-block;
       }
       .projects {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         .project {
-          &:hover {
-            .title {
-              p {
-                animation: slideUp ease .5s both 0.2s;
-              }
-            }
-          }
           .img {
             z-index: 2;
           }
@@ -83,14 +79,10 @@
             bottom: -50px;
             color: rgba(13, 14, 19, 0.6);
             white-space: nowrap;
-
             p {
-                top:40px;
-                left:10px;
-
+              visibility: hidden;
+              opacity: 0;
             }
-
-
             strong {
               color: #0d0e13;
               margin-right: 5px;
@@ -334,14 +326,4 @@
       }
     }
   }
-}
-
-@keyframes slideUp {
-  0% {transform: translateY(0);}
-  100% {transform: translateY(-40px);opacity:1;}
-}
-
-@keyframes slideDown {
-  0% {transform: translateY(0);}
-  100% {transform: translateY(40px);opacity:1;}
 }
