@@ -22,6 +22,10 @@ export default function CursorFollower(props: ICursorFollowerProps) {
       document.getElementById("project4"),
     ]
 
+    // Check if all null
+    let allNull = parents.every((parent) => parent === null);
+    if (allNull) return
+
     // Get the current element from point
     let elementOnPoint = document.elementFromPoint(clientX, clientY)
 

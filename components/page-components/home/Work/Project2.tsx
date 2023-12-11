@@ -47,19 +47,25 @@ export default function Project2() {
     return (
         <>
             <div className='project'>
-                <div className='flex flex-row space-x-2 items-center'>
+                <div className='hidden lg:flex flex-row space-x-2 items-center'>
                     <SparklesIcon className='h-4 w-4'/>
                     <p className={`text-lg ${headingFont.className}`}>Featured Projects</p>
                 </div>
-                <p className='mt-20 text-2xl'>Highlights of cases that we passionately built with forward-thinking clients and friends over the year</p>
+                <p className='mt-20 text-2xl hidden lg:block'>Highlights of cases that we passionately built with forward-thinking clients and friends over the year</p>
 
-                <div id="project2" className='mt-72 w-full relative project-container' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                <div id="project2" className='mt-36 lg:mt-72 w-full relative project-container' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                     <Image className='img' src="/assets/img/rino-pelle-hero.webp" alt="Project 2" fill/>
                     <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
                         <source src='/assets/video/hover-rino.mp4' type='video/mp4'/>
                     </video>
-                    <div className='title relative'>
+                    <div className='title hidden lg:block relative'>
                         <p ref={titleRef} className='relative overflow-hidden'>
+                            <strong>Rino & Pelle</strong>
+                            Effortless chic lifestyle
+                        </p>
+                    </div>
+                    <div className='title relative lg:hidden'>
+                        <p className='relative overflow-hidden flex flex-col lg:block'>
                             <strong>Rino & Pelle</strong>
                             Effortless chic lifestyle
                         </p>

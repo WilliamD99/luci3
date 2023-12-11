@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
-import gsap from "gsap-trial";
+import gsap from "@/utils/gsap";
 
 gsap.registerPlugin(ScrollSmoother);
 

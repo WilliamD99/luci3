@@ -52,8 +52,14 @@ export default function Project1() {
                     <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
                         <source src='/assets/video/pixel-flakes-hover.mp4' type='video/mp4'/>
                     </video>
-                    <div className='title relative'>
-                        <p ref={titleRef} className='relative overflow-hidden'>
+                    <div className='title hidden lg:block relative'>
+                        <p ref={titleRef} className='relative overflow-hidden flex flex-col lg:block'>
+                            <span><strong>Pixelflakes</strong></span>
+                            <span>Architectural marketing agency</span>
+                        </p>
+                    </div>
+                    <div className='title lg:hidden relative'>
+                        <p className='relative overflow-hidden flex flex-col lg:block'>
                             <span><strong>Pixelflakes</strong></span>
                             <span>Architectural marketing agency</span>
                         </p>

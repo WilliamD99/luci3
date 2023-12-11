@@ -1,4 +1,5 @@
 #navigation_header {
+    display: none;
     transition: 0.5s ease;
     opacity: 0;
     visibility: hidden;
@@ -7,13 +8,20 @@
         opacity: 1;
         visibility: visible;
     }
+
+    @include lg {
+        display: flex;
+    }
 }
 
 #navigation_header--scrolled {
     z-index: 1001;
     transition: 0.5s ease;
-    opacity: 0;
-    visibility: hidden;
+    
+    @include lg {
+        opacity: 0;
+        visibility: hidden;
+    }
 
     &.active {
         opacity: 1;

@@ -42,8 +42,8 @@ export default function Header() {
             <div ref={headerRef} id="navigation_header" className={`fixed z-50 flex flex-row justify-between items-center w-full px-16 py-8 ${isHeaderActive ? "active" : ""}`}>
                 <p className='text-white text-2xl'>Luci3</p>
                 <div className='flex flex-row space-x-10'>
-                    <Link className='text-white text-sm nav_link underline-effect' href="#">Work</Link>
-                    <Link className='text-white text-sm nav_link underline-effect' href="#">Studio</Link>
+                    <Link className='text-white text-sm nav_link underline-effect' href="/work">Work</Link>
+                    <Link className='text-white text-sm nav_link underline-effect' href="/">Studio</Link>
                     <Link className='text-white text-sm nav_link underline-effect' href="#">News</Link>
                     <Link className='text-white text-sm nav_link underline-effect' href="#">Contact</Link>
                 </div>
