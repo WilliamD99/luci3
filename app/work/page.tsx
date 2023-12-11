@@ -23,22 +23,21 @@ const WorkArr = [
     },
 ]
 
-// Helper function to wrap elements
-const wrapElements = (elems: any, wrapType: any, wrapClass: any) => {
-    elems.forEach((char: any) => {
-      const wrapEl = document.createElement(wrapType);
-      wrapEl.classList = wrapClass;
-      char.parentNode.appendChild(wrapEl);
-      wrapEl.appendChild(char);
-    });
-};
+function findIndexOfActiveElement(elements: HTMLDivElement[]) {
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].classList.contains('slider__item--current')) {
+        return i;
+      }
+    }
+    // If no element with the "active" class is found, return -1 or any other appropriate value
+    return -1;
+}
 
 const Work = (props: Props) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const itemsRef = useRef<HTMLDivElement[]>([])
 
     const [index, setIndex] = useState<number>(0)
-    const [nextIndex, setNextIndex] = useState<number>(1)
     const [isAnimating, setAnimating] = useState<boolean>(false)
 
     const updateIndex = (direction: number) => {
@@ -59,22 +58,21 @@ const Work = (props: Props) => {
         });
       };
 
-    let animate = useCallback(debounce((direction: number) => {
+    let animate = debounce((direction: number) => {
         // Next: 1
         // Prev : -1
         if (containerRef.current) {
             // Current Item
-            let currentItem = itemsRef.current[index]
+            let currentIndex = findIndexOfActiveElement(itemsRef.current)
+            let currentItem = itemsRef.current[currentIndex]
             let currentItemInner = currentItem.querySelector('.slider__item-inner')
 
-
-            let nextItem = itemsRef.current[index + direction]
+            // Next Item based on the direction
+            let nextItem = itemsRef.current[currentIndex + direction]
             let nextItemInner = nextItem.querySelector(".slider__item-inner")
 
-            // console.log(nextItemIndex, index)
-
             let tl = gsap.timeline({
-                defaults: { duration: 2.1, ease: "power3.inOut" },
+                defaults: { duration: 1.1, ease: "power3.inOut" },
                 onComplete: () => {
                     updateIndex(direction)
                     setAnimating(false)
@@ -83,18 +81,18 @@ const Work = (props: Props) => {
             tl.to(
                 currentItem, 
                 {
-                    yPercent: direction === 1 ? 100 : -100,
-                    onComplete: () => gsap.set(containerRef.current.querySelector(".slider__item--current"), { opacity: 0 })
+                    yPercent: -direction * 100,
+                    onComplete: () => gsap.set(itemsRef.current[index], { opacity: 0 })
                 },
             )
             tl.to(
                 currentItemInner, 
                 {
-                    yPercent: direction === 1 ? -30 : 30,
+                    yPercent: direction * 30,
                     startAt: {
                         rotation: 0
                     },
-                    rotation: direction * 15,
+                    rotation: -direction * 15,
                     scaleY: 2.8
                 },
                 0
@@ -103,8 +101,8 @@ const Work = (props: Props) => {
             tl.to(
                 nextItem, {
                     startAt: {
-                        yPercent: direction === 1 ? -80 : 80,
-                        opacity: 1
+                        yPercent: direction * 80,
+                        autoAlpha: 1
                     },
                     yPercent: 0,
                 },
@@ -115,7 +113,7 @@ const Work = (props: Props) => {
                 nextItemInner,
                 {
                     startAt: {
-                        yPercent: direction === 1 ? 30 : -30,
+                        yPercent: -direction * 30,
                         scaleY: 2.8,
                         rotation: 15 * direction
                     },
@@ -126,7 +124,7 @@ const Work = (props: Props) => {
                 0
             )
         }
-    }, 500), [index, isAnimating, containerRef, itemsRef])
+    }, 500)
 
     const navigate = (direction: string) => {
         if (containerRef.current) {
@@ -151,16 +149,18 @@ const Work = (props: Props) => {
         })
     }, [])
 
-    useEffect(() => {
-    }, [index])
+
+    // useEffect(() => {
+    //     console.log(itemsRef.current)
+    // }, [index])
     
 
     return (
         <div id="work" className='min-h-screen'>
-            <div ref={containerRef} className='slider slider--bg'>
+            <div ref={containerRef} className={`slider slider--bg ${index}`}>
                 {
                     WorkArr.map((work, workIndex) => (
-                        <SliderItem ref={itemsRef} currentIndex={index} image={work.image} index={workIndex}/>
+                        <SliderItem key={workIndex} ref={itemsRef} currentIndex={index} image={work.image} index={workIndex}/>
                     ))
                 }
             </div>

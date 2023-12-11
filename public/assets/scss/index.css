@@ -855,6 +855,8 @@ body {
   display: grid;
   place-items: center;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
 }
 
 #work .slider__item-inner {
@@ -872,6 +874,8 @@ body {
 #work .slider__item--current {
   pointer-events: auto;
   z-index: 50;
+  visibility: visible;
+  opacity: 1;
 }
 
 html {

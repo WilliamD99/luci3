@@ -21,6 +21,9 @@
             place-items: center;
             pointer-events: none;
 
+            opacity: 0;
+            visibility: hidden;
+
             &-inner {
                 position: relative;
                 width: 120%;
@@ -35,6 +38,9 @@
             &--current {
                 pointer-events: auto;
                 z-index: 50;
+
+                visibility: visible;
+                opacity: 1;
             }
         }
     }
