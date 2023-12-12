@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-interface SliderItemProps {
+export interface SliderItemProps {
     image: string;
     index: number;
     currentIndex: number

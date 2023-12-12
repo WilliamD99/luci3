@@ -839,10 +839,24 @@ body {
   place-items: center;
   width: 100%;
   height: 100vh;
+  will-change: transform;
 }
 
 #work .slider.slider--bg {
   z-index: 1;
+}
+
+#work .slider.slider--fg {
+  position: absolute;
+  width: 20vw;
+  min-width: 200px;
+  aspect-ratio: 0.75;
+  height: auto;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 #work .slider__item {
@@ -855,6 +869,7 @@ body {
   display: grid;
   place-items: center;
   pointer-events: none;
+  will-change: transform;
   opacity: 0;
   visibility: hidden;
 }
