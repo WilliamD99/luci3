@@ -846,6 +846,11 @@ body {
   z-index: 1;
 }
 
+#work .slider.slider--bg .slider__item-inner {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
 #work .slider.slider--fg {
   position: absolute;
   width: 20vw;
@@ -893,8 +898,77 @@ body {
   opacity: 1;
 }
 
+#work .slider-content {
+  max-width: 350px;
+}
+
+#work .slider-content--title p {
+  font-size: 56px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#work .slider-content--subTitle p {
+  font-size: 20px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.project-page .project-hero {
+  height: 100vh;
+}
+
+.project-page .project-hero .background-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.project-page .project-hero .background-wrapper .background-item {
+  position: relative;
+  width: 120%;
+  height: 120%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.project-page .project-content .content-title {
+  padding: 70vh 150px;
+}
+
+.project-page .project-content .content-title .title {
+  font-size: 108px;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+
+.project-page .project-content .content-title .sub-title {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.project-page .project-content .content-title .hover-btn {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.project-page .project-content .content-title .hover-btn .label {
+  color: #fff;
+}
+
+.project-page .project-content .content-title .hover-btn .label .border {
+  border: 1px solid #fff;
+}
+
 html {
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 *, :after, :before {

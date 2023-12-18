@@ -16,9 +16,9 @@ export default function ScrollSmootherWrapper({
   smooth,
 }: IScrollSmootherWrapperProps) {
   React.useLayoutEffect(() => {
-    ScrollSmoother.create({
-      smooth: smooth ? smooth : 1, // how long (in seconds) it takes to "catch up" to the native scroll position
-    });
+    // ScrollSmoother.create({
+    //   smooth: smooth ? smooth : 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+    // });
   }, []);
 
   return (

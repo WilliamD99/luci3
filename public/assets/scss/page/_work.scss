@@ -10,6 +10,11 @@
     .slider {
         &.slider--bg {
             z-index: 1;
+            .slider__item {
+                &-inner {
+                    transform: scale(1.2);
+                }
+            }
         }
         &.slider--fg {
             position: absolute;
@@ -53,6 +58,7 @@
                 grid-area: 1 / 1 / -1 / -1;
                 background-size: cover;
                 background-position: 50% 50%;
+                // transform: scale(1.2);
             }
 
             &--current {
@@ -64,5 +70,26 @@
             }
         }
     }
-    
+    .index {
+        // visibility: hidden;
+        // opacity: 0;
+        // transition: opacity 5.5s ease;
+    }
+    .slider-content {
+        max-width: 350px;
+        &--title {
+            p {
+                font-size: 56px;
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+        &--subTitle {
+            p {
+                font-size: 20px;
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
 }

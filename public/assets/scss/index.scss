@@ -8,9 +8,11 @@
 @import "./components/navigations/header";
 @import "./components/follower/index";
 @import './page/work';
+@import './page/project';
 
 html {
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 *, :after, :before {

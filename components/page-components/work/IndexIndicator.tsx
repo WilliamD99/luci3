@@ -4,41 +4,55 @@ import gsap from '@/utils/gsap'
 
 interface IndexIndicatorProps {
     index: number;
-    total: number
+    total: number;
+    isAnimating: boolean
 }
 
 export default function IndexIndicator({
     index,
-    total
+    total,
+    isAnimating
 } : IndexIndicatorProps) {
     const indexIndicatorRef = useRef<HTMLDivElement>(null)
     let animationRef = useRef<any>(null)
     
     useEffect(() => {
-        let tl = gsap.timeline({ paused: true })
 
-        gsap.set(indexIndicatorRef.current, { autoAlpha: 1, y: 0 })
+        let ctx = gsap.context(() => {
+            let tl = gsap.timeline({ paused: true })
+            gsap.set(indexIndicatorRef.current, { autoAlpha: 1, y: 0 })
+    
+            tl.to(indexIndicatorRef.current, {
+                y: -30,
+                autoAlpha: 0,
+                duration: 0.7,
+                ease: "expo.in",
+                onComplete: () => {
+                    gsap.set(indexIndicatorRef.current, { y: 30 })
+                }
+            })
+    
+            animationRef.current = tl
+        }, [])
+        return () => ctx.revert()
 
-        tl.to(indexIndicatorRef.current, {
-            y: -50,
-            autoAlpha: 0,
-            duration: 0.5,
-            ease: "power4.inOut",
-            onComplete: () => {
-                gsap.set(indexIndicatorRef.current, { y: 50 })
-                gsap.to(indexIndicatorRef.current, { y: 0, autoAlpha: 1 })
-            }
-        })
-
-        animationRef.current = tl
     }, [])
 
     useEffect(() => {
         if (animationRef.current) {
-            animationRef.current.time(0)
-            animationRef.current.play()
+            if (isAnimating) {
+                animationRef.current.time(0)
+                animationRef.current.play()
+            } else {
+                gsap.to(indexIndicatorRef.current, {
+                    y: 0,
+                    autoAlpha: 1,
+                    duration: 0.7,
+                    ease: "expo.out"
+                })
+            }
         }
-    }, [index])
+    }, [index, isAnimating])
 
     return (
         <>

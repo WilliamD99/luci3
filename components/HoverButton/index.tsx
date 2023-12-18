@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import Link from 'next/link';
 
 interface HoverButton {
     label: string;
-    href: string
+    href: string;
 }
 
-export default function HoverButton({
+function HoverButton({
     label,
     href
-} : HoverButton ) {
+} : HoverButton, ref: any ) {
     return (
-        <Link href={href} className='hover-btn'>
+        <Link ref={ref} href={href} className='hover-btn'>
             <div className="circle">
                 <div className="circle-fill" style={{transform: "scale(0, 0)"}}></div> 
                 <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" className="circle-outline">
@@ -30,3 +30,5 @@ export default function HoverButton({
         </Link>
     )
 }
+
+export default forwardRef(HoverButton)
