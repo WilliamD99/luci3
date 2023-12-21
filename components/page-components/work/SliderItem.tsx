@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { forwardRef } from 'react'
 
 export interface SliderItemProps {
@@ -14,9 +15,10 @@ function SliderItem({
     return (
         <>
             <div ref={(ele) => ref.current[index] = ele} id={`item-${index}`} className={`slider__item ${index === currentIndex ? "slider__item--current" : ""}`}>
-                <div className='slider__item-inner' style={{
+                {/* <div className='slider__item-inner' style={{
                     backgroundImage: `url(${image})`
-                }}></div>
+                }}></div> */}
+                <Image priority className='slider__item-inner' src={image} fill alt={`image-${index}`} />
             </div>
         </>
     )

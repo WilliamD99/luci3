@@ -1,6 +1,6 @@
 function findIndexOfActiveElement(elements: HTMLDivElement[]) {
     for (let i = 0; i < elements.length; i++) {
-        if (elements[i].classList.contains('slider__item--current')) {
+        if (elements[i]?.classList.contains('slider__item--current')) {
             return i;
         }
     }

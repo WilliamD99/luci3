@@ -60,7 +60,7 @@ function Slider({
     
           // Wrap around logic for decreasing index
           if (direction === -1) {
-            newIndex = newIndex <= 0 ? itemsRef.current.length - 1 : newIndex;
+            newIndex = newIndex < 0 ? itemsRef.current.length - 1 : newIndex;
           }
     
           return newIndex;
@@ -68,76 +68,71 @@ function Slider({
     };
 
     let animate = (direction: number) => {
-        // Next: 1
-        // Prev : -1
-        // Current Item
-        let currentIndex = findIndexOfActiveElement(itemsRef.current)
-        // Determine the next item index base on the direction going
-        let nextIndex = currentIndex + direction
-        const length = itemsRef.current.length;
-        nextIndex = (direction === 1) ? (nextIndex >= length ? 0 : nextIndex) : (nextIndex <= 0 ? length - 1 : nextIndex);
-        
-        let currentItem = itemsRef.current[currentIndex]
-        let currentItemInner = currentItem.querySelector('.slider__item-inner')
-
-        // Next Item based on the direction
-        let nextItem = itemsRef.current[nextIndex]
-        let nextItemInner = nextItem.querySelector(".slider__item-inner")
-
-
-        let tl = gsap.timeline({
-            defaults: { duration: 1.1, ease: "power4.inOut" },
-            onComplete: () => {
-                updateIndex(direction)
-                setAnimating(false)
-            }
-        })
-        tl.to(
-            currentItem, 
-            {
-                yPercent: reversed ? direction * 100 : -direction * 100,
-                autoAlpha: 1,
-            },
-        )
-        tl.to(
-            currentItemInner, 
-            {
-                yPercent: reversed ? -direction * 30 : direction * 30,
-                startAt: {
-                    rotation: 0
+        try {
+            // Next: 1
+            // Prev : -1
+            // Current Item
+            let currentIndex = findIndexOfActiveElement(itemsRef.current)
+            // Determine the next item index base on the direction going
+            let nextIndex = currentIndex + direction
+            const length = itemsRef.current.length;
+            nextIndex = (direction === 1) ? (nextIndex >= length ? 0 : nextIndex) : (nextIndex < 0 ? length - 1 : nextIndex);
+            
+            let currentItem = itemsRef.current[currentIndex]
+            let currentItemInner = currentItem.querySelector('.slider__item-inner')
+    
+            // Next Item based on the direction
+            let nextItem = itemsRef.current[nextIndex]
+            let nextItemInner = nextItem.querySelector(".slider__item-inner")
+    
+    
+            let tl = gsap.timeline({
+                defaults: { duration: 1.1, ease: "expo.inOut" },
+                onComplete: () => {
+                    updateIndex(direction)
+                    setAnimating(false)
+                }
+            })
+            tl.to(
+                currentItem, 
+                {
+                    yPercent: reversed ? direction * 100 : -direction * 100,
+                    autoAlpha: 1,
                 },
-                rotation: -direction * 15,
-                scaleY: 2.8
-            },
-            0
-        )
-
-        tl.to(
-            nextItem, {
-                startAt: {
-                    yPercent: reversed ? -direction * 80 : direction * 80,
-                    autoAlpha: 1
+            )
+            tl.to(
+                currentItemInner, 
+                {
+                    yPercent: reversed ? -direction * 30 : direction * 30,
                 },
-                yPercent: 0,
-            },
-            0
-        )
-
-        tl.to(
-            nextItemInner,
-            {
-                startAt: {
-                    yPercent: reversed ? direction * 30 : -direction * 30,
-                    scaleY: 2.8,
-                    rotation: 15 * direction
+                0
+            )
+    
+            tl.to(
+                nextItem, {
+                    startAt: {
+                        yPercent: reversed ? -direction * 50 : direction * 50,
+                        autoAlpha: 1
+                    },
+                    yPercent: 0,
                 },
-                yPercent: 0,
-                scaleY: 1,
-                rotation: 0
-            },
-            0
-        )
-
+                0
+            )
+    
+            tl.to(
+                nextItemInner,
+                {
+                    startAt: {
+                        yPercent: reversed ? direction * 30 : -direction * 30,
+                    },
+                    yPercent: 0,
+                },
+                0
+            )
+        }
+        catch (e) {
+            return
+        }
     }
 
     const navigate = useCallback(throttle((direction: string) => {

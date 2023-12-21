@@ -29,6 +29,7 @@
     }
 
     .menu {
+        z-index: 1001;
         transition: color 0.5s ease;
         .open {
 

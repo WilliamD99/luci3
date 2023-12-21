@@ -13,6 +13,7 @@
             .slider__item {
                 &-inner {
                     transform: scale(1.2);
+                    filter: brightness(0.8);
                 }
             }
         }
@@ -50,14 +51,16 @@
             visibility: hidden;
 
             &-inner {
-                position: relative;
-                width: 120%;
-                height: 120%;
+                position: relative !important;
+                // width: 120% !important;
+                // height: 120% !important;
                 display: grid;
                 place-items: center;
                 grid-area: 1 / 1 / -1 / -1;
                 background-size: cover;
                 background-position: 50% 50%;
+                object-fit: cover;
+                object-position: 50% 50%;
                 // transform: scale(1.2);
             }
 

@@ -10,27 +10,44 @@ const CursorFollower = dynamic(() => import("@/components/CursorFollower"), {ssr
 
 import { TransitionProvider } from "@/utils/context/TransitionContext";
 import PageTransitionComponent from "@/components/PageTransition";
+import { usePathname } from "next/navigation";
 
 interface ILayoutClientProps {
   children: React.ReactNode;
 }
 
+function checkPageWithNoFooter(str: string) {
+  var pattern = /\bwork\b/i; // \b for word boundary, i for case-insensitive
+  return pattern.test(str);
+}
+
 export default function LayoutClient({ children }: ILayoutClientProps) {
+  const mainRef = React.useRef<HTMLDivElement>(null)
+  const pathName = usePathname()
+
+  console.log(pathName)
 
   return (
     <>
-      <Header />
-      <ScrollSmootherWrapper smooth={0.75}>
-        <TransitionProvider>
-            <PageTransitionComponent>
-              <>
-                  {children}
-                  {/* <Footer /> */}
-              </>
-            </PageTransitionComponent>
-        </TransitionProvider>
-      </ScrollSmootherWrapper>
-      <CursorFollower />
+      <Header ref={mainRef}/>
+      <div ref={mainRef} className="main relative">
+        <ScrollSmootherWrapper smooth={0.75}>
+          {/* <TransitionProvider> */}
+              {/* <PageTransitionComponent> */}
+                <>
+                    {children}
+                    {
+                      !checkPageWithNoFooter(pathName) ?
+                      <Footer />
+                      :
+                      <></>
+                    }
+                </>
+              {/* </PageTransitionComponent> */}
+          {/* </TransitionProvider> */}
+        </ScrollSmootherWrapper>
+        <CursorFollower />
+      </div>
     </>
   );
 }

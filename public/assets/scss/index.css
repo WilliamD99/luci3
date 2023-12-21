@@ -61,7 +61,7 @@ body {
 
 .hover-btn:hover .label .border {
   width: 0;
-  border-width: 0;
+  border-width: 0 !important;
 }
 
 .hover-btn .circle {
@@ -775,6 +775,7 @@ body {
 }
 
 #navigation_header--scrolled .menu {
+  z-index: 1001;
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
@@ -849,6 +850,8 @@ body {
 #work .slider.slider--bg .slider__item-inner {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
 }
 
 #work .slider.slider--fg {
@@ -880,15 +883,17 @@ body {
 }
 
 #work .slider__item-inner {
-  position: relative;
-  width: 120%;
-  height: 120%;
+  position: relative !important;
   display: -ms-grid;
   display: grid;
   place-items: center;
   grid-area: 1 / 1 / -1 / -1;
   background-size: cover;
   background-position: 50% 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 50% 50%;
+     object-position: 50% 50%;
 }
 
 #work .slider__item--current {
@@ -931,11 +936,15 @@ body {
 }
 
 .project-page .project-hero .background-wrapper .background-item {
-  position: relative;
-  width: 120%;
-  height: 120%;
+  position: relative !important;
   background-size: cover;
   background-position: 50% 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 50% 50%;
+     object-position: 50% 50%;
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
 }
 
 .project-page .project-content .content-title {
@@ -966,9 +975,28 @@ body {
   border: 1px solid #fff;
 }
 
+.project-page .project-content .content-title .hover-btn .circle-outline {
+  stroke: #fff;
+}
+
+.project-page .project-content .content-title .hover-btn:hover .circle {
+  background: #fff;
+}
+
+.project-page .project-content .content-title .hover-btn:hover .circle-icon {
+  color: black;
+}
+
 html {
   overflow-x: hidden;
-  overflow-y: hidden;
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 *, :after, :before {

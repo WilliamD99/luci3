@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { formatNumber } from './helper';
 import gsap from '@/utils/gsap'
+import { useGSAP } from '@gsap/react';
 
 interface IndexIndicatorProps {
     index: number;
@@ -16,27 +17,21 @@ export default function IndexIndicator({
     const indexIndicatorRef = useRef<HTMLDivElement>(null)
     let animationRef = useRef<any>(null)
     
-    useEffect(() => {
+    useGSAP(() => {
+        let tl = gsap.timeline({ paused: true })
+        gsap.set(indexIndicatorRef.current, { autoAlpha: 1, y: 0 })
 
-        let ctx = gsap.context(() => {
-            let tl = gsap.timeline({ paused: true })
-            gsap.set(indexIndicatorRef.current, { autoAlpha: 1, y: 0 })
-    
-            tl.to(indexIndicatorRef.current, {
-                y: -30,
-                autoAlpha: 0,
-                duration: 0.7,
-                ease: "expo.in",
-                onComplete: () => {
-                    gsap.set(indexIndicatorRef.current, { y: 30 })
-                }
-            })
-    
-            animationRef.current = tl
-        }, [])
-        return () => ctx.revert()
-
-    }, [])
+        tl.to(indexIndicatorRef.current, {
+            y: -30,
+            autoAlpha: 0,
+            duration: 0.7,
+            ease: "expo.in",
+            onComplete: () => {
+                gsap.set(indexIndicatorRef.current, { y: 30 })
+            }
+        })
+        animationRef.current = tl
+    })
 
     useEffect(() => {
         if (animationRef.current) {
