@@ -1,9 +1,11 @@
-import React, { useRef, useLayoutEffect } from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap-trial';
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import HoverButton from '@/components/HoverButton';
 import headingFont from '@/utils/fonts/heading';
+import { useGSAP } from '@gsap/react';
+import { getCookie } from 'cookies-next'
 
 interface MediaRef {
     media1: HTMLDivElement | null;
@@ -22,17 +24,18 @@ export default function InTheMedia() {
         media4: null,
         media5: null
     })
+    let typeCookie = getCookie('type') ?? 'desktop';
 
-    useLayoutEffect(() => {
-        let animationCtx = gsap.context(() => {
-            let tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top bottom",
-                    end: "bottom",
-                    scrub: 1
-                }
-            })
+    useGSAP(() => {
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom",
+                scrub: 1
+            }
+        })
+        if (typeCookie === "desktop") {
             tl.to(mediaRef.current.media2, {
                 x: "+=250px"
             }, "<")
@@ -45,12 +48,21 @@ export default function InTheMedia() {
             tl.to(mediaRef.current.media5, {
                 x: "+=250px"
             }, "<")
-        }, [mediaRef])
-
-        return () => {
-            animationCtx.revert()
+        } else {
+            tl.to(mediaRef.current.media2, {
+                x: "+=75px"
+            }, "<")
+            tl.to(mediaRef.current.media3, {
+                x: "-=75px"
+            }, "<")
+            tl.to(mediaRef.current.media4, {
+                x: "-=75px"
+            }, "<")
+            tl.to(mediaRef.current.media5, {
+                x: "+=75px"
+            }, "<")
         }
-    }, [])
+    }, { scope: containerRef, dependencies: [typeCookie], revertOnUpdate: true })
 
     return (
         <>
@@ -83,12 +95,12 @@ export default function InTheMedia() {
                     </div>
                     <div className='mt-10 flex flex-col justify-center w-full'>
                         <p className={`text-center title ${headingFont.className}`}>Spread</p>
-                        <p className={`text-center title -mt-20 ${headingFont.className}`}>the News</p>
+                        <p className={`text-center title -mt-8 lg:-mt-20 ${headingFont.className}`}>the News</p>
                     </div>
                     <div className='flex justify-center mt-10'>
                         <p className='text-center sub-title'>Find out more about our work on these leading design and technology platforms.</p>
                     </div>
-                    <div className='flex justify-center mt-20'>
+                    <div className='flex justify-center mt-10 lg:mt-20'>
                         <HoverButton label='Browse all news' href='#'/>
                     </div>
                 </div>

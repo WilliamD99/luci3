@@ -1,49 +1,44 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "@/utils/gsap";
 import headingFont from "@/utils/fonts/heading";
 import { getCookie } from 'cookies-next'
+import { useGSAP } from "@gsap/react";
 
 export default function Hero() {
   const imgRef = useRef<HTMLImageElement>(null);
   const container = useRef<HTMLDivElement>(null);
   let typeCookie = getCookie('type') ?? 'desktop';
 
-  useLayoutEffect(() => {
-    let animationContext = gsap.context(() => {
-      let tl;
-      // Change animation depend on the device type
-      if (typeCookie === "desktop") {
-        tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top top",
-            end: "bottom+=35% bottom",
-            scrub: true,
-          },
-        });
-        tl.fromTo(
-          imgRef.current,
-          {
-            objectPosition: "50% 0%",
-            filter: "brightness(1)",
-          },
-          {
-            objectPosition: "50% 100%",
-            filter: "brightness(0.6)",
-            ease: "sine.easeInOut",
-          }
-        );
-      } else {
+  useGSAP(() => {
+    let tl;
 
-      }
-    }, imgRef);
+    if (typeCookie === "desktop") {
+      tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top top",
+          end: "bottom+=35% bottom",
+          scrub: true,
+        },
+      });
+      tl.fromTo(
+        imgRef.current,
+        {
+          objectPosition: "50% 0%",
+          filter: "brightness(1)",
+        },
+        {
+          objectPosition: "50% 40%",
+          filter: "brightness(0.6)",
+          ease: "sine.easeInOut",
+        }
+      );
+    } else {
 
-    return () => {
-      animationContext.revert();
-    };
-  }, []);
+    }
+  }, { scope: container })
 
   return (
     <>

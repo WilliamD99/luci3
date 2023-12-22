@@ -17,6 +17,7 @@ import { findIndexOfActiveElement } from "./helper";
 // Component
 import { Observer } from "gsap-trial/Observer";
 import SliderItem from "@/components/page-components/work/SliderItem";
+import { useGSAP } from "@gsap/react";
 const IndexIndicator = dynamic(() => import("./IndexIndicator"));
 const SliderContent = dynamic(() => import("./SliderContent"));
 
@@ -75,7 +76,9 @@ function Slider(
     });
   };
 
-  let animate = (direction: number) => {
+  let { contextSafe } = useGSAP({ scope: ref })
+
+  let animate = contextSafe((direction: number) => {
     try {
       // Next: 1
       // Prev : -1
@@ -144,11 +147,10 @@ function Slider(
     } catch (e) {
       return;
     }
-  };
+  });
 
   const navigate = useCallback(
     debounce((direction: string) => {
-      console.log("test");
       // Don't run the animation if it's still playing
       if (isAnimating) return;
       setAnimating(true);
@@ -177,6 +179,7 @@ function Slider(
     return () => observer?.kill();
   }, []);
 
+  // this effect may be used to enable manually trigger the animation by click (instead of scroll like normal)
   useEffect(() => {
     if (!action) return;
     else {
@@ -185,6 +188,7 @@ function Slider(
     }
   }, [action]);
 
+  // Disable the main navigation when the page's route changing
   useEffect(() => {
     if (observerRef.current) {
       if (disabled) observerRef.current.disable();

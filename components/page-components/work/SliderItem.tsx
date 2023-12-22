@@ -15,9 +15,6 @@ function SliderItem({
     return (
         <>
             <div ref={(ele) => ref.current[index] = ele} id={`item-${index}`} className={`slider__item ${index === currentIndex ? "slider__item--current" : ""}`}>
-                {/* <div className='slider__item-inner' style={{
-                    backgroundImage: `url(${image})`
-                }}></div> */}
                 <Image priority className='slider__item-inner' src={image} fill alt={`image-${index}`} />
             </div>
         </>

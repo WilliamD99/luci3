@@ -1,5 +1,5 @@
 "use client";
-import Hero from "@/components/page-components/home/Hero/desktop";
+import Hero from "@/components/page-components/home/Hero/Hero";
 
 // const Hero = dynamic(() => import('@/components/page-components/home/Hero/desktop'), { ssr: false })
 // const HeroMobile = dynamic(() => import("@/components/page-components/home/Hero/mobile"), { ssr: false })

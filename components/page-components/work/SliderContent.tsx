@@ -25,8 +25,7 @@ export default function SliderContent({
   const animationRef = useRef<any>(null);
   const animationExitRef = useRef<any>(null);
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
+  useGSAP(() => {
       // Timeline 1
       let tl = gsap.timeline({ paused: true });
       tl.to(titleRef.current, {
@@ -63,10 +62,7 @@ export default function SliderContent({
         "<0.2"
       );
       animationExitRef.current = tl2;
-    }, []);
-
-    return () => ctx.revert();
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (animationRef.current) {

@@ -23,6 +23,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
   const pathName = usePathname();
 
   let headerScrolledRef = useRef<HTMLDivElement>(null);
+
   let btnOpenRef = useRef<HTMLButtonElement>(null);
   let btnCloseRef = useRef<HTMLButtonElement>(null);
   let timelineRef = useRef<any>(null);
@@ -31,6 +32,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
 
   let [theme, setTheme] = useState<"white" | "black" | string>("white");
 
+  // Set theme color for the header 
   const handleChangeColor = useCallback(
     debounce(() => {
       const homeWorkComponent = document.getElementById("home_work");
@@ -65,14 +67,6 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
     [theme, headerScrolledRef]
   );
 
-  const toggleAnimation = () => {
-    if (timelineRef.current) {
-      timelineRef.current.reversed()
-        ? timelineRef.current.play()
-        : timelineRef.current.reverse();
-    }
-  };
-
   useEffect(() => {
     window.addEventListener("scroll", handleChangeColor);
 
@@ -82,18 +76,13 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (
-      btnOpenRef.current &&
-      btnCloseRef.current &&
-      dropdownMenuRef.current &&
-      ref.current
-    ) {
+  const { contextSafe } = useGSAP(() => {
+    if (ref.current) {
       const timeline = gsap.timeline({ paused: true });
-      gsap.set(dropdownMenuRef.current, { autoAlpha: 1 });
-
       timeline.reversed(true);
-
+  
+      gsap.set("#dropdown_menu", { autoAlpha: 1 });
+  
       timeline.fromTo(
         dropdownMenuRef.current,
         {
@@ -118,7 +107,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         "<"
       );
       timeline.fromTo(
-        dropdownMenuRef.current.querySelector(".wrapper"),
+        "#dropdown_menu .wrapper",
         {
           autoAlpha: 0.5,
           scale: 1.3,
@@ -136,7 +125,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         "<"
       );
       timeline.fromTo(
-        btnOpenRef.current.querySelector(".text"),
+        ".btn-open .text",
         {
           y: 0,
         },
@@ -148,9 +137,9 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         },
         "<"
       );
-
+  
       timeline.fromTo(
-        btnOpenRef.current.querySelector(".icon"),
+        ".btn-open .icon",
         {
           autoAlpha: 1,
         },
@@ -162,7 +151,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         "<"
       );
       timeline.fromTo(
-        btnCloseRef.current.querySelector(".text"),
+        ".btn-close .text",
         {
           y: 30,
           rotateX: 10,
@@ -178,7 +167,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         "<"
       );
       timeline.to(
-        btnCloseRef.current.querySelector(".icon"),
+        ".btn-close .icon",
         {
           autoAlpha: 1,
           ease: "Sine.easeInOut",
@@ -186,17 +175,17 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         },
         "<"
       );
-
+  
       timeline.to(
-        dropdownMenuImgRef.current,
+        "#dropdown_menu .left .img",
         {
           autoAlpha: 1,
         },
         "<"
       );
-
+  
       timeline.fromTo(
-        dropdownMenuRef.current.querySelectorAll(".navigation_link"),
+        ".navigation_link",
         {
           y: 100,
           rotate: 6,
@@ -211,9 +200,9 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         },
         "<"
       );
-
+  
       timeline.fromTo(
-        dropdownMenuRef.current.querySelectorAll(".social_link"),
+        ".social_link",
         {
           y: 100,
           rotate: 6,
@@ -228,16 +217,28 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         },
         "<"
       );
-
+  
       timelineRef.current = timeline;
     }
-  }, [ref]);
+
+  }, { scope: headerScrolledRef, dependencies: [ref.current] })
+
+  const toggleAnimation: any = contextSafe(() => {
+    if (timelineRef.current) {
+      timelineRef.current.reversed()
+        ? timelineRef.current.play()
+        : timelineRef.current.reverse();
+    }
+  });
 
   // Reverse the menu when navigating between pages
   useEffect(() => {
     if (timelineRef.current) {
+      console.log(timelineRef.current)
       //   timelineRef.current.timeScale(2.5);
-      timelineRef.current.reverse();
+      setTimeout(() => {
+          timelineRef.current.reverse();
+      }, 200)
     }
   }, [pathName]);
 
@@ -282,7 +283,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         <div className="menu relative overflow-hidden z-50">
           <button
             ref={btnOpenRef}
-            className="relative flex flex-row space-x-4 open z-20"
+            className="relative flex flex-row space-x-4 open z-20 btn-open"
             onClick={toggleAnimation}
           >
             <span
@@ -300,7 +301,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           </button>
           <button
             ref={btnCloseRef}
-            className="flex flex-row space-x-4 absolute top-0 left-0 close z-10"
+            className="flex flex-row space-x-4 absolute top-0 left-0 close z-10 btn-close"
             onClick={toggleAnimation}
           >
             <span className={`text text-sm text-white`}>Close</span>

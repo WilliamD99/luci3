@@ -59,6 +59,8 @@
   }
   &_work {
     padding-top: 50px;
+    padding-bottom: 50px;
+
     @include lg {
       padding-top: 20vh;
       padding-bottom: 20vh;
@@ -193,7 +195,11 @@
     position: relative;
     height: 100vh;
     background-color: #0d0e13;
-    padding: 75px 0;
+    padding: 90px 0 30px 0;
+
+    @include xl {
+      padding: 75px 0;
+    }
     p,
     svg {
       color: #e4e0db;
@@ -207,6 +213,15 @@
       display: flex;
       justify-content: center;
       opacity: 0.6;
+
+      width: 83.46667vw;
+      height: 46.66667vw;
+      
+      @include xl {
+        width: 100%;
+        height: 100%;
+      }
+
       video {
         height: 100%;
         width: 100%;
@@ -215,28 +230,44 @@
         right: 1px;
         bottom: 1px;
         left: 1px;
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
         object-fit: cover;
+
+        // @include xl {
+          width: calc(100% - 2px);
+          height: calc(100% - 2px);
+        // }
       }
     }
 
     .center {
       p {
-        font-size: 150px;
+        font-size: 54px;
+
+        @include xl {
+          font-size: 150px;
+        }
       }
     }
   }
   &_inTheMedia {
-    padding: 200px 0;
+    padding: 100px 0;
+
+    @include xl {
+      padding: 200px 0;
+    }
     #mediaWrapper {
       height: 60vw;
       .media-1 {
         position: absolute;
-        height: 44vw;
-        width: 25vw;
+        height: 55vw;
+        width: 35vw;
         left: 50%;
         transform: translate(-50%);
+
+        @include xl {
+          height: 44vw;
+          width: 25vw;
+        }
       }
       .media-2 {
         position: absolute;
@@ -271,12 +302,22 @@
       color: #0d0e13;
     }
     .title {
-      font-size: 175px;
-      font-weight: 500;
+      font-size: 72px;
+
+      @include xl {
+        font-size: 175px;
+        font-weight: 500;
+      }
     }
     .sub-title {
-      max-width: 40vw;
-      font-size: 32px;
+      // max-width: 40vw;
+      padding: 0 40px;
+      font-size: 18px;
+      @include xl {
+        padding: 0;
+        max-width: 40vw;
+        font-size: 32px;
+      }
     }
     .btn {
       position: relative;

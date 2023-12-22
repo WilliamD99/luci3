@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap-trial'
+import { useGSAP } from '@gsap/react'
 
 export default function Project1() {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -8,41 +9,39 @@ export default function Project1() {
 
     let animationRef = useRef<any>(null)
 
-    useEffect(() => {
-        if (titleRef.current) {
-            let animation = gsap.timeline({ paused: true })
-            animation.reversed(true)
-            
-            gsap.set(titleRef.current, { autoAlpha: 1 })
+    let { contextSafe } = useGSAP(() => {
+        let animation = gsap.timeline({ paused: true })
+        animation.reversed(true)
+        
+        gsap.set(titleRef.current, { autoAlpha: 1 })
 
-            animation.fromTo(
-                titleRef.current, {
-                    y: 50,
-                }, {
-                    y: 0
-                }
-            )
+        animation.fromTo(
+            titleRef.current, {
+                y: 50,
+            }, {
+                y: 0
+            }
+        )
 
-            animationRef.current = animation
-        }
-    }, [titleRef.current])
+        animationRef.current = animation
+    }, [])
 
-    const onMouseEnter = () => {
+    const onMouseEnter: any = contextSafe(() => {
         videoRef.current?.play()
 
         if (titleRef.current && animationRef.current) {
             animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
         }
-    }
+    })
 
-    const onMouseLeave = () => {
+    const onMouseLeave: any = contextSafe(() => {
         videoRef.current?.pause()
         videoRef.current!.currentTime = 0
 
         if (titleRef.current && animationRef.current) {
             animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
         }
-    }
+    })
 
 
     return (

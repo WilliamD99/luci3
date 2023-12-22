@@ -35,7 +35,7 @@ export default function Work() {
                         <Project3 />
                         <Project4 />
                     </div>
-                    <div className='text-right mt-24 pr-24'>
+                    <div className='text-center lg:text-right mt-24 lg:pr-24'>
                         <HoverButton label='Browse all work' href='#'/>
                     </div>
                 </div>

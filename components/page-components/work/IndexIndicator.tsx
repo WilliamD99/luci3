@@ -39,12 +39,7 @@ export default function IndexIndicator({
                 animationRef.current.time(0)
                 animationRef.current.play()
             } else {
-                gsap.to(indexIndicatorRef.current, {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.7,
-                    ease: "expo.out"
-                })
+                animationRef.current.reverse()
             }
         }
     }, [index, isAnimating])

@@ -12,7 +12,6 @@
 
 html {
   overflow-x: hidden;
-  // overflow-y: hidden;
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   scrollbar-width: none;  /* Firefox */
 }
@@ -21,8 +20,13 @@ html::-webkit-scrollbar {
   display: none;
 }
 
+body {
+  overflow: hidden;
+}
+
 *, :after, :before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+

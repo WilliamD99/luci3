@@ -41,7 +41,7 @@ export default function LayoutClient({ children }: ILayoutClientProps) {
           {/* </PageTransitionComponent> */}
           {/* </TransitionProvider> */}
         </ScrollSmootherWrapper>
-        <CursorFollower />
+        {/* <CursorFollower /> */}
       </div>
     </>
   );

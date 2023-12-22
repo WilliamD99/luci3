@@ -1,7 +1,8 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import gsap from "gsap-trial";
 import headingFont from "@/utils/fonts/heading";
+import { useGSAP } from "@gsap/react";
 
 export default function WorkInMotion() {
   let containerRef = useRef<HTMLDivElement>(null);
@@ -9,54 +10,47 @@ export default function WorkInMotion() {
   let text1Ref = useRef<HTMLParagraphElement>(null);
   let text2Ref = useRef<HTMLParagraphElement>(null);
 
-  useLayoutEffect(() => {
-    let animationContext = gsap.context(() => {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom+=800px",
-          scrub: 1,
-          pin: true,
-        },
-      });
-      tl.fromTo(
-        videoRef.current,
-        {
-          width: "30%",
-          height: "30%",
-        },
-        {
-          width: "100%",
-          height: "100%",
-        }
-      );
-      tl.fromTo(
-        text1Ref.current,
-        {
-          x: "-100%",
-        },
-        {
-          x: 0,
-        },
-        "<"
-      );
-      tl.fromTo(
-        text2Ref.current,
-        {
-          x: "100%",
-        },
-        {
-          x: 0,
-        },
-        "<"
-      );
-    }, [containerRef, videoRef, text1Ref, text2Ref]);
+  useGSAP(() => {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom+=800px",
+        scrub: 1,
+        pin: true,
+      },
+    });
+    tl.fromTo(
+      videoRef.current,
+      {
+        scale: 0.5
+      },
+      {
+        scale: 1
+      }
+    );
 
-    return () => {
-      animationContext.revert();
-    };
-  }, []);
+    tl.fromTo(
+      text1Ref.current,
+      {
+        x: "-100%",
+      },
+      {
+        x: 0,
+      },
+      "<"
+    );
+    tl.fromTo(
+      text2Ref.current,
+      {
+        x: "100%",
+      },
+      {
+        x: 0,
+      },
+      "<"
+    );
+  }, [])
 
   return (
     <>
@@ -69,7 +63,7 @@ export default function WorkInMotion() {
           <SparklesIcon className="h-5 w-5 " />
           <p className="">Work in motion</p>
         </div>
-        <div className="center z-10 flex flex-row justify-between items-center space-x-5">
+        <div className="center z-10 flex justify-between space-x-5 ">
           <p className={`${headingFont.className}`} ref={text1Ref}>
             Play
           </p>
