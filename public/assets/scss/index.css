@@ -167,6 +167,10 @@ body {
   min-height: 100vh;
 }
 
+#home_hero {
+  height: 120vh;
+}
+
 @media (min-width: 1024px) {
   #home_hero {
     height: 120.66667vw;
@@ -906,7 +910,7 @@ body {
 
 #dropdown_menu .right .navigation_link {
   color: #e4e0db;
-  font-size: 64px;
+  font-size: 56px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -916,6 +920,12 @@ body {
 
 #dropdown_menu .right .navigation_link:not(:first-child) {
   margin-top: -10px;
+}
+
+@media (min-width: 1024px) {
+  #dropdown_menu .right .navigation_link {
+    font-size: 64px;
+  }
 }
 
 #dropdown_menu .right .social_link {

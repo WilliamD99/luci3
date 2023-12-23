@@ -63,12 +63,16 @@
         .navigation {
             &_link {
                 color: #e4e0db;
-                font-size: 64px;
+                font-size: 56px;
                 width: fit-content;
                 visibility: hidden;
                 opacity: 0;
                 &:not(:first-child) {
                     margin-top: -10px;
+                }
+
+                @include lg {
+                    font-size: 64px;
                 }
             }
         }

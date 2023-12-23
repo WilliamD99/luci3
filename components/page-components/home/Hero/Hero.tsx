@@ -13,16 +13,15 @@ export default function Hero() {
 
   useGSAP(() => {
     let tl;
-
+    tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top top",
+        end: "bottom+=35% bottom",
+        scrub: true,
+      },
+    });
     if (typeCookie === "desktop") {
-      tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top top",
-          end: "bottom+=35% bottom",
-          scrub: true,
-        },
-      });
       tl.fromTo(
         imgRef.current,
         {
@@ -36,9 +35,21 @@ export default function Hero() {
         }
       );
     } else {
-
+      tl.fromTo(
+        imgRef.current,
+        {
+          objectPosition: "50% 0%",
+          filter: "brightness(1)",
+        },
+        {
+          objectPosition: "50% 100%",
+          scale: 1.1,
+          filter: "brightness(0.6)",
+          ease: "sine.easeInOut",
+        }
+      );
     }
-  }, { scope: container })
+  }, { scope: container, dependencies: [typeCookie], revertOnUpdate: true })
 
   return (
     <>
@@ -69,7 +80,7 @@ export default function Hero() {
           <span className={`text-white title ${headingFont.className}`}>Design</span>
           <span className={`text-white title ${headingFont.className}`}>Experience</span>
         </div>
-        <div className="text-3 pl-10 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
+        <div className="text-3 pl-10 pr-5 pb-72 lg:pl-20 mb-44 lg:mb-0">
           <p className="text-white lg:text-2xl">
             We help experience-driven companies thrive by making their audience
             feel the refined intricacies of their brand and product in the

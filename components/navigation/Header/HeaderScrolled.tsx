@@ -313,8 +313,8 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           ref={dropdownMenuRef}
           className="fixed top-0 left-0 h-screen w-screen bg-black"
         >
-          <div className="wrapper flex justify-center items-center h-full space-x-72">
-            <div className="left">
+          <div className="wrapper flex pl-16 lg:pl-0 lg:justify-center items-center h-full lg:space-x-72">
+            <div className="left hidden lg:block">
               <div ref={dropdownMenuImgRef} className="relative img">
                 <Image
                   fill
@@ -323,8 +323,8 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                 />
               </div>
             </div>
-            <div className="right pl-20">
-              <ul className="navigation flex flex-col">
+            <div className="right lg:pl-20">
+              <ul className="navigation flex flex-col -space-y-3">
                 <div className="link_wrapper overflow-hidden">
                   <div className="navigation_link overflow-hidden">
                     <Link
