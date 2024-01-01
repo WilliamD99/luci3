@@ -79,19 +79,29 @@
         // transition: opacity 5.5s ease;
     }
     .slider-content {
-        max-width: 350px;
+        @include lg {
+            max-width: 350px;
+        }
         &--title {
             p {
-                font-size: 56px;
+                font-size: 28px;
                 visibility: hidden;
                 opacity: 0;
+
+                @include lg {
+                    font-size: 56px;
+                }
             }
         }
         &--subTitle {
             p {
-                font-size: 20px;
+                font-size: 16px;
                 visibility: hidden;
                 opacity: 0;
+
+                @include lg {
+                    font-size: 20px;
+                }
             }
         }
     }

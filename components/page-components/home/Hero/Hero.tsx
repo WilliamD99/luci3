@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { ReactHTMLElement, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "@/utils/gsap";
@@ -10,22 +10,31 @@ import {ScrollTrigger} from 'gsap-trial/ScrollTrigger'
 export default function Hero() {
   const imgRef = useRef<HTMLImageElement>(null);
   const container = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null)
+
   let typeCookie = getCookie('type') ?? 'desktop';
 
   useGSAP(() => {
-    gsap.to(
-      '.background', {
-        scrollTrigger: {
-          scrub: true,
-          start: "top top",
-          end: `bottom bottom`,
-          markers: true
-        },
-        y: (i, target) => -ScrollTrigger.maxScroll(container.current)
+    let getRatio = (el: HTMLDivElement | null) => window.innerHeight / (window.innerHeight + (el ? el.offsetHeight : 0));
+
+    gsap.set('.background', { scale: 1 })
+
+    gsap.fromTo(".background", {
+      backgroundPosition: () =>`50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
+      scale: 1
+    }, {
+      backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
+      scale: typeCookie === "desktop" ? 1 : 1.2,
+      ease: "none",
+      scrollTrigger: {
+        trigger: container.current,
+        start: () => "top+=50px bottom", 
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true, // to make it responsive,
       }
-    )
-    let tl;
-    tl = gsap.timeline({
+    })
+    gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
         start: "top top",
@@ -49,36 +58,7 @@ export default function Hero() {
         }
       },
     });
-    // if (typeCookie === "desktop") {
-    //   tl.fromTo(
-    //     imgRef.current,
-    //     {
-    //       objectPosition: "50% 50%",
-    //       filter: "brightness(1)",
-    //     },
-    //     {
-    //       objectPosition: "50% 100%",
-    //       filter: "brightness(0.6)",
-    //       ease: "sine.easeInOut",
-    //     }
-    //   );
-    // } else {
 
-    //   tl.fromTo(
-    //     ".background",
-    //     {
-    //       // objectPosition: "50% 50%",
-    //       filter: "brightness(1)",
-    //     },
-    //     {
-    //       // objectPosition: "50% 50px",
-    //       backgroundPosition: "+=50",
-    //       scale: 1.2,
-    //       filter: "brightness(0.6)",
-    //       ease: "sine.easeInOut",
-    //     }
-    //   );
-    // }
   }, { scope: container, dependencies: [typeCookie], revertOnUpdate: true })
 
   return (
@@ -86,17 +66,10 @@ export default function Hero() {
       <div
         ref={container}
         id="home_hero"
-        className="relative lg:px-10 overflow-hidden"
+        className="relative overflow-hidden"
       >
-        <div className="background w-full h-full sticky top-0 left-0">
-          {/* <Image
-            ref={imgRef}
-            className="hero_background -z-50"
-            priority
-            src="/assets/img/home_hero.webp"
-            alt="Home hero image"
-            fill
-          /> */}
+        <div ref={backgroundRef} className="relative w-full h-full">
+          <div className="background"></div>
         </div>
         <div className="text-1 text z-10 pl-10 pr-5 lg:pl-20">
           <p className="text-white lg:text-2xl">
@@ -105,15 +78,15 @@ export default function Hero() {
             unwind.
           </p>
         </div>
-        <div className="text-2 text z-10 pl-10 lg:pl-20 flex flex-col">
+        <div className="text-2 text z-10 pl-10 lg:pl-20">
           <div className="overflow-hidden">
-            <span className={`text-white title ${headingFont.className}`}>Digital</span>
+            <span className={`text-white inline-block title ${headingFont.className}`}>Digital</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white title ${headingFont.className}`}>Design</span>
+            <span className={`text-white inline-block title ${headingFont.className}`}>Design</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white title ${headingFont.className}`}>Experience</span>
+            <span className={`text-white inline-block title ${headingFont.className}`}>Experience</span>
           </div>
         </div>
         <div className="text-3 text z-10 pl-10 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">

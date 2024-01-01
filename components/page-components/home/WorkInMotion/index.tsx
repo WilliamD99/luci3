@@ -72,7 +72,7 @@ export default function WorkInMotion() {
           </p>
         </div>
         <div className="bottom z-10">
-          <p className=" max-w-sm text-center">
+          <p className="max-w-sm text-center text-sm lg:text-base px-5">
             Our work is best experienced in motion. Don't forget to put on your
             headphones
           </p>

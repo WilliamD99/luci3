@@ -60,7 +60,7 @@ const Work = (props: Props) => {
             })
             tl.to(
                 fgRef.current.querySelectorAll('.slider__item')[index], {
-                    y: "-100%"
+                    y: "-110%"
                 }
             )
             tl.to(

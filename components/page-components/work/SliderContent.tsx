@@ -79,7 +79,7 @@ export default function SliderContent({
 
   return (
     <>
-      <div className="slider-content absolute z-50 left-64 xl2:left-80 top-1/2 -translate-y-full mt-10">
+      <div className="slider-content absolute z-50 left-1/2 lg:left-64 xl2:left-80 bottom-36 lg:bottom-0 lg:top-1/2 -translate-x-1/2 lg:translate-x-0 lg:-translate-y-1/2 mt-10">
         <div className="slider-content--title overflow-hidden">
           <p ref={titleRef} className={`text-white ${headingFont.className}`}>
             {items[index].title}

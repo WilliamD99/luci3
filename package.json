@@ -12,7 +12,7 @@
     "@gsap/react": "^2.0.2",
     "@heroicons/react": "^2.0.18",
     "cookies-next": "^4.1.0",
-    "gsap": "^3.12.4",
+    "gsap": "npm:@gsap/member@^3.12.4",
     "gsap-trial": "^3.12.2",
     "install": "^0.13.0",
     "lodash": "^4.17.21",

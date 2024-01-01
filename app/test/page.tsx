@@ -6,32 +6,39 @@ import "splitting/dist/splitting-cells.css";
 import Splitting from "splitting";
 
 import gsap from '@/utils/gsap'
+import { useGSAP } from '@gsap/react';
 
 export default function TestPage() {
     const testRef = useRef<HTMLDivElement>(null)
+    const container = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        if (testRef.current) {
-            Splitting({
-                target: testRef.current,
-                by: "words",
-                
-            })
-
-            
-            gsap.to(testRef.current.querySelectorAll('.word'), {
-                scale: 1.2,
-                stagger: 0.2,
-                ease: "expo.inOut"
-            })
-        }
-    }, [testRef.current])
-
+    // useGSAP(() => {
+    //     let getRatio = (el: any) => window.innerHeight / (window.innerHeight + el.offsetHeight);
+        
+    //     gsap.fromTo(".background", {
+    //         backgroundPosition: () =>`50% ${-window.innerHeight * getRatio(testRef.current)}px`
+    //     }, {
+    //         backgroundPosition: () => `50% ${window.innerHeight * (1 - getRatio(testRef.current))}px`,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //           trigger: testRef.current,
+    //           start: () => "top bottom", 
+    //           end: "bottom top",
+    //           scrub: true,
+    //           invalidateOnRefresh: true, // to make it responsive,
+    //           markers: true
+    //         }
+    //     })
+    // }, { scope: container })
 
     return (
         <>
-            <div className='h-screen flex justify-center items-center'>
-                <div className='test overflow-hidden' ref={testRef}>This is good</div>
+            <div ref={container} id="test" className='relative'>
+                <div ref={testRef} className='test overflow-hidden relative'>
+                    <div className='background'></div>
+                </div>
+                <div className='h-screen'></div>
+                <div className='h-screen'></div>
             </div>
         </>
     )

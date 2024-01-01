@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap-trial'
 import { ScrollTrigger } from 'gsap-trial/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 
 type Props = {
     children: React.ReactNode,
@@ -40,7 +41,7 @@ const AnimatedOnScroll = ({
       return animDirection;
     }, [direction]);
 
-    useEffect(() => {
+    useGSAP(() => {
         const startLocation: { [key: string]: number } = {
             [animDirectionFunc()]: direction === "down" || direction === "right" ? -200 : 200,
         };

@@ -46,7 +46,7 @@ export default function IndexIndicator({
 
     return (
         <>
-            <div className='index absolute bottom-20 right-20 z-50 space-x-2 flex flex-row'>
+            <div className='index hidden absolute bottom-20 right-20 z-50 space-x-2 lg:flex flex-row'>
                 <div className='overflow-hidden block'>
                     <div ref={indexIndicatorRef} className='text-white text-lg block'>{formatNumber(index + 1)}</div>
                 </div>

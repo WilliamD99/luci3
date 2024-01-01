@@ -78,7 +78,10 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
 
   const { contextSafe } = useGSAP(() => {
     if (ref.current) {
-      const timeline = gsap.timeline({ paused: true });
+      const timeline = gsap.timeline({ paused: true, onReverseComplete: () => {
+        ref.current.style.transform = "none"
+      }
+     });
       timeline.reversed(true);
   
       gsap.set("#dropdown_menu", { autoAlpha: 1 });

@@ -7,14 +7,17 @@
       background: url('/assets/img/home_hero.webp');
       background-position: 50% 50%;
       background-size: cover;
+      background-repeat: no-repeat;
       // background-attachment: fixed;
+      height: 100%;
+      width: 100%;
     }
 
     @include lg {
       height: 120.66667vw;
     }
     @include xl2 {
-      height: 100vw;
+      height: 120vw;
     }
 
     .hero_background {
@@ -26,9 +29,9 @@
 
     .text {
       position: absolute;
-
+      padding-right: 50px;
       @include lg {
-        position: relative;
+        padding-left: 150px;
       }
     }
 
@@ -36,12 +39,12 @@
       top: 55vh;
       
       @include lg {
-        padding-top: 50vh;
+        // padding-top: 50vh;
         max-width: 45vw;
       }
     }
     .text-2 {
-      top: 75vh;
+      top: 70vh;
 
       @include lg {
         padding-top: 5vh;
@@ -56,7 +59,7 @@
         
         @include lg {
           font-size: 230px;
-          line-height: inherit;
+          line-height: 16rem;
           &:not(:first-child) {
             margin-top: -100px;
           }
@@ -64,9 +67,10 @@
       }
     }
     .text-3 {
-      top: 110vh;
+      top: 100vh;
       @include lg {
         max-width: 45vw;
+        top: 175vh;
       }
     }
 
@@ -75,6 +79,8 @@
       a {
         width: fit-content;
       }
+      bottom: 10vh;
+      width: 100%;
     }
   }
   &_work {
@@ -438,6 +444,27 @@
           border: 1px solid rgba(13, 14, 19, 0.5);
         }
       }
+    }
+  }
+}
+
+
+#test {
+  .test {
+    height: 170vh;
+    width: 100vw;
+
+    .background {
+      background: url("/assets/img/home_hero.webp");
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      background-position: 50% 20%;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
     }
   }
 }
