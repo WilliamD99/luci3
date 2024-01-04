@@ -1,3 +1,12 @@
+body[id^="work-test"] {
+  #navigation_header {
+    .home-link,
+    .nav_link {
+      color: #fff;
+    }
+  }
+}
+
 .project-page {
   #work_hero {
     height: 100vh;
@@ -11,7 +20,7 @@
         place-items: center;
         pointer-events: none;
         will-change: transform;
-  
+
         .background-item {
           position: relative !important;
           object-fit: contain;
@@ -23,14 +32,22 @@
     .project-content {
       .content-title {
         padding: 60vh 150px;
-  
+
         @include xl2 {
           padding: 70vh 150px;
         }
-  
+
         .title {
           font-size: 108px;
           transform: translateY(100%);
+
+          @include xl {
+            font-size: 90px;
+          }
+
+          @include xl2 {
+            font-size: 108px;
+          }
         }
         .sub-title {
           visibility: hidden;
@@ -50,7 +67,7 @@
               stroke: #fff;
             }
           }
-  
+
           &:hover {
             .circle {
               background: #fff;
@@ -68,7 +85,7 @@
     .wrapper {
       display: grid;
       grid-column-gap: 2.2222vw;
-      grid-template-columns: repeat(12,1fr);
+      grid-template-columns: repeat(12, 1fr);
       margin: 0 8.3333vw;
       .title {
         grid-column: 4/13;
@@ -77,19 +94,49 @@
         p {
           font-size: 190px;
         }
+
+        @include xl {
+          line-height: 150px;
+          p {
+            font-size: 150px;
+          }
+        }
+
+        @include xl2 {
+          line-height: 190px;
+          p {
+            font-size: 190px;
+          }
+        }
       }
       .sub {
         grid-column: 2/4;
         padding-left: 1.527vw;
         p {
           font-size: 20px;
+
+          @include xl {
+            font-size: 16px;
+          }
+
+          @include xl2 {
+            font-size: 20px;
+          }
         }
       }
       .content {
         grid-column: 4/8;
         p {
-          color: rgba(13,14,19,.6);
+          color: rgba(13, 14, 19, 0.6);
           font-size: 20px;
+
+          @include xl {
+            font-size: 16px;
+          }
+
+          @include xl2 {
+            font-size: 20px;
+          }
         }
       }
     }
@@ -155,7 +202,7 @@
               top: 65vh !important;
               left: 10.06944vw !important;
               width: 31.25vw !important;
-              height: 30vh !important;;
+              height: 30vh !important;
             }
           }
           &.media-6 {
@@ -183,20 +230,34 @@
     .wrapper {
       display: grid;
       column-gap: 2.2222vw;
-      grid-template-columns: repeat(12,1fr);
+      grid-template-columns: repeat(12, 1fr);
       margin: 0 8.3333vw;
       .sub {
         grid-column: 2/4;
         padding-left: 1.52778vw;
         p {
           font-size: 20px;
+          @include xl {
+            font-size: 16px;
+          }
+
+          @include xl2 {
+            font-size: 20px;
+          }
         }
       }
       .content {
         grid-column: 4/8;
-        color: rgba(13,14,19,.6);
+        color: rgba(13, 14, 19, 0.6);
         p {
           font-size: 20px;
+          @include xl {
+            font-size: 16px;
+          }
+
+          @include xl2 {
+            font-size: 20px;
+          }
         }
       }
     }

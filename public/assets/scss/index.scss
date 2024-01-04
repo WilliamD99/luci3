@@ -7,13 +7,16 @@
 @import "./components/navigations/footer";
 @import "./components/navigations/header";
 @import "./components/follower/index";
-@import './page/work';
-@import './page/project';
+@import "./components/marquee/marquee";
+
+@import "./page/work";
+@import "./page/project";
+@import "./page/contact";
 
 html {
   overflow-x: hidden;
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 html::-webkit-scrollbar {
@@ -24,9 +27,10 @@ body {
   overflow: hidden;
 }
 
-*, :after, :before {
+*,
+:after,
+:before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-

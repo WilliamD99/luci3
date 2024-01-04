@@ -1,0 +1,19 @@
+.mrq-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  .mrq-ele {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: auto;
+    overflow: hidden;
+    padding: 0 45px;
+  }
+}

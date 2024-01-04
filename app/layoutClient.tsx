@@ -23,12 +23,31 @@ function checkPageWithNoFooter(str: string) {
   return pattern.test(str);
 }
 
+function generateBodyId(inputString: string) {
+  // Remove leading "/"
+  let processedString = inputString.replace(/^\//, "");
+
+  // Replace remaining "/" with "-"
+  processedString = processedString.replace(/\//g, "-");
+
+  // Add "-page" to the end
+  processedString += "-page";
+
+  // Check if the processed string is empty (just "/")
+  if (processedString === "-page") {
+    processedString = "home-page";
+  }
+
+  return processedString;
+}
+
 export default function LayoutClient({ children }: ILayoutClientProps) {
   const mainRef = React.useRef<HTMLDivElement>(null);
   const pathName = usePathname();
+  const bodyId = generateBodyId(pathName);
 
   return (
-    <>
+    <body id={bodyId}>
       <Header ref={mainRef} />
       <div ref={mainRef} className="main relative">
         <ScrollSmootherWrapper smooth={0.75}>
@@ -43,6 +62,6 @@ export default function LayoutClient({ children }: ILayoutClientProps) {
         </ScrollSmootherWrapper>
         {/* <CursorFollower /> */}
       </div>
-    </>
+    </body>
   );
 }

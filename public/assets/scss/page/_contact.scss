@@ -1,0 +1,119 @@
+#contact-page {
+  #navigation_header {
+    .home-link,
+    .nav_link {
+      color: black;
+    }
+    .nav_link {
+      &::before {
+        background-color: black !important; /* Set your desired underline color */
+      }
+    }
+  }
+  #contact {
+    margin: 40vw 0 21.33333vw;
+    @include lg {
+      height: 100vh;
+      margin: 0;
+    }
+
+    &-mrq {
+      .text-container {
+        p {
+          font-size: 90px;
+          white-space: nowrap;
+          @include lg {
+            font-size: 120px;
+          }
+        }
+      }
+    }
+    .marquee {
+      position: absolute;
+      top: 40vw;
+
+      @include lg {
+        bottom: 20vw;
+        top: 0;
+      }
+    }
+    .main {
+      padding: 0 8vw;
+      @include lg {
+        padding: 0 8.33333vw;
+      }
+
+      .contact-img {
+        z-index: 1;
+
+        width: 66.66667vw;
+        height: 99.73333vw;
+        margin: 0 auto 20.26667vw;
+
+        @include lg {
+          width: 26.38889vw;
+          height: 39.375vw;
+          margin: 0 0 0 35.625vw;
+        }
+      }
+      .left {
+        @include lg {
+          position: absolute;
+          bottom: 0;
+        }
+        .body {
+          margin: 0 8vw 8.26667vw 0;
+
+          @include lg {
+            width: 21.38889vw;
+            margin-bottom: 6.25vw;
+          }
+          p {
+            font-size: 20px;
+
+            @include lg {
+              font-size: 14px;
+            }
+          }
+        }
+        .contact {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          &-item {
+            &:first-child {
+              margin-bottom: 5.33333vw;
+
+              @include lg {
+                margin-bottom: 1.38889vw;
+              }
+            }
+            span {
+              font-size: 14px;
+            }
+            .circle {
+              top: -0.7vw;
+            }
+          }
+        }
+      }
+      .right {
+        margin: 10.13333vw 0 5.6vw;
+
+        @include lg {
+          position: absolute;
+          left: 81.31944vw;
+          bottom: 0;
+          margin: 0;
+        }
+        a {
+          font-size: 14px;
+
+          @include lg {
+            margin-bottom: 2.77778vw;
+          }
+        }
+      }
+    }
+  }
+}
