@@ -1,52 +1,60 @@
-import React, { useContext } from 'react';
-import { SwitchTransition, Transition } from 'react-transition-group';
+import React, { useContext } from "react";
+import {
+  TransitionGroup,
+  Transition as ReactTransition,
+} from "react-transition-group";
 
-import { usePathname } from 'next/navigation';
-import TransitionContext from '@/utils/context/TransitionContext';
-import gsap from "@/utils/gsap"
+import { usePathname } from "next/navigation";
+import TransitionContext from "@/utils/context/TransitionContext";
+import gsap from "@/utils/gsap";
+
+const TIMEOUT = 200;
+
+const getTransitionStyles: any = {
+  entering: {
+    position: `absolute`,
+    opacity: 0,
+    transform: `translateX(50px)`,
+  },
+  entered: {
+    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
+    opacity: 1,
+    transform: `translateX(0px)`,
+  },
+  exiting: {
+    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
+    opacity: 0,
+    transform: `translateX(-50px)`,
+  },
+};
 
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+  location: string;
+};
 
-const PageTransitionComponent = ({ children }: Props) => {
-    const pathName = usePathname()
-    const { toggleCompleted } = useContext<any>(TransitionContext);
-    
-    
-    return (
-        <>
-            <SwitchTransition>
-                <Transition
-                    key={pathName}
-                    timeout={500}
-                    onEnter={(node: any) => {
-                        toggleCompleted(false);
-                        // gsap.set(document.documentElement, { autoAlpha: 0, scale: 0.8, xPercent: -100 });
-                        // gsap
-                        //     .timeline({
-                        //     paused: true,
-                        //     onComplete: () => toggleCompleted(true),
-                        //     })
-                        //     .to(document.documentElement
-                        //         , { autoAlpha: 1, xPercent: 0, duration: 0.25 })
-                        //     .to(document.documentElement, { scale: 1, duration: 0.25 })
-                        //     .play();
-                    }}
-                    onExit={(node) => {
-                            // gsap
-                            //     .timeline({ paused: true })
-                            //     .to(document.documentElement, { scale: 0.8, duration: 0.2 })
-                            //     .to(document.documentElement, { xPercent: 100, autoAlpha: 0, duration: 0.2 })
-                            //     .play();
-                        }
-                    }
-                    >
-                    {children}
-                </Transition>
-            </SwitchTransition>        
-        </>
-    )
-}
+const Transition = ({ children, location }: Props) => {
+  return (
+    <TransitionGroup style={{ position: "relative" }}>
+      <ReactTransition
+        key={location}
+        timeout={{
+          enter: TIMEOUT,
+          exit: TIMEOUT,
+        }}
+      >
+        {(status) => (
+          <div
+            style={{
+              ...getTransitionStyles[status],
+            }}
+          >
+            {children}
+          </div>
+        )}
+      </ReactTransition>
+    </TransitionGroup>
+  );
+};
 
-export default PageTransitionComponent
+export default Transition;
