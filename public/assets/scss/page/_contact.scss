@@ -1,17 +1,22 @@
 #contact-page {
   #navigation_header {
+
     .home-link,
     .nav_link {
       color: black;
     }
+
     .nav_link {
       &::before {
-        background-color: black !important; /* Set your desired underline color */
+        background-color: black !important;
+        /* Set your desired underline color */
       }
     }
   }
+
   #contact {
     margin: 40vw 0 21.33333vw;
+
     @include lg {
       height: 100vh;
       margin: 0;
@@ -22,12 +27,14 @@
         p {
           font-size: 90px;
           white-space: nowrap;
+
           @include lg {
             font-size: 120px;
           }
         }
       }
     }
+
     .marquee {
       position: absolute;
       top: 40vw;
@@ -37,8 +44,10 @@
         top: 0;
       }
     }
+
     .main {
       padding: 0 8vw;
+
       @include lg {
         padding: 0 8.33333vw;
       }
@@ -56,11 +65,13 @@
           margin: 0 0 0 35.625vw;
         }
       }
+
       .left {
         @include lg {
           position: absolute;
           bottom: 0;
         }
+
         .body {
           margin: 0 8vw 8.26667vw 0;
 
@@ -68,6 +79,7 @@
             width: 21.38889vw;
             margin-bottom: 6.25vw;
           }
+
           p {
             font-size: 20px;
 
@@ -76,10 +88,12 @@
             }
           }
         }
+
         .contact {
           padding: 0;
           margin: 0;
           list-style: none;
+
           &-item {
             &:first-child {
               margin-bottom: 5.33333vw;
@@ -88,15 +102,18 @@
                 margin-bottom: 1.38889vw;
               }
             }
+
             span {
               font-size: 14px;
             }
+
             .circle {
               top: -0.7vw;
             }
           }
         }
       }
+
       .right {
         margin: 10.13333vw 0 5.6vw;
 
@@ -106,6 +123,7 @@
           bottom: 0;
           margin: 0;
         }
+
         a {
           font-size: 14px;
 

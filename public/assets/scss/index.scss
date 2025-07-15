@@ -15,8 +15,10 @@
 
 html {
   overflow-x: hidden;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 html::-webkit-scrollbar {
@@ -33,4 +35,30 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.main {
+  transform-origin: top left;
+}
+
+// Arrow bounce down animation
+@keyframes bounce-down {
+  0% {
+    transform: translateY(-150%);
+    opacity: 0;
+  }
+
+  25% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(150%);
+    opacity: 0;
+  }
+}
+
+.arrow-bounce-down {
+  animation: bounce-down 3s ease-out infinite;
 }

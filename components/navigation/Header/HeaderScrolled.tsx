@@ -5,15 +5,15 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { debounce } from "lodash";
-import gsap from "gsap-trial";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Link from "next/link";
 import Image from "next/image";
-import headingFont from "@/utils/fonts/heading";
 import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
+import { MenuIcon } from 'lucide-react'
 
 type Props = {
   isActive: boolean;
@@ -31,85 +31,246 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
   let dropdownMenuImgRef = useRef<HTMLDivElement>(null);
 
   let [theme, setTheme] = useState<"white" | "black" | string>("white");
+  // Add state to track dropdown menu open/closed status
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Add state to track if dropdown should be rendered
+  const [shouldRenderDropdown, setShouldRenderDropdown] = useState(false);
+  // Add state to track if animation is currently running
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Set theme color for the header 
-  const handleChangeColor = useCallback(
-    debounce(() => {
-      const homeWorkComponent = document.getElementById("home_work");
-      const homeWorkInMotionComponent =
-        document.getElementById("home_workInMotion");
-      const homeInTheMediaComponent =
-        document.getElementById("home_inTheMedia");
-      const footerComponent = document.getElementById("footer");
+  // Ref for smooth theme transitions
+  const themeTransitionRef = useRef<any>(null);
+
+  // Throttling for theme changes to prevent flickering
+  const lastThemeChangeRef = useRef<number>(0);
+  const currentThemeRef = useRef<string>("white");
+
+  // Cache DOM elements and use refs for better performance
+  const elementsRef = useRef<{
+    homeWork: HTMLElement | null;
+    homeWorkInMotion: HTMLElement | null;
+    homeInTheMedia: HTMLElement | null;
+    footer: HTMLElement | null;
+  }>({
+    homeWork: null,
+    homeWorkInMotion: null,
+    homeInTheMedia: null,
+    footer: null,
+  });
+
+
+
+  // Function to refresh DOM element cache
+  const refreshElementCache = useCallback(() => {
+    elementsRef.current = {
+      homeWork: document.getElementById("home_work"),
+      homeWorkInMotion: document.getElementById("home_workInMotion"),
+      homeInTheMedia: document.getElementById("home_inTheMedia"),
+      footer: document.getElementById("footer"),
+    };
+
+  }, []);
+
+  // Initialize cached elements and theme
+  useEffect(() => {
+    // Cache DOM elements for performance
+    refreshElementCache();
+
+    // Initialize theme refs
+    currentThemeRef.current = theme;
+
+  }, [theme, refreshElementCache]);
+
+  // Smooth theme transition function using GSAP with light throttling
+  const animateThemeChange = useCallback((newTheme: string) => {
+    const now = Date.now();
+    const timeSinceLastChange = now - lastThemeChangeRef.current;
+
+    // Prevent rapid theme changes (throttle to max 1 change per 50ms)
+    if (currentThemeRef.current === newTheme || timeSinceLastChange < 50) {
+      return;
+    }
+
+    // Kill any existing transition
+    if (themeTransitionRef.current) {
+      themeTransitionRef.current.kill();
+    }
+
+    // Update refs
+    lastThemeChangeRef.current = now;
+    currentThemeRef.current = newTheme;
+
+    // Set theme immediately for responsiveness
+    setTheme(newTheme);
+
+    // Create smooth transition timeline for visual effects (optional)
+    const tl = gsap.timeline();
+
+    // Animate theme change with smooth fade
+    tl.to(headerScrolledRef.current, {
+      duration: 0.2,
+      ease: "power2.out",
+    });
+
+    themeTransitionRef.current = tl;
+  }, [theme]);
+
+  // Simplified theme change function with reliable boundary detection
+  const handleChangeColor = useCallback(() => {
+    const checkTheme = () => {
+      const { homeWork, homeWorkInMotion, homeInTheMedia, footer } = elementsRef.current;
+
+      // If any element is missing, try to refresh cache
+      if (!homeWork || !homeWorkInMotion || !homeInTheMedia || !footer) {
+        refreshElementCache();
+      }
 
       const components = [
-        { element: homeWorkComponent, theme: "black" },
-        { element: homeWorkInMotionComponent, theme: "white" },
-        { element: homeInTheMediaComponent, theme: "black" },
-        { element: footerComponent, theme: "white" },
+        { element: elementsRef.current.homeWork, theme: "black", name: "home_work" },
+        { element: elementsRef.current.homeWorkInMotion, theme: "white", name: "home_workInMotion" },
+        { element: elementsRef.current.homeInTheMedia, theme: "black", name: "home_inTheMedia" },
+        { element: elementsRef.current.footer, theme: "white", name: "footer" },
       ];
 
-      for (let i = components.length - 1; i >= 0; i--) {
-        const { element, theme } = components[i];
-        const rect = element?.getBoundingClientRect();
-        const top = rect?.top;
-        if (top) {
-          if (top <= 0) {
-            setTheme(theme);
-            return; // Stop checking further elements once a match is found
+      const headerHeight = 100; // Account for header height
+
+      // Check sections from top to bottom with hysteresis
+      for (let i = 0; i < components.length; i++) {
+        const { element, theme: newTheme } = components[i];
+
+        if (element) {
+          const rect = element.getBoundingClientRect();
+
+          // Simplified detection: check if section is in viewport
+          const threshold = currentThemeRef.current === newTheme ? 200 : 150;
+
+          if (rect.top <= threshold && rect.bottom >= headerHeight) {
+            // Calculate how much of the section is visible
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const totalHeight = rect.height;
+            const visibilityRatio = visibleHeight / totalHeight;
+
+            // Lower threshold for better responsiveness (>10% visible)
+            if (visibilityRatio > 0.1) {
+              animateThemeChange(newTheme);
+              return;
+            }
           }
         }
       }
 
-      // Default theme if no match is found
-      setTheme("white");
-    }, 100),
-    [theme, headerScrolledRef]
-  );
+      // Default to white if no section is prominently visible
+      animateThemeChange("white");
+    };
 
+    requestAnimationFrame(checkTheme);
+  }, [animateThemeChange, refreshElementCache]);
+
+  // Optimized scroll handler with throttling
   useEffect(() => {
-    window.addEventListener("scroll", handleChangeColor);
+    let ticking = false;
+
+    const scrollHandler = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleChangeColor();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial call to set theme on mount (with slight delay to ensure DOM is ready)
+    const timer = setTimeout(() => {
+      handleChangeColor();
+    }, 100);
+
+    window.addEventListener("scroll", scrollHandler, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleChangeColor);
-      handleChangeColor.cancel();
+      clearTimeout(timer);
+      window.removeEventListener("scroll", scrollHandler);
+      // Kill any ongoing theme transitions on cleanup
+      if (themeTransitionRef.current) {
+        themeTransitionRef.current.kill();
+      }
     };
-  }, []);
+  }, [handleChangeColor]);
 
   const { contextSafe } = useGSAP(() => {
-    if (ref.current) {
-      const timeline = gsap.timeline({ paused: true, onReverseComplete: () => {
-        ref.current.style.transform = "none"
-      }
-     });
-      timeline.reversed(true);
-  
-      gsap.set("#dropdown_menu", { autoAlpha: 1 });
-  
-      timeline.fromTo(
+    if (ref.current && shouldRenderDropdown && dropdownMenuRef.current) {
+      // Universal easing function - change this to try different easing
+      const universalEasing = "expo.out";
+
+      // Set initial styles immediately to prevent flashing
+      gsap.set(dropdownMenuRef.current, {
+        clipPath: "polygon(0px 0px, 100% 0, 100% 0%, 0px 0)",
+        autoAlpha: 1
+      });
+      gsap.set("#dropdown_menu .wrapper", {
+        autoAlpha: 0.5,
+        scale: 1.3,
+        rotate: -5,
+        y: -400,
+      });
+      gsap.set(".navigation_link", {
+        y: 100,
+        rotate: 6,
+        autoAlpha: 0
+      });
+      gsap.set(".social_link", {
+        y: 100,
+        rotate: 6,
+        autoAlpha: 0
+      });
+      gsap.set(".btn-close .text", {
+        y: 30,
+        rotateX: 10,
+        autoAlpha: 0
+      });
+      gsap.set("#dropdown_menu .left .img", {
+        autoAlpha: 0
+      });
+
+      // Opening animation timeline
+      const openTimeline = gsap.timeline({
+        paused: true,
+        onStart: () => {
+          setIsAnimating(true);
+        },
+        onComplete: () => {
+          setIsAnimating(false);
+          // Refresh ScrollTrigger after menu opens to prevent interference with pinned sections
+          ScrollTrigger.refresh();
+        }
+      });
+
+      openTimeline.fromTo(
         dropdownMenuRef.current,
         {
           clipPath: "polygon(0px 0px, 100% 0, 100% 0%, 0px 0)",
+          // autoAlpha: 0,
         },
         {
           clipPath: "polygon(0px 0px, 100% 0, 100% 115%, 0px 100%)",
-          autoAlpha: 1,
-          duration: 1.5,
-          ease: "expo.inOut",
+          duration: 1.75,
+          // autoAlpha: 1,
+          ease: universalEasing,
         }
       );
-      timeline.to(
+      openTimeline.to(
         ref.current,
         {
-          ease: "expo.inOut",
+          ease: universalEasing,
           rotate: 6,
-          y: 1000,
-          scale: 1.5,
-          duration: 1.5,
+          x: 0,
+          y: 408,
+          scale: 1.3,
+          duration: 1.75,
         },
         "<"
       );
-      timeline.fromTo(
+      openTimeline.fromTo(
         "#dropdown_menu .wrapper",
         {
           autoAlpha: 0.5,
@@ -122,12 +283,12 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           scale: 1,
           rotate: 0,
           y: 0,
-          ease: "expo.inOut",
-          duration: 1.5,
+          ease: universalEasing,
+          duration: 1.75,
         },
         "<"
       );
-      timeline.fromTo(
+      openTimeline.fromTo(
         ".btn-open .text",
         {
           y: 0,
@@ -135,13 +296,13 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         {
           y: -30,
           rotateX: 10,
-          duration: 0.5,
+          duration: 0.3,
           ease: "Sine.in",
         },
         "<"
       );
-  
-      timeline.fromTo(
+
+      openTimeline.fromTo(
         ".btn-open .icon",
         {
           autoAlpha: 1,
@@ -149,11 +310,12 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         {
           autoAlpha: 0,
           ease: "Sine.easeInOut",
+          duration: 0.3,
           onComplete: () => btnOpenRef.current?.classList.remove("z-20"),
         },
         "<"
       );
-      timeline.fromTo(
+      openTimeline.fromTo(
         ".btn-close .text",
         {
           y: 30,
@@ -164,30 +326,35 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           rotateX: 0,
           autoAlpha: 1,
           ease: "Sine.easeInOut",
-          delay: 0.2,
-          onComplete: () => {},
+          duration: 0.4,
+          delay: 0.1,
+          onComplete: () => { },
         },
         "<"
       );
-      timeline.to(
+      openTimeline.fromTo(
         ".btn-close .icon",
+        {
+          autoAlpha: 0,
+        },
         {
           autoAlpha: 1,
           ease: "Sine.easeInOut",
-          delay: 0.3,
+          duration: 0.3,
         },
         "<"
       );
-  
-      timeline.to(
+
+      openTimeline.to(
         "#dropdown_menu .left .img",
         {
           autoAlpha: 1,
+          duration: 0.6,
         },
         "<"
       );
-  
-      timeline.fromTo(
+
+      openTimeline.fromTo(
         ".navigation_link",
         {
           y: 100,
@@ -197,14 +364,15 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           y: 0,
           rotate: 0,
           autoAlpha: 1,
-          stagger: 0.02,
-          delay: 0.4,
+          stagger: 0.05,
+          delay: 0.2,
+          duration: 0.6,
           ease: "power1.out",
         },
         "<"
       );
-  
-      timeline.fromTo(
+
+      openTimeline.fromTo(
         ".social_link",
         {
           y: 100,
@@ -214,33 +382,142 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
           y: 0,
           rotate: 0,
           autoAlpha: 1,
-          stagger: 0.02,
-          delay: 0.2,
+          stagger: 0.03,
+          delay: 0.3,
+          duration: 0.5,
           ease: "power1.out",
         },
         "<"
       );
-  
-      timelineRef.current = timeline;
+
+      // Closing animation timeline
+      const closeTimeline = gsap.timeline({
+        paused: true,
+        onStart: () => {
+          setIsAnimating(true);
+        },
+        onComplete: () => {
+          setIsAnimating(false);
+          ref.current.style.transform = "none";
+          // Remove dropdown from DOM after closing
+          setShouldRenderDropdown(false);
+          // Refresh ScrollTrigger after menu closes to restore proper functionality
+          ScrollTrigger.refresh();
+        }
+      });
+
+      closeTimeline.fromTo(
+        dropdownMenuRef.current,
+        {
+          clipPath: "polygon(0px 0px, 100% 0, 100% 115%, 0px 100%)",
+        },
+        {
+          clipPath: "polygon(0px 0px, 100% 0, 100% 0%, 0px 0)",
+          duration: 1.4,
+          height: 0,
+          // immediateRender: false,
+          ease: universalEasing,
+        }
+      )
+
+      closeTimeline.to(ref.current,
+        {
+          ease: universalEasing,
+          duration: 1.4,
+          rotate: 0,
+          x: 0,
+          y: 0,
+          scale: 1,
+        },
+        "<"
+      )
+
+      closeTimeline.to(
+        "#dropdown_menu .wrapper",
+        {
+          y: -400,
+          rotate: -5,
+          scale: 1.3,
+          duration: 1.4,
+          autoAlpha: 0.5,
+          ease: universalEasing,
+        },
+        "<"
+      );
+
+      closeTimeline.fromTo(".btn-close .text",
+        {
+          y: 0,
+        },
+        {
+          y: -30,
+          rotateX: 10,
+          duration: 0.3,
+          ease: "Sine.in",
+        },
+        "<0.5"
+      )
+
+      closeTimeline.fromTo(".btn-close .icon",
+        {
+          autoAlpha: 1,
+        },
+        {
+          autoAlpha: 0,
+          duration: 0.3,
+          ease: "Sine.easeInOut",
+        },
+        "<"
+      )
+
+      closeTimeline.to(".btn-open .icon",
+        {
+          autoAlpha: 1,
+          delay: 0.15,
+          duration: 0.3,
+          ease: "Sine.easeInOut",
+        },
+        "<"
+      )
+
+      // Store both timelines
+      timelineRef.current = { open: openTimeline, close: closeTimeline };
+
+      // Auto-start open animation if menu should be open
+      if (isMenuOpen && !isAnimating) {
+        openTimeline.restart();
+      }
     }
 
-  }, { scope: headerScrolledRef, dependencies: [ref.current] })
+  }, { scope: headerScrolledRef, dependencies: [ref.current, shouldRenderDropdown] })
 
   const toggleAnimation: any = contextSafe(() => {
-    if (timelineRef.current) {
-      timelineRef.current.reversed()
-        ? timelineRef.current.play()
-        : timelineRef.current.reverse();
+    // Prevent starting new animations if one is currently running
+    if (isAnimating) {
+      return;
+    }
+
+    if (isMenuOpen) {
+      // Close the menu with close animation
+      if (timelineRef.current?.close) {
+        timelineRef.current.close.restart();
+        setIsMenuOpen(false);
+      }
+    } else {
+      // Open the menu with open animation
+      setShouldRenderDropdown(true); // Render dropdown before opening
+      setIsMenuOpen(true);
+      // Refresh ScrollTrigger before opening to ensure proper calculations
+      ScrollTrigger.refresh();
     }
   });
 
-  // Reverse the menu when navigating between pages
+  // Close the menu when navigating between pages
   useEffect(() => {
-    if (timelineRef.current) {
-      console.log(timelineRef.current)
-      //   timelineRef.current.timeScale(2.5);
+    if (timelineRef.current?.close && isMenuOpen && !isAnimating) {
       setTimeout(() => {
-          timelineRef.current.reverse();
+        timelineRef.current.close.restart();
+        setIsMenuOpen(false);
       }, 200)
     }
   }, [pathName]);
@@ -250,11 +527,11 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
       <div
         ref={headerScrolledRef}
         id="navigation_header--scrolled"
-        className={`fixed z-50 flex flex-row justify-between items-center w-screen lg:w-full px-5 lg:px-16 py-5 lg:py-8 ${
-          isActive ? "active" : ""
-        }`}
+        className={`fixed z-50 flex flex-row justify-between items-center w-screen lg:w-full px-5 lg:px-16 py-5 lg:py-8 ${isActive ? "active" : ""
+          }`}
       >
         <div className="relative h-16 w-16">
+          {/* Monkey logo */}
           <Link href="/">
             <svg
               viewBox="0 0 64 66"
@@ -283,139 +560,131 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
             </svg>
           </Link>
         </div>
-        <div className="menu relative overflow-hidden z-50">
+        <div className="menu relative z-50">
           <button
             ref={btnOpenRef}
-            className="relative flex flex-row space-x-4 open z-20 btn-open"
+            className="relative flex flex-row space-x-4 open z-20 btn-open rounded-full hover:bg-black/10 p-4 transition-all duration-300"
             onClick={toggleAnimation}
           >
-            <span
-              className={`text text-sm ${
-                theme === "white" ? "text-white" : "text-black"
-              }`}
-            >
-              Menu
-            </span>
-            <Bars3BottomRightIcon
-              className={`icon h-5 w-5 ${
-                theme === "white" ? "text-white" : "text-black"
-              }`}
-            />
+            <MenuIcon className={`icon h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7 ${theme === "white" ? "text-white" : "text-black"
+              }`} />
           </button>
           <button
             ref={btnCloseRef}
-            className="flex flex-row space-x-4 absolute top-0 left-0 close z-10 btn-close"
+            className="flex flex-row items-center space-x-4 absolute top-0 left-0 close z-10 btn-close overflow-hidden"
             onClick={toggleAnimation}
           >
-            <span className={`text text-sm text-white`}>Close</span>
-            <XMarkIcon className={`icon h-5 w-5 text-white`} />
+            <span className={`text text-sm lg:text-base xl:text-lg text-white`}>Close</span>
+            <XMarkIcon className={`icon h-5 w-5 text-white`} style={{ opacity: 0 }} />
           </button>
         </div>
-        <div
-          id="dropdown_menu"
-          ref={dropdownMenuRef}
-          className="fixed top-0 left-0 h-screen w-screen bg-black"
-        >
-          <div className="wrapper flex pl-16 lg:pl-0 lg:justify-center items-center h-full lg:space-x-72">
-            <div className="left hidden lg:block">
-              <div ref={dropdownMenuImgRef} className="relative img">
-                <Image
-                  fill
-                  src="/assets/img/contact-3.webp"
-                  alt="Dropdown image 1"
-                />
+        {shouldRenderDropdown && (
+          <div
+            id="dropdown_menu"
+            ref={dropdownMenuRef}
+            className="fixed top-0 left-0 h-screen w-screen bg-black"
+          >
+            <div className="wrapper flex pl-16 lg:pl-0 lg:justify-center items-center h-full lg:space-x-72">
+              <div className="left hidden lg:block">
+                <div ref={dropdownMenuImgRef} className="relative img">
+                  <Image
+                    fill
+                    src="/assets/img/contact-3.webp"
+                    alt="Dropdown image 1"
+                  />
+                </div>
+              </div>
+              <div className="right lg:pl-20">
+                <ul className="navigation flex flex-col -space-y-3">
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="navigation_link overflow-hidden">
+                      <Link
+                        href="/work"
+                        className={`underline-effect font-poppins leading-none`}
+                        scroll={false}
+                        replace
+                      >
+                        Work
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="navigation_link overflow-hidden">
+                      <Link
+                        href="/work/test1"
+                        className={`underline-effect font-poppins leading-none`}
+                      >
+                        Studio
+                      </Link>
+                    </div>{" "}
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="navigation_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`underline-effect font-poppins leading-none`}
+                      >
+                        News
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="navigation_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`underline-effect font-poppins`}
+                      >
+                        Contact
+                      </Link>
+                    </div>
+                  </div>
+                </ul>
+                <ul className="social flex flex-col pt-5 space-y-1">
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="social_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`social_link link underline-effect font-nunito`}
+                      >
+                        Behance
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="social_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`social_link link underline-effect font-nunito`}
+                      >
+                        Dribble
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="social_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`social_link link underline-effect font-nunito`}
+                      >
+                        Twitter
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="link_wrapper overflow-hidden">
+                    <div className="social_link overflow-hidden">
+                      <Link
+                        href="#"
+                        className={`social_link link underline-effect font-nunito`}
+                      >
+                        Instagram
+                      </Link>
+                    </div>
+                  </div>
+                </ul>
               </div>
             </div>
-            <div className="right lg:pl-20">
-              <ul className="navigation flex flex-col -space-y-3">
-                <div className="link_wrapper overflow-hidden">
-                  <div className="navigation_link overflow-hidden">
-                    <Link
-                      href="/work"
-                      className={`underline-effect ${headingFont.className}`}
-                      scroll={false}
-                      replace
-                    >
-                      Work
-                    </Link>
-                  </div>
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="navigation_link overflow-hidden">
-                    <Link
-                      href="/work/test1"
-                      className={`underline-effect ${headingFont.className}`}
-                    >
-                      Studio
-                    </Link>
-                  </div>{" "}
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="navigation_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`underline-effect ${headingFont.className}`}
-                    >
-                      News
-                    </Link>
-                  </div>
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="navigation_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`underline-effect ${headingFont.className}`}
-                    >
-                      Contact
-                    </Link>
-                  </div>
-                </div>
-              </ul>
-              <ul className="social flex flex-col pt-5 space-y-1">
-                <div className="link_wrapper overflow-hidden">
-                  <div className="social_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`social_link link underline-effect ${headingFont.className}`}
-                    >
-                      Behance
-                    </Link>
-                  </div>
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="social_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`social_link link underline-effect ${headingFont.className}`}
-                    >
-                      Dribble
-                    </Link>
-                  </div>
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="social_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`social_link link underline-effect ${headingFont.className}`}
-                    >
-                      Twitter
-                    </Link>
-                  </div>
-                </div>
-                <div className="link_wrapper overflow-hidden">
-                  <div className="social_link overflow-hidden">
-                    <Link
-                      href="#"
-                      className={`social_link link underline-effect ${headingFont.className}`}
-                    >
-                      Instagram
-                    </Link>
-                  </div>
-                </div>
-              </ul>
-            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

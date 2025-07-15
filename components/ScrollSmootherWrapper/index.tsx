@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import gsap from "@/utils/gsap";
 
 gsap.registerPlugin(ScrollSmoother);

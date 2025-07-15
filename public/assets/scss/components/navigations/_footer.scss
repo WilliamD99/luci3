@@ -10,14 +10,16 @@
     .wrapper {
         margin: 0 8.3vw;
         display: grid;
-        grid-template-columns: repeat(12, 1fr);
+        // grid-template-columns: repeat(12, 1fr);
         z-index: 2;
+
         .title-wrapper {
             grid-column: 1/10;
 
             @include xl {
                 grid-column: 1/6;
             }
+
             .title {
                 font-size: 54px;
 
@@ -26,16 +28,19 @@
                 }
             }
         }
+
         .sub-title {
             // order: 2;
             grid-column: 1/11;
             font-size: 18px;
+
             @include xl {
                 grid-column: 1/6;
                 max-width: 25vw;
                 font-size: 24px;
             }
         }
+
         .divider {
             grid-column: 1/13;
             margin: 4vw 0;
@@ -43,9 +48,11 @@
             width: 100%;
             background: #e0ccbb;
         }
+
         .address {
             grid-column: 1/4;
         }
+
         .nav {
             grid-column: 1/5;
 
@@ -53,6 +60,7 @@
                 grid-column: 4/6;
             }
         }
+
         .social {
             grid-column: 6/11;
 
@@ -60,7 +68,9 @@
                 grid-column: 6/9;
             }
         }
-        .address, .nav {
+
+        .address,
+        .nav {
             .item {
                 a {
                     &::before {
@@ -85,11 +95,14 @@
             top: -15vw;
             right: -3vw;
         }
+
         video {
             object-fit: contain;
         }
     }
-    p, a {
+
+    p,
+    a {
         color: #e0ccbb;
     }
 }

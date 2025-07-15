@@ -1,12 +1,15 @@
 #home-page {
   #navigation_header {
+
     .home-link,
     .nav_link {
       color: #fff;
     }
   }
+
   #home {
     min-height: 100vh;
+
     &_hero {
       height: 160vh;
 
@@ -21,14 +24,16 @@
       }
 
       @include lg {
-        height: 120.66667vw;
+        height: 130.66667vw;
       }
+
       @include xl2 {
         height: 120vw;
       }
 
       .hero_background {
         object-fit: cover;
+
         @include lg {
           object-position: 50% 0;
         }
@@ -37,8 +42,15 @@
       .text {
         position: absolute;
         padding-right: 50px;
+
         @include lg {
-          padding-left: 150px;
+          padding-left: 100px;
+        }
+
+        @include xl2 {
+          padding-left: 200px;
+          padding-right: 150px;
+
         }
       }
 
@@ -46,15 +58,24 @@
         top: 55vh;
 
         @include lg {
-          // padding-top: 50vh;
-          max-width: 45vw;
+          top: 70vh;
+          max-width: 65vw;
+        }
+
+        @include xl2 {
+          top: 45vw;
         }
       }
+
       .text-2 {
         top: 70vh;
 
         @include lg {
-          padding-top: 5vh;
+          top: 110vh // padding-top: 5vh;
+        }
+
+        @include xl2 {
+          top: 70vh;
         }
 
         .title {
@@ -67,29 +88,40 @@
           @include lg {
             font-size: 230px;
             line-height: 16rem;
+
             &:not(:first-child) {
               margin-top: -100px;
             }
           }
         }
       }
+
       .text-3 {
         top: 100vh;
+
         @include lg {
+          max-width: 65vw;
+          top: 275vh;
+        }
+
+        @include xl2 {
+          top: 200vh;
           max-width: 45vw;
-          top: 175vh;
         }
       }
 
       .text-4 {
         padding-top: 8vh;
+
         a {
           width: fit-content;
         }
+
         bottom: 10vh;
         width: 100%;
       }
     }
+
     &_work {
       padding-top: 50px;
       padding-bottom: 50px;
@@ -98,8 +130,10 @@
         padding-top: 20vh;
         padding-bottom: 20vh;
       }
+
       .wrapper {
         padding: 0 10vw;
+
         .title.title-main {
           font-size: 54px;
           display: inline-block;
@@ -108,16 +142,18 @@
           @include lg {
             font-size: 200px;
             line-height: 150px;
-            margin-bottom: 50px;
           }
         }
+
         .projects {
           display: flex;
           flex-direction: column;
+
           @include lg {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
           }
+
           .project {
             .img {
               z-index: 2;
@@ -127,6 +163,7 @@
                 display: block;
               }
             }
+
             .video {
               z-index: 1;
               height: 100%;
@@ -160,9 +197,11 @@
                   visibility: hidden;
                 }
               }
+
               strong {
                 color: #0d0e13;
                 margin-right: 5px;
+
                 @include lg {
                   &::after {
                     content: " —";
@@ -178,16 +217,20 @@
               @include lg {
                 height: 50vw;
               }
+
               &:hover {
                 .img {
                   visibility: hidden;
                 }
               }
             }
+
             &:nth-child(2) {
               grid-column: 9/13;
+
               .project-container {
                 height: 100vw;
+
                 &:hover {
                   .img {
                     visibility: hidden;
@@ -199,20 +242,24 @@
                 }
               }
             }
+
             &:nth-child(3) {
               margin-top: 20vh;
               grid-column: 6/11;
               height: 40vw;
+
               &:hover {
                 .img {
                   visibility: hidden;
                 }
               }
             }
+
             &:nth-child(4) {
               grid-column: 2/5;
               height: 23vw;
               margin-top: -10vw;
+
               &:hover {
                 .img {
                   visibility: hidden;
@@ -223,6 +270,7 @@
         }
       }
     }
+
     &_workInMotion {
       position: relative;
       height: 100vh;
@@ -232,10 +280,12 @@
       @include xl {
         padding: 75px 0;
       }
+
       p,
       svg {
         color: #e4e0db;
       }
+
       .videoWrapper {
         z-index: 1;
         position: absolute;
@@ -281,14 +331,17 @@
         }
       }
     }
+
     &_inTheMedia {
       padding: 100px 0;
 
       @include xl {
         padding: 200px 0;
       }
+
       #mediaWrapper {
         height: 60vw;
+
         .media-1 {
           position: absolute;
           height: 55vw;
@@ -301,6 +354,7 @@
             width: 25vw;
           }
         }
+
         .media-2 {
           position: absolute;
           height: 17vw;
@@ -308,6 +362,7 @@
           left: 55%;
           top: 10%;
         }
+
         .media-3 {
           position: absolute;
           height: 14vw;
@@ -315,6 +370,7 @@
           top: 25%;
           left: 20%;
         }
+
         .media-4 {
           position: absolute;
           width: 26vw;
@@ -322,6 +378,7 @@
           top: 70%;
           left: 15%;
         }
+
         .media-5 {
           position: absolute;
           width: 26vw;
@@ -330,9 +387,11 @@
           left: 60%;
         }
       }
+
       p {
         color: #0d0e13;
       }
+
       .title {
         font-size: 72px;
 
@@ -341,16 +400,19 @@
           font-weight: 500;
         }
       }
+
       .sub-title {
         // max-width: 40vw;
         padding: 0 40px;
         font-size: 18px;
+
         @include xl {
           padding: 0;
           max-width: 40vw;
           font-size: 32px;
         }
       }
+
       .btn {
         position: relative;
         display: inline-flex;
@@ -360,24 +422,29 @@
           .circle {
             clip-path: circle(50% at 50% 50%);
             background: black;
+
             .circle-icon {
               opacity: 1;
               transform: translate(50%, 0);
               transition-delay: 0;
             }
+
             .circle-outline {
               stroke: none;
               opacity: 0;
             }
           }
+
           .label {
             transform: translate(20px, 0);
+
             .border {
               width: 0;
               border-width: 0;
             }
           }
         }
+
         .circle {
           position: absolute;
           top: -0.6vw;
@@ -405,6 +472,7 @@
             z-index: 1;
             will-change: transform;
           }
+
           .circle-outline {
             position: absolute;
             overflow: visible;
@@ -414,6 +482,7 @@
             stroke: black;
             transition: 0.5s ease;
           }
+
           .circle-icon {
             position: absolute;
             top: 0;
@@ -433,6 +502,7 @@
             transform: translate(-100%, 0);
           }
         }
+
         .label {
           position: relative;
           font-size: 18px;

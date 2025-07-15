@@ -1,10 +1,22 @@
-#work-page {
+.work-detail {
   #navigation_header {
+
     .home-link,
     .nav_link {
       color: #fff;
     }
   }
+}
+
+#work-page {
+  #navigation_header {
+
+    .home-link,
+    .nav_link {
+      color: #fff;
+    }
+  }
+
   #work {
     // display: grid;
     // grid-template-areas: 'main';
@@ -17,6 +29,7 @@
     .slider {
       &.slider--bg {
         z-index: 1;
+
         .slider__item {
           &-inner {
             transform: scale(1.2);
@@ -24,6 +37,7 @@
           }
         }
       }
+
       &.slider--fg {
         position: absolute;
         width: 20vw;
@@ -35,6 +49,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
       grid-area: main;
       position: relative;
       overflow: hidden;
@@ -80,15 +95,18 @@
         }
       }
     }
+
     .index {
       // visibility: hidden;
       // opacity: 0;
       // transition: opacity 5.5s ease;
     }
+
     .slider-content {
       @include lg {
         max-width: 350px;
       }
+
       &--title {
         p {
           font-size: 28px;
@@ -100,6 +118,7 @@
           }
         }
       }
+
       &--subTitle {
         p {
           font-size: 16px;

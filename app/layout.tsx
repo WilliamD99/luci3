@@ -2,11 +2,24 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "@/public/assets/scss/index.css";
 import LayoutClient from "./layoutClient";
+import { Poppins, Nunito } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: "Luci3",
   description: "Luci3 - Website Template by Will Doan",
 };
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins'
+})
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-nunito'
+})
 
 export default function RootLayout({
   children,
@@ -14,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${poppins.variable} ${nunito.variable}`}>
       <LayoutClient children={children} />
     </html>
   );

@@ -1,6 +1,7 @@
+'use client'
 import React, { useRef } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap-trial';
+import gsap from 'gsap';
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import HoverButton from '@/components/HoverButton';
 import headingFont from '@/utils/fonts/heading';
@@ -88,20 +89,20 @@ export default function InTheMedia() {
                         </video>
                     </div>
                 </div>
-                <div className='pt-20'>
+                <div className='pt-44'>
                     <div className='flex flex-row items-center justify-center space-x-2'>
-                        <SparklesIcon className='h-5 w-5'/>
-                        <p>In the media</p>
+                        <SparklesIcon className='h-4 w-4' />
+                        <p className='font-nunito text-lg'>In the media</p>
                     </div>
-                    <div className='mt-10 flex flex-col justify-center w-full'>
-                        <p className={`text-center title ${headingFont.className}`}>Spread</p>
-                        <p className={`text-center title -mt-8 lg:-mt-20 ${headingFont.className}`}>the News</p>
+                    <div className='mt-1 flex flex-col justify-center w-full space-y-6'>
+                        <p className={`text-center leading-none text-[10rem] 2xl:text-[15rem] font-poppins`}>Spread</p>
+                        <p className={`text-center leading-none text-[10rem] 2xl:text-[15rem] font-poppins`}>the News</p>
                     </div>
                     <div className='flex justify-center mt-10'>
-                        <p className='text-center sub-title'>Find out more about our work on these leading design and technology platforms.</p>
+                        <p className='text-center text-2xl max-w-xl font-nunito'>Find out more about our work on these leading design and technology platforms.</p>
                     </div>
                     <div className='flex justify-center mt-10 lg:mt-20'>
-                        <HoverButton label='Browse all news' href='#'/>
+                        <HoverButton label='Browse all news' href='#' />
                     </div>
                 </div>
             </div>

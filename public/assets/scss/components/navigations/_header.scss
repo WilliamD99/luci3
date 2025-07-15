@@ -17,7 +17,7 @@
 #navigation_header--scrolled {
     z-index: 1001;
     transition: 0.5s ease;
-    
+
     @include lg {
         opacity: 0;
         visibility: hidden;
@@ -31,11 +31,13 @@
     .menu {
         z-index: 1001;
         transition: color 0.5s ease;
-        .open {
 
-        }
+        .open {}
+
         .close {
-            .text, .icon {
+
+            .text,
+            .icon {
                 visibility: hidden;
                 opacity: 0;
             }
@@ -45,8 +47,9 @@
 
 #dropdown_menu {
     z-index: 1000;
-    visibility: hidden;
-    opacity: 0;
+
+    // visibility: hidden;
+    // opacity: 0;
     &.active {
         z-index: 1000;
     }
@@ -67,24 +70,30 @@
                 width: fit-content;
                 visibility: hidden;
                 opacity: 0;
+
                 &:not(:first-child) {
                     margin-top: -10px;
                 }
 
                 @include lg {
+                    font-size: 48px;
+                }
+
+                @include xl2 {
                     font-size: 64px;
                 }
             }
         }
+
         .social {
             &_link {
-                
-                color: rgba(228,224,219,0.6);
+
+                color: rgba(228, 224, 219, 0.6);
                 font-size: 20px;
                 width: fit-content;
                 visibility: hidden;
                 opacity: 0;
-                
+
             }
         }
     }

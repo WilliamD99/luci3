@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap-trial'
+import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 export default function Project4() {
@@ -12,15 +12,15 @@ export default function Project4() {
     let { contextSafe } = useGSAP(() => {
         let animation = gsap.timeline({ paused: true })
         animation.reversed(true)
-        
+
         gsap.set(titleRef.current, { autoAlpha: 1 })
 
         animation.fromTo(
             titleRef.current, {
-                y: 50,
-            }, {
-                y: 0
-            }
+            y: 50,
+        }, {
+            y: 0
+        }
         )
 
         animationRef.current = animation
@@ -46,12 +46,12 @@ export default function Project4() {
     return (
         <>
             <div id="project4" className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                <Image className='img' fill src="/assets/img/the-st-regis-venice-hero.webp" alt='Project 1'/>
+                <Image className='img' fill src="/assets/img/the-st-regis-venice-hero.webp" alt='Project 1' />
                 <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
-                        <source src='/assets/video/hover-st-regis.mp4' type='video/mp4'/>
+                    <source src='/assets/video/hover-st-regis.mp4' type='video/mp4' />
                 </video>
                 <div className='title relative'>
-                    <p ref={titleRef} className='relative overflow-hidden'>
+                    <p ref={titleRef} className='relative overflow-hidden font-poppins'>
                         <strong>The St. Regis Venice</strong>
                         Elegant one-page solution
                     </p>

@@ -1,4 +1,3 @@
-"use client";
 import Hero from "@/components/page-components/home/Hero/Hero";
 
 // const Hero = dynamic(() => import('@/components/page-components/home/Hero/desktop'), { ssr: false })
@@ -9,15 +8,12 @@ import Work from "@/components/page-components/home/Work";
 import WorkInMotion from "@/components/page-components/home/WorkInMotion";
 
 export default function Home() {
-
   return (
-    <>
-      <main id="home" className="relative">
-        <Hero />
-        <Work />
-        <WorkInMotion />
-        <InTheMedia />
-      </main>
-    </>
+    <main id="home" className="relative">
+      <Hero />
+      <Work />
+      <WorkInMotion />
+      <InTheMedia />
+    </main>
   );
 }

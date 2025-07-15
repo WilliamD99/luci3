@@ -8,7 +8,7 @@ interface HoverButton {
 
 function HoverButton({ label, href }: HoverButton, ref: any) {
   return (
-    <Link ref={ref} href={href} className="hover-btn">
+    <Link ref={ref} href={href} className="hover-btn font-nunito font-medium">
       <div className="circle">
         <div className="circle-fill" style={{ transform: "scale(0, 0)" }}></div>
         <svg

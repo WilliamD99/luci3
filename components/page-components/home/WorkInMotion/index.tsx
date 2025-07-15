@@ -1,7 +1,7 @@
+'use client'
 import React, { useRef } from "react";
 import { SparklesIcon } from "@heroicons/react/24/solid";
-import gsap from "gsap-trial";
-import headingFont from "@/utils/fonts/heading";
+import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function WorkInMotion() {
@@ -60,19 +60,19 @@ export default function WorkInMotion() {
         className="flex flex-col items-center justify-between"
       >
         <div className="top flex flex-row items-center space-x-3 z-10">
-          <SparklesIcon className="h-5 w-5 " />
-          <p className="">Work in motion</p>
+          <SparklesIcon className="h-4 w-4 " />
+          <p className="font-nunito">Work in motion</p>
         </div>
         <div className="center z-10 flex justify-between space-x-5 ">
-          <p className={`${headingFont.className}`} ref={text1Ref}>
+          <p className={`font-poppins`} ref={text1Ref}>
             Play
           </p>
-          <p className={`${headingFont.className}`} ref={text2Ref}>
+          <p className={`font-poppins`} ref={text2Ref}>
             Reel
           </p>
         </div>
         <div className="bottom z-10">
-          <p className="max-w-sm text-center text-sm lg:text-base px-5">
+          <p className="max-w-sm text-center text-sm lg:text-base px-5 font-nunito">
             Our work is best experienced in motion. Don't forget to put on your
             headphones
           </p>

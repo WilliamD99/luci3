@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import gsap from "gsap-trial";
+import gsap from "gsap";
 import { debounce } from "lodash";
 
-export interface ICursorFollowerProps {}
+export interface ICursorFollowerProps { }
 
 export default function CursorFollower(props: ICursorFollowerProps) {
   const [isMouseOver, setMouseOver] = React.useState<boolean>(false)
@@ -35,7 +35,7 @@ export default function CursorFollower(props: ICursorFollowerProps) {
         setMouseOver(true)
       }
     } else {
-        setMouseOver(false)
+      setMouseOver(false)
     }
   }, 100), [followerRef, isMouseOver])
 
