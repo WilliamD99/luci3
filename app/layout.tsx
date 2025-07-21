@@ -29,7 +29,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${poppins.variable} ${nunito.variable}`}>
-      <LayoutClient children={children} />
+      <LayoutClient>
+        {children}
+      </LayoutClient>
     </html>
   );
 }
