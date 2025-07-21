@@ -9,7 +9,7 @@ import { ArrowDown } from 'lucide-react'
 type Props = {}
 
 // Move WorkArr outside component to prevent recreation on every render
-export const WorkArr = [
+const WorkArr = [
     {
         image: "/assets/img/home-news-4.webp",
         title: "Pixelflakes",
