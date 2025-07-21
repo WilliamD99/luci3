@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import headingFont from "@/utils/fonts/heading";
 import gsap from "@/utils/gsap";
 import { useGSAP } from "@gsap/react";
 
