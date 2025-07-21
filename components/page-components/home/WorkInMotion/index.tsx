@@ -109,7 +109,7 @@ export default function WorkInMotion() {
     <div
       ref={containerRef}
       id="home_workInMotion"
-      className="flex flex-col items-center justify-between h-[91vh] lg:h-screen"
+      className="flex flex-col items-center justify-between h-screen"
     >
       <div className="top flex flex-row items-center space-x-3 z-10">
         <SparklesIcon className="h-4 w-4 " />
