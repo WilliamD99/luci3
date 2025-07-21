@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import headingFont from '@/utils/fonts/heading'
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
@@ -159,7 +158,7 @@ export default function WorkObjective({ project }: Props) {
                 <div className='wrapper overflow-hidden'>
                     <div className='title'>
                         {content.titleWords.map((word, index) => (
-                            <p key={index} className={`${headingFont.className}`}>{word}</p>
+                            <p key={index} className={`font-poppins`}>{word}</p>
                         ))}
                     </div>
                     <div className='sub flex flex-row items-start'>

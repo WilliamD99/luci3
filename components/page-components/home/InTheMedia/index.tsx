@@ -4,7 +4,6 @@ import Image from 'next/image'
 import gsap from 'gsap';
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import HoverButton from '@/components/HoverButton';
-import headingFont from '@/utils/fonts/heading';
 import { useGSAP } from '@gsap/react';
 import { getCookie } from 'cookies-next'
 

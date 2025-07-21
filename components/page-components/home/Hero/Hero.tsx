@@ -1,8 +1,7 @@
 "use client"
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import gsap from "@/utils/gsap";
-import headingFont from "@/utils/fonts/heading";
 import { useGSAP } from "@gsap/react";
 import { ArrowDown } from "lucide-react";
 
@@ -167,13 +166,13 @@ export default function Hero() {
         </div>
         <div className="text-2 text z-10 pl-6 lg:pl-20">
           <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Digital</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Digital</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Design</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Design</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Experience</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Experience</span>
           </div>
           {/* Arrow on mobile */}
           <div className="flex md:hidden mt-6">

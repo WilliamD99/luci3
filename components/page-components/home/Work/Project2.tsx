@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import Image from 'next/image'
 import { SparklesIcon } from '@heroicons/react/24/solid'
-import headingFont from '@/utils/fonts/heading'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 

@@ -3,7 +3,6 @@
 import Marquee from "@/components/Marquee";
 import React from "react";
 import Image from "next/image";
-import headingFont from "@/utils/fonts/heading";
 import Link from "next/link";
 import HoverButton from "@/components/HoverButton";
 
@@ -17,20 +16,20 @@ export default function ContactPage() {
         <div className="marquee w-screen">
           <Marquee id="contact-mrq" itemsPerView={3} fill>
             <div className="relative w-full flex flex-row items-center justify-evenly text-container">
-              <p className={`text-left ${headingFont.className}`}>
+              <p className={`text-left font-poppins`}>
                 Get in touch
               </p>
             </div>
             <div className="relative w-full flex flex-row items-center justify-evenly text-container">
-              <p className={`text-left ${headingFont.className}`}>
+              <p className={`text-left font-poppins`}>
                 Ponerse en contacto
               </p>
             </div>
             <div className="relative w-full flex flex-row items-center justify-evenly text-container">
-              <p className={`text-left ${headingFont.className}`}>保持联系</p>
+              <p className={`text-left font-poppins`}>保持联系</p>
             </div>
             <div className="relative w-full flex flex-row items-center justify-evenly text-container">
-              <p className={`text-left ${headingFont.className}`}>
+              <p className={`text-left font-poppins`}>
                 Neem contact op
               </p>
             </div>

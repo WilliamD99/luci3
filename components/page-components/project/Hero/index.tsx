@@ -2,7 +2,6 @@ import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
 import HoverButton from '@/components/HoverButton'
-import headingFont from '@/utils/fonts/heading'
 import gsap from '@/utils/gsap'
 
 type ProjectData = {
@@ -54,7 +53,7 @@ export default function WorkHero({ project }: Props) {
                 <div className='project-content'>
                     <div className='content-title'>
                         <div className='overflow-hidden'>
-                            <p ref={titleRef} className={`title text-white ${headingFont.className}`}>{project.title}</p>
+                            <p ref={titleRef} className={`title text-white font-poppins`}>{project.title}</p>
                         </div>
                         <div className='flex flex-row justify-between items-center'>
                             <p ref={subTitleRef} className='text-white text-lg sub-title'>{project.subTitle}</p>
