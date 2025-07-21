@@ -111,8 +111,9 @@ const Work = (props: Props) => {
         setIsSliderAnimating(isAnimating)
     }, [])
 
+
     return (
-        <div id="work" className='min-h-screen relative cursor-pointer' onClick={navigatePage}>
+        <div id="work" className='relative cursor-pointer' onClick={navigatePage}>
             {/* Background */}
             <Slider
                 disabled={isTransitioning}
@@ -131,7 +132,7 @@ const Work = (props: Props) => {
                 items={WorkArr}
                 reversed={true}
             />
-            <div className='absolute bottom-20 left-20 w-fit z-50 flex flex-row items-center space-x-2 overflow-hidden h-6'>
+            <div className='absolute hidden bottom-20 left-20 w-fit z-50 lg:flex flex-row items-center space-x-2 overflow-hidden h-6'>
                 <p className='text-white font-nunito text-sm'>Scroll</p>
                 <div className='relative h-4 w-4'>
                     <ArrowDown

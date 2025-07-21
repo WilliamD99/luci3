@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import HeaderScrolled from "./HeaderScrolled";
 import { Poppins, Nunito } from 'next/font/google';
+import TransitionLink from "@/components/ViewTransitionLink";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -68,34 +69,34 @@ function Header({ }, ref: any) {
         className={`fixed z-50 flex flex-row justify-between items-center w-full px-16 py-8 ${isHeaderActive ? "active" : ""
           }`}
       >
-        <Link href="/" className="text-2xl home-link">
+        <TransitionLink href="/" className="text-2xl home-link">
           Luci3
-        </Link>
+        </TransitionLink>
         <div className="flex flex-row space-x-10">
-          <Link
+          <TransitionLink
             className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
             href="/work"
           >
             Work
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
-            href="/"
+            href="/test"
           >
             Studio
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
             href="#"
           >
             News
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
             href="/contact"
           >
             Contact
-          </Link>
+          </TransitionLink>
         </div>
       </div>
       <HeaderScrolled ref={ref} isActive={isHeaderScrolledActive} />

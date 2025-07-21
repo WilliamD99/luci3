@@ -15,7 +15,7 @@
 
       .background {
         background: url("/assets/img/home_hero.webp");
-        background-position: 50% 50%;
+        // background-position: 50% 50%;
         background-size: cover;
         background-repeat: no-repeat;
         // background-attachment: fixed;
@@ -55,7 +55,7 @@
       }
 
       .text-1 {
-        top: 55vh;
+        top: 45vh;
 
         @include lg {
           top: 70vh;
@@ -63,12 +63,13 @@
         }
 
         @include xl2 {
-          top: 45vw;
+          top: 55vh;
+          max-width: 1200px;
         }
       }
 
       .text-2 {
-        top: 70vh;
+        top: 65vh;
 
         @include lg {
           top: 110vh // padding-top: 5vh;
@@ -78,26 +79,10 @@
           top: 70vh;
         }
 
-        .title {
-          font-size: 54px;
-          margin: 0;
-          font-weight: 400;
-          display: inline-block;
-          line-height: 60px;
-
-          @include lg {
-            font-size: 230px;
-            line-height: 16rem;
-
-            &:not(:first-child) {
-              margin-top: -100px;
-            }
-          }
-        }
       }
 
       .text-3 {
-        top: 100vh;
+        top: 110vh;
 
         @include lg {
           max-width: 65vw;
@@ -105,7 +90,7 @@
         }
 
         @include xl2 {
-          top: 200vh;
+          top: 175vh;
           max-width: 45vw;
         }
       }
@@ -135,12 +120,12 @@
         padding: 0 10vw;
 
         .title.title-main {
-          font-size: 54px;
+          // font-size: 54px;
           display: inline-block;
           line-height: 100px;
 
           @include lg {
-            font-size: 200px;
+            // font-size: 200px;
             line-height: 150px;
           }
         }
@@ -273,7 +258,6 @@
 
     &_workInMotion {
       position: relative;
-      height: 100vh;
       background-color: #0d0e13;
       padding: 90px 0 30px 0;
 

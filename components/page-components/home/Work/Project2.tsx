@@ -49,7 +49,7 @@ export default function Project2() {
             <div className='project'>
                 <div className='hidden lg:flex flex-row space-x-2 items-center'>
                     <SparklesIcon className='h-4 w-4' />
-                    <p className={`text-lg font-nunito`}>Featured Projects</p>
+                    <p className={`text-lg xl2:text-3xl font-bold font-nunito`}>Featured Projects</p>
                 </div>
                 <p className='mt-20 text-sm hidden lg:block font-nunito'>Highlights of cases that we passionately built with forward-thinking clients and friends over the year</p>
 

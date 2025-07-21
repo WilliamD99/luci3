@@ -1,16 +1,16 @@
 "use client";
 
-import * as React from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { debounce } from "lodash";
 
 export interface ICursorFollowerProps { }
 
 export default function CursorFollower(props: ICursorFollowerProps) {
-  const [isMouseOver, setMouseOver] = React.useState<boolean>(false)
-  const followerRef = React.useRef<HTMLDivElement>(null);
+  const [isMouseOver, setMouseOver] = useState<boolean>(false)
+  const followerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseOver = React.useCallback(debounce((e: any, xTo: any, yTo: any) => {
+  const handleMouseOver = useCallback(debounce((e: any, xTo: any, yTo: any) => {
     let { clientX, clientY } = e;
 
     let parents = [
@@ -48,7 +48,7 @@ export default function CursorFollower(props: ICursorFollowerProps) {
     [followerRef]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     let xTo = gsap.quickTo(followerRef.current, "x", {
       duration: 0.4,
       ease: "power3",

@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@barba/core": "^2.10.3",
     "@gsap/react": "^2.1.2",
     "@heroicons/react": "^2.0.18",
     "cookies-next": "^4.1.0",
+    "framer-motion": "^12.23.5",
     "gsap": "^3.13.0",
     "install": "^0.13.0",
     "lodash": "^4.17.21",

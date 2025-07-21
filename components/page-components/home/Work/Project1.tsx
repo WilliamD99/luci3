@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { isElementInDOM } from '@/utils/domSafeGSAP'
 
 export default function Project1() {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -10,6 +11,8 @@ export default function Project1() {
     let animationRef = useRef<any>(null)
 
     let { contextSafe } = useGSAP(() => {
+        if (!titleRef.current || !isElementInDOM(titleRef.current)) return;
+
         let animation = gsap.timeline({ paused: true })
         animation.reversed(true)
 
@@ -24,21 +27,33 @@ export default function Project1() {
         )
 
         animationRef.current = animation
+
+        // Cleanup function
+        return () => {
+            if (animationRef.current) {
+                animationRef.current.kill();
+                animationRef.current = null;
+            }
+        };
     }, [])
 
     const onMouseEnter: any = contextSafe(() => {
-        videoRef.current?.play()
+        if (videoRef.current && isElementInDOM(videoRef.current)) {
+            videoRef.current.play();
+        }
 
-        if (titleRef.current && animationRef.current) {
+        if (titleRef.current && animationRef.current && isElementInDOM(titleRef.current)) {
             animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
         }
     })
 
     const onMouseLeave: any = contextSafe(() => {
-        videoRef.current?.pause()
-        videoRef.current!.currentTime = 0
+        if (videoRef.current && isElementInDOM(videoRef.current)) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
 
-        if (titleRef.current && animationRef.current) {
+        if (titleRef.current && animationRef.current && isElementInDOM(titleRef.current)) {
             animationRef.current.reversed() ? animationRef.current.play() : animationRef.current.reverse();
         }
     })

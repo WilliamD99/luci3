@@ -79,7 +79,7 @@ export default function SliderContent({
 
   return (
     <>
-      <div className="slider-content flex flex-col justify-center absolute z-50 left-1/2 lg:left-40 xl2:left-80 bottom-36 lg:bottom-0 lg:top-1/2 -translate-x-1/2 lg:translate-x-0 lg:-translate-y-1/2">
+      <div className="slider-content flex flex-col justify-center absolute z-50 left-1/2 lg:left-40 xl2:left-80 bottom-24 lg:bottom-0 lg:top-1/2 -translate-x-1/2 lg:translate-x-0 lg:-translate-y-1/2">
         <div className="slider-content--title overflow-hidden">
           <p ref={titleRef} className={`text-white font-poppins font-semibold leading-relaxed`}>
             {items[index].title}

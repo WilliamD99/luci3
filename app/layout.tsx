@@ -26,6 +26,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en" className={`${poppins.variable} ${nunito.variable}`}>
       <LayoutClient children={children} />

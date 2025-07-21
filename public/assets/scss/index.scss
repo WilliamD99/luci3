@@ -13,6 +13,11 @@
 @import "./page/project";
 @import "./page/contact";
 
+:root {
+  --font-body: var(--font-poppins);
+  --font-heading: var(--font-nunito);
+}
+
 html {
   overflow-x: hidden;
   -ms-overflow-style: none;
@@ -35,6 +40,11 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+[data-support-yes],
+[data-support-no] {
+  display: none;
 }
 
 .main {
@@ -61,4 +71,147 @@ body {
 
 .arrow-bounce-down {
   animation: bounce-down 3s ease-out infinite;
+}
+
+@supports (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: inline;
+  }
+
+  [data-support] [data-support-no] {
+    display: none;
+  }
+}
+
+@supports not (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
+
+/* Safari */
+@supports (-webkit-hyphens: none) and (not (-moz-appearance: none)) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
+
+/* View Transition API Animations */
+@supports (view-transition-name: main) {
+
+  /* Set view transition names for page content */
+  main {
+    view-transition-name: main;
+    transform-origin: bottom left;
+  }
+
+  .main-content {
+    view-transition-name: main-content;
+    transform-origin: bottom left;
+  }
+
+  /* Ensure the root transition uses the same timing */
+  ::view-transition {
+    background: transparent;
+  }
+
+  /* Ensure consistent positioning during transitions */
+  main.transition-prepared {
+    position: relative;
+  }
+
+  /* Force simultaneous timing - CRITICAL: must match individual animation durations */
+  ::view-transition-group(main),
+  ::view-transition-group(main-content) {
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    background: transparent;
+  }
+
+  /* Disable default animations to ensure our custom ones take full control */
+  ::view-transition-old(main),
+  ::view-transition-new(main),
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation-duration: inherit;
+    animation-timing-function: inherit;
+    animation-fill-mode: inherit;
+  }
+
+  /* Custom exit animation for old page - starts immediately */
+  ::view-transition-old(main) {
+    animation-name: clip-push-out;
+    z-index: 1;
+  }
+
+  /* Custom entry animation for new page - starts immediately */
+  ::view-transition-new(main) {
+    animation-name: clip-push-in;
+    z-index: 2;
+  }
+
+  // ::view-transition-old(main-content) {
+  //   animation-name: zoom-out;
+  //   z-index: 1;
+  // }
+
+  // ::view-transition-new(main-content) {
+  //   animation-name: zoom-in;
+  //   z-index: 2;
+  // }
+}
+
+/* Keyframes for synchronized clip-path exit animation */
+@keyframes clip-push-out {
+  from {
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+    transform: translateY(0%);
+  }
+
+  to {
+    /* clip-path: polygon(0% -20%, 100% -35%, 100% -25%, 0% -10%); */
+    transform: translateY(-100%);
+  }
+}
+
+/* Keyframes for synchronized clip-path entry animation */
+@keyframes clip-push-in {
+  from {
+    /* clip-path: polygon(0% 120%, 100% 135%, 100% 125%, 0% 110%); */
+    transform: translateY(100%);
+  }
+
+  to {
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+    transform: translateY(0%);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes zoom-out {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-10deg);
+  }
 }

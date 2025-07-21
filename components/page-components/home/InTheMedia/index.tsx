@@ -89,17 +89,17 @@ export default function InTheMedia() {
                         </video>
                     </div>
                 </div>
-                <div className='pt-44'>
+                <div className='pt-20 px-6 lg:pt-44'>
                     <div className='flex flex-row items-center justify-center space-x-2'>
                         <SparklesIcon className='h-4 w-4' />
                         <p className='font-nunito text-lg'>In the media</p>
                     </div>
-                    <div className='mt-1 flex flex-col justify-center w-full space-y-6'>
-                        <p className={`text-center leading-none text-[10rem] 2xl:text-[15rem] font-poppins`}>Spread</p>
-                        <p className={`text-center leading-none text-[10rem] 2xl:text-[15rem] font-poppins`}>the News</p>
+                    <div className='mt-1 flex flex-col justify-center w-full space-y-2 lg:space-y-6'>
+                        <p className={`text-center leading-none text-6xl lg:text-[10rem] 2xl:text-[15rem] font-poppins`}>Spread</p>
+                        <p className={`text-center leading-none text-6xl lg:text-[10rem] 2xl:text-[15rem] font-poppins`}>the News</p>
                     </div>
                     <div className='flex justify-center mt-10'>
-                        <p className='text-center text-2xl max-w-xl font-nunito'>Find out more about our work on these leading design and technology platforms.</p>
+                        <p className='text-center text-lg lg:text-2xl max-w-xl font-nunito'>Find out more about our work on these leading design and technology platforms.</p>
                     </div>
                     <div className='flex justify-center mt-10 lg:mt-20'>
                         <HoverButton label='Browse all news' href='#' />

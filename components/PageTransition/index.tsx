@@ -30,14 +30,13 @@ const getTransitionStyles: any = {
 
 type Props = {
   children: React.ReactNode;
-  location: string;
+  // location: string;
 };
 
-const Transition = ({ children, location }: Props) => {
+const Transition = ({ children }: Props) => {
   return (
     <TransitionGroup style={{ position: "relative" }}>
       <ReactTransition
-        key={location}
         timeout={{
           enter: TIMEOUT,
           exit: TIMEOUT,

@@ -25,7 +25,7 @@ body {
 .hover-btn {
   position: relative;
   display: inline-flex;
-  color: #0d0e13;
+  color: black;
 }
 .hover-btn:hover .circle {
   -webkit-clip-path: circle(50% at 50% 50%);
@@ -52,8 +52,8 @@ body {
   position: absolute;
   left: -2vw;
   top: -0.4vw;
-  width: 2.7vw;
-  height: 2.7vw;
+  width: 2.3vw;
+  height: 2.3vw;
   display: flex;
   border-radius: 100%;
   align-items: center;
@@ -65,7 +65,7 @@ body {
 }
 @media (min-width: 1920px) {
   .hover-btn .circle {
-    top: -0.6vw;
+    top: -0.5vw;
   }
 }
 .hover-btn .circle .circle-fill {
@@ -81,8 +81,8 @@ body {
 .hover-btn .circle .circle-outline {
   position: absolute;
   overflow: visible;
-  width: 0.41vw;
-  height: 0.41vw;
+  width: 0.5vw;
+  height: 0.5vw;
   fill: none;
   stroke: black;
   transition: 0.5s ease;
@@ -98,7 +98,7 @@ body {
   justify-content: center;
   z-index: 2;
   color: white;
-  width: 15px;
+  width: 18px;
   transition: 0.5s ease;
   transition-delay: 0.3s;
   opacity: 0;
@@ -120,6 +120,11 @@ body {
   transition: 0.5s ease;
   border: 1px solid rgba(13, 14, 19, 0.5);
 }
+@media (min-width: 1920px) {
+  .hover-btn .label {
+    font-size: 24px;
+  }
+}
 
 #home-page #navigation_header .home-link,
 #home-page #navigation_header .nav_link {
@@ -133,7 +138,6 @@ body {
 }
 #home-page #home_hero .background {
   background: url("/assets/img/home_hero.webp");
-  background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
@@ -175,7 +179,7 @@ body {
   }
 }
 #home-page #home_hero .text-1 {
-  top: 55vh;
+  top: 45vh;
 }
 @media (min-width: 1024px) {
   #home-page #home_hero .text-1 {
@@ -185,11 +189,12 @@ body {
 }
 @media (min-width: 1920px) {
   #home-page #home_hero .text-1 {
-    top: 45vw;
+    top: 55vh;
+    max-width: 1200px;
   }
 }
 #home-page #home_hero .text-2 {
-  top: 70vh;
+  top: 65vh;
 }
 @media (min-width: 1024px) {
   #home-page #home_hero .text-2 {
@@ -201,24 +206,8 @@ body {
     top: 70vh;
   }
 }
-#home-page #home_hero .text-2 .title {
-  font-size: 54px;
-  margin: 0;
-  font-weight: 400;
-  display: inline-block;
-  line-height: 60px;
-}
-@media (min-width: 1024px) {
-  #home-page #home_hero .text-2 .title {
-    font-size: 230px;
-    line-height: 16rem;
-  }
-  #home-page #home_hero .text-2 .title:not(:first-child) {
-    margin-top: -100px;
-  }
-}
 #home-page #home_hero .text-3 {
-  top: 100vh;
+  top: 110vh;
 }
 @media (min-width: 1024px) {
   #home-page #home_hero .text-3 {
@@ -228,7 +217,7 @@ body {
 }
 @media (min-width: 1920px) {
   #home-page #home_hero .text-3 {
-    top: 200vh;
+    top: 175vh;
     max-width: 45vw;
   }
 }
@@ -255,13 +244,11 @@ body {
   padding: 0 10vw;
 }
 #home-page #home_work .wrapper .title.title-main {
-  font-size: 54px;
   display: inline-block;
   line-height: 100px;
 }
 @media (min-width: 1024px) {
   #home-page #home_work .wrapper .title.title-main {
-    font-size: 200px;
     line-height: 150px;
   }
 }
@@ -371,7 +358,6 @@ body {
 }
 #home-page #home_workInMotion {
   position: relative;
-  height: 100vh;
   background-color: #0d0e13;
   padding: 90px 0 30px 0;
 }
@@ -610,13 +596,7 @@ body {
 }
 
 #footer {
-  padding: 15vw 0 15vw;
   background: #070707;
-}
-@media (min-width: 1280px) {
-  #footer {
-    padding: 5vw 0 5vw;
-  }
 }
 #footer .wrapper {
   margin: 0 8.3vw;
@@ -1279,6 +1259,11 @@ body[id^=work-test] #navigation_header .nav_link {
   }
 }
 
+:root {
+  --font-body: var(--font-poppins);
+  --font-heading: var(--font-nunito);
+}
+
 html {
   overflow-x: hidden;
   -ms-overflow-style: none;
@@ -1303,6 +1288,11 @@ body {
   padding: 0;
 }
 
+[data-support-yes],
+[data-support-no] {
+  display: none;
+}
+
 .main {
   transform-origin: top left;
 }
@@ -1323,4 +1313,115 @@ body {
 }
 .arrow-bounce-down {
   animation: bounce-down 3s ease-out infinite;
+}
+
+@supports (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: inline;
+  }
+  [data-support] [data-support-no] {
+    display: none;
+  }
+}
+@supports not (view-transition-name: test) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
+/* Safari */
+@supports (-webkit-hyphens: none) and (not (-moz-appearance: none)) {
+  [data-support] [data-support-yes] {
+    display: none;
+  }
+  [data-support] [data-support-no] {
+    display: inline;
+  }
+}
+/* View Transition API Animations */
+@supports (view-transition-name: main) {
+  /* Set view transition names for page content */
+  main {
+    view-transition-name: main;
+    transform-origin: bottom left;
+  }
+  .main-content {
+    view-transition-name: main-content;
+    transform-origin: bottom left;
+  }
+  /* Ensure the root transition uses the same timing */
+  ::view-transition {
+    background: transparent;
+  }
+  /* Ensure consistent positioning during transitions */
+  main.transition-prepared {
+    position: relative;
+  }
+  /* Force simultaneous timing - CRITICAL: must match individual animation durations */
+  ::view-transition-group(main),
+  ::view-transition-group(main-content) {
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    background: transparent;
+  }
+  /* Disable default animations to ensure our custom ones take full control */
+  ::view-transition-old(main),
+  ::view-transition-new(main),
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation-duration: inherit;
+    animation-timing-function: inherit;
+    animation-fill-mode: inherit;
+  }
+  /* Custom exit animation for old page - starts immediately */
+  ::view-transition-old(main) {
+    animation-name: clip-push-out;
+    z-index: 1;
+  }
+  /* Custom entry animation for new page - starts immediately */
+  ::view-transition-new(main) {
+    animation-name: clip-push-in;
+    z-index: 2;
+  }
+}
+/* Keyframes for synchronized clip-path exit animation */
+@keyframes clip-push-out {
+  from {
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+    transform: translateY(0%);
+  }
+  to {
+    /* clip-path: polygon(0% -20%, 100% -35%, 100% -25%, 0% -10%); */
+    transform: translateY(-100%);
+  }
+}
+/* Keyframes for synchronized clip-path entry animation */
+@keyframes clip-push-in {
+  from {
+    /* clip-path: polygon(0% 120%, 100% 135%, 100% 125%, 0% 110%); */
+    transform: translateY(100%);
+  }
+  to {
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+    transform: translateY(0%);
+  }
+}
+@keyframes zoom-in {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(10deg);
+  }
+}
+@keyframes zoom-out {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-10deg);
+  }
 }/*# sourceMappingURL=index.css.map */

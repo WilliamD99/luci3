@@ -1,36 +1,41 @@
 .hover-btn {
   position: relative;
   display: inline-flex;
-  color: #0d0e13;
+  color: black;
 
   &:hover {
     .circle {
       clip-path: circle(50% at 50% 50%);
       background: black;
+
       .circle-icon {
         opacity: 1;
         transform: translate(50%, 0);
         transition-delay: 0;
       }
+
       .circle-outline {
         stroke: none;
         opacity: 0;
       }
     }
+
     .label {
       transform: translate(20px, 0);
+
       .border {
         width: 0;
         border-width: 0 !important;
       }
     }
   }
+
   .circle {
     position: absolute;
     left: -2vw;
     top: -0.4vw;
-    width: 2.7vw;
-    height: 2.7vw;
+    width: 2.3vw;
+    height: 2.3vw;
     display: flex;
     border-radius: 100%;
     align-items: center;
@@ -40,7 +45,7 @@
     clip-path: circle(10% at 50% 50%);
 
     @include xl2 {
-      top: -0.6vw;
+      top: -0.5vw;
     }
 
     .circle-fill {
@@ -53,15 +58,17 @@
       z-index: 1;
       will-change: transform;
     }
+
     .circle-outline {
       position: absolute;
       overflow: visible;
-      width: 0.41vw;
-      height: 0.41vw;
+      width: 0.5vw;
+      height: 0.5vw;
       fill: none;
       stroke: black;
       transition: 0.5s ease;
     }
+
     .circle-icon {
       position: absolute;
       top: 0;
@@ -73,7 +80,7 @@
       justify-content: center;
       z-index: 2;
       color: white;
-      width: 15px;
+      width: 18px;
       transition: 0.5s ease;
       transition-delay: 0.3s;
       // transform: translate(50%, 0);
@@ -81,6 +88,7 @@
       transform: translate(-100%, 0);
     }
   }
+
   .label {
     position: relative;
     font-size: 18px;
@@ -96,6 +104,10 @@
       transform-origin: right;
       transition: 0.5s ease;
       border: 1px solid rgba(13, 14, 19, 0.5);
+    }
+
+    @include xl2 {
+      font-size: 24px;
     }
   }
 }

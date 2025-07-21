@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { isElementInDOM, safeBatch } from '@/utils/domSafeGSAP'
 
 type Props = {
     children: React.ReactNode,
@@ -19,6 +20,7 @@ const AnimatedOnScroll = ({
     className
 }: Props) => {
     const ele = useRef<HTMLDivElement>(null);
+    const batchRef = useRef<any>(null);
 
     let animStagger = stagger ? stagger : 0.2;
 
@@ -50,18 +52,23 @@ const AnimatedOnScroll = ({
 
         const targetElement: any = target?.current ? gsap.utils.toArray(target.current) : [ele.current];
 
+        // Check if elements exist before proceeding
+        if (!targetElement || targetElement.length === 0) {
+            return;
+        }
+
         gsap.set(targetElement, { autoAlpha: 0, ...startLocation });
 
-        ScrollTrigger.batch(targetElement, {
+        batchRef.current = safeBatch(targetElement, {
             interval: 0.1,
-            onEnter: (batch) => {
+            onEnter: (validBatch: any) => {
                 startLocation[animDirectionFunc()] = 0;
 
-                if (ele.current) {
+                if (ele.current && isElementInDOM(ele.current)) {
                     ele.current.classList.remove("invisible");
                 }
 
-                gsap.to(batch, {
+                gsap.to(validBatch, {
                     autoAlpha: 1,
                     ...startLocation,
                     ease: "Sine.easeInOut",
@@ -69,6 +76,15 @@ const AnimatedOnScroll = ({
                 });
             },
         });
+
+        // Cleanup function
+        return () => {
+            if (batchRef.current) {
+                // Kill the batch ScrollTrigger
+                batchRef.current.forEach((st: any) => st && st.kill && st.kill());
+                batchRef.current = null;
+            }
+        };
     }, [direction, target]);
 
     return (

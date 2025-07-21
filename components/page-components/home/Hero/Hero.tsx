@@ -1,63 +1,148 @@
 "use client"
-import React, { useRef } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
 import gsap from "@/utils/gsap";
 import headingFont from "@/utils/fonts/heading";
-import { getCookie } from 'cookies-next'
 import { useGSAP } from "@gsap/react";
+import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
-  const backgroundRef = useRef<HTMLDivElement>(null)
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
-  let typeCookie = getCookie('type') ?? 'desktop';
 
   useGSAP(() => {
+    // Don't initialize until layout is stable
     let getRatio = (el: HTMLDivElement | null) => window.innerHeight / (window.innerHeight + (el ? el.offsetHeight : 0));
 
+    // Set initial scale only (position handled in useLayoutEffect)
     gsap.set('.background', { scale: 1 })
 
-    gsap.fromTo(".background", {
-      backgroundPosition: () => `50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
-      scale: 1
-    }, {
-      backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
-      scale: typeCookie === "desktop" ? 1 : 1.2,
-      ease: "none",
-      scrollTrigger: {
-        trigger: container.current,
-        start: () => "top+=50px bottom",
-        end: "bottom top",
-        scrub: true,
-        invalidateOnRefresh: true, // to make it responsive,
-      }
-    })
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top top",
-        end: `bottom${typeCookie === "desktop" ? "+=35%" : ""} bottom`,
-        scrub: true,
-        // markers: true,
-        onEnter: () => {
-          if (typeCookie !== "desktop") {
-            gsap.to('.text-1', { autoAlpha: 0 })
-            gsap.to('.text-2 .title', { autoAlpha: 0, y: "-100%", rotate: -6, stagger: 0.1 })
-          }
-        },
-        onLeaveBack: () => {
-          if (typeCookie !== "desktop") {
-            gsap.to('.text-1', { autoAlpha: 1 })
-            gsap.to('.text-2 .title', { autoAlpha: 1, y: 0, rotate: 0, stagger: 0.1 })
-          }
-        },
-        onLeave: () => {
-          console.log('leave')
-        }
-      },
-    });
+    // Use GSAP matchMedia for responsive behavior
+    let mm = gsap.matchMedia();
 
-  }, { scope: container, dependencies: [typeCookie], revertOnUpdate: true })
+    // Wait for ScrollSmoother to be ready
+    const initializeAnimations = () => {
+      // Mobile (768px and below)
+      mm.add("(max-width: 768px)", () => {
+        // Ensure text elements are visible initially on mobile
+        gsap.set('.text-1', { autoAlpha: 1 })
+        gsap.set('.text-2 .title', { autoAlpha: 1, y: 0, rotate: 0 })
+
+        gsap.fromTo(".background", {
+          backgroundPosition: () => `50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
+          scale: 1
+        }, {
+          backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
+          scale: 1.2,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container.current,
+            start: () => "top+=50px bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+
+        // Mobile text animation ScrollTrigger
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top+=8% top",
+            end: `bottom bottom`,
+            scrub: true,
+            refreshPriority: -1,
+            onEnter: () => {
+              // Only animate if elements exist in DOM
+              const text1 = document.querySelector('.text-1');
+              const titleElements = document.querySelectorAll('.text-2 .title');
+
+              if (text1 && document.body.contains(text1)) {
+                gsap.to('.text-1', { autoAlpha: 0, duration: 0.5 });
+              }
+
+              if (titleElements.length > 0) {
+                // Filter to only elements that are in DOM
+                const validTitles = Array.from(titleElements).filter(el => document.body.contains(el));
+                if (validTitles.length > 0) {
+                  gsap.to(validTitles, { autoAlpha: 0, y: "-100%", rotate: -6, stagger: 0.1, duration: 0.5 });
+                }
+              }
+            },
+            onLeaveBack: () => {
+              // Only animate if elements exist in DOM
+              const text1 = document.querySelector('.text-1');
+              const titleElements = document.querySelectorAll('.text-2 .title');
+
+              if (text1 && document.body.contains(text1)) {
+                gsap.to('.text-1', { autoAlpha: 1, duration: 0.5 });
+              }
+
+              if (titleElements.length > 0) {
+                // Filter to only elements that are in DOM
+                const validTitles = Array.from(titleElements).filter(el => document.body.contains(el));
+                if (validTitles.length > 0) {
+                  gsap.to(validTitles, { autoAlpha: 1, y: 0, rotate: 0, stagger: 0.1, duration: 0.5 });
+                }
+              }
+            },
+            onLeave: () => {
+              console.log('Hero: ScrollTrigger onLeave triggered')
+            }
+          },
+        });
+      });
+
+      // Desktop (769px and above)
+      mm.add("(min-width: 769px)", () => {
+
+        // Desktop - no text animations
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top top",
+            end: "bottom+=35% bottom",
+            scrub: true,
+            refreshPriority: -1,
+          },
+        });
+
+        tl.fromTo(".background", {
+          backgroundPosition: () => `50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
+          scale: 1
+        }, {
+          backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top+=50px bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+            refreshPriority: -1,
+          }
+        });
+      });
+
+      // Final ScrollTrigger refresh after all animations are set up
+      setTimeout(() => {
+        if ((window as any).ScrollTrigger) {
+          (window as any).ScrollTrigger.refresh();
+          console.log('Hero: Final ScrollTrigger refresh completed');
+        }
+      }, 100);
+    };
+
+    initializeAnimations();
+
+    // Cleanup function for matchMedia
+    return () => {
+      mm.revert();
+    };
+
+  }, { scope: container, revertOnUpdate: true })
 
   return (
     <>
@@ -65,37 +150,45 @@ export default function Hero() {
         ref={container}
         id="home_hero"
         className="relative overflow-hidden"
+        style={{
+          // Prevent initial layout shift
+          // minHeight: '160vh',
+        }}
       >
-        <div ref={backgroundRef} className="relative w-full h-full">
+        <div ref={backgroundRef} className="relative w-full h-full" data-speed="0.75">
           <div className="background"></div>
         </div>
-        <div className="text-1 text z-10 pl-10 pr-5 lg:pl-20">
+        <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20">
           <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
             Global digital design studio partnering with brands and businesses
             that create exceptional experiences where people live, work, and
             unwind.
           </p>
         </div>
-        <div className="text-2 text z-10 pl-10 lg:pl-20">
+        <div className="text-2 text z-10 pl-6 lg:pl-20">
           <div className="overflow-hidden">
-            <span className={`text-white inline-block font-medium text-[12rem] 2xl:text-[20rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Digital</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Digital</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white inline-block font-medium text-[12rem] 2xl:text-[20rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Design</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Design</span>
           </div>
           <div className="overflow-hidden">
-            <span className={`text-white inline-block font-medium text-[12rem] 2xl:text-[20rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Experience</span>
+            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none ${headingFont.className}`}>Experience</span>
+          </div>
+          {/* Arrow on mobile */}
+          <div className="flex md:hidden mt-6">
+            <ArrowDown className="h-5 w-5 text-white" />
           </div>
         </div>
-        <div className="text-3 text z-10 pl-10 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
-          <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
+        <div className="text-3 text z-10 pl-6 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
+          <p className="text-white lg:text-2xl xl2:text-3xl font-nunito">
             We help experience-driven companies thrive by making their audience
             feel the refined intricacies of their brand and product in the
             digital space. Unforgettable journeys start with a click.
           </p>
         </div>
-        <div className="pt-[8vh] bottom-[10vh] w-full pl-[200px] text z-10 hidden lg:flex flex-row justify-between items-start">
-          <p className="text-white font-nunito text-2xl 2xl:text-3xl border-b-[1px] border-white">The Studio</p>
+        <div className=" pt-[8vh] bottom-[10vh] w-full pl-[200px] text z-10 hidden lg:flex flex-row justify-between items-start">
+          <p className="text-white font-nunito text-2xl xl2:text-3xl border-b-[1px] border-white">The Studio</p>
           <div className="flex flex-row space-x-48">
             <div className="flex flex-col space-y-8">
               <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
