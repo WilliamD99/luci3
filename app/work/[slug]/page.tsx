@@ -5,7 +5,7 @@ import React, { useRef } from 'react'
 import WorkHero from '@/components/page-components/project/Hero'
 import WorkObjective from '@/components/page-components/project/Objective'
 import WorkSolution from '@/components/page-components/project/Solution'
-import { WorkArr } from '../page'
+import { WorkArr } from '@/utils/data/work'
 import { notFound } from 'next/navigation'
 
 type Props = {

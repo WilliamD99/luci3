@@ -6,39 +6,8 @@ import gsap from '@/utils/gsap'
 import { useRouter } from 'next/navigation'
 import { debounce } from 'lodash'
 import { ArrowDown } from 'lucide-react'
+import { WorkArr } from '@/utils/data/work'
 type Props = {}
-
-// Move WorkArr outside component to prevent recreation on every render
-const WorkArr = [
-    {
-        image: "/assets/img/home-news-4.webp",
-        title: "Pixelflakes",
-        slug: "pixelflakes",
-        subTitle: "Architectural marketing agency",
-        link: "/work/pixelflakes"
-    },
-    {
-        image: "/assets/img/pixel-flakes-hero.webp",
-        title: "Plug Live",
-        slug: "plug-live",
-        subTitle: "Custom Made Live Shows",
-        link: "/work/plug-live"
-    },
-    {
-        image: "/assets/img/the-st-regis-venice-hero.webp",
-        title: "Ali Ali",
-        slug: "ali-ali",
-        subTitle: "Unique director's portfolio",
-        link: "/work/ali-ali"
-    },
-    {
-        image: "/assets/img/rino-pelle-hero.webp",
-        title: "Stock Duca",
-        slug: "stock-duca",
-        subTitle: "Daring colours & patterns",
-        link: "/work/stock-duca"
-    },
-]
 
 const Work = (props: Props) => {
     const router = useRouter()
