@@ -142,11 +142,8 @@
           .project {
             .img {
               z-index: 2;
-              display: none;
+              display: block;
 
-              @include lg {
-                display: block;
-              }
             }
 
             .video {

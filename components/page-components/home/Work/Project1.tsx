@@ -64,7 +64,7 @@ export default function Project1() {
             <div id="project1" className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <Image className='img' fill src="/assets/img/pixel-flakes-hero.webp" alt='Project 1' />
                 <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
-                    <source src='/assets/video/pixel-flakes-hover.mp4' type='video/mp4' />
+                    <source src='/assets/video/pixel-flakes-hover.mp4' type='video/mp4' media="(min-width: 768px)" />
                 </video>
                 <div className='title hidden lg:block relative'>
                     <p ref={titleRef} className='relative overflow-hidden flex flex-col lg:block font-poppins'>

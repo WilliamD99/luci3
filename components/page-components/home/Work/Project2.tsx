@@ -55,7 +55,7 @@ export default function Project2() {
                 <div id="project2" className='mt-36 lg:mt-72 w-full relative project-container' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                     <Image className='img' src="/assets/img/rino-pelle-hero.webp" alt="Project 2" fill />
                     <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
-                        <source src='/assets/video/hover-rino.mp4' type='video/mp4' />
+                        <source src='/assets/video/hover-rino.mp4' type='video/mp4' media="(min-width: 768px)" />
                     </video>
                     <div className='title hidden lg:block relative'>
                         <p ref={titleRef} className='relative overflow-hidden font-poppins'>

@@ -45,10 +45,10 @@ export default function Project3() {
 
     return (
         <>
-            <div id="project3" className='project relative' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <div id="project3" className='project relative hidden lg:block' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <Image className='img' fill src="/assets/img/aebele-interiors-hero.webp" alt="Project 3" />
                 <video ref={videoRef} playsInline loop muted disablePictureInPicture className='video'>
-                    <source src='/assets/video/featured-work-aebele.mp4' type='video/mp4' />
+                    <source src='/assets/video/featured-work-aebele.mp4' type='video/mp4' media="(min-width: 768px)" />
                 </video>
                 <div className='title relative'>
                     <p ref={titleRef} className='relative overflow-hidden font-poppins'>
