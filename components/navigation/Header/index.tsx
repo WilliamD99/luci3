@@ -1,20 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import HeaderScrolled from "./HeaderScrolled";
-import { Poppins, Nunito } from 'next/font/google';
 import TransitionLink from "@/components/ViewTransitionLink";
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-});
-
-const nunito = Nunito({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-});
+import { useGSAP } from "@gsap/react";
+import gsap from "@/utils/gsap";
 
 function Header({ }, ref: any) {
   let headerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +51,37 @@ function Header({ }, ref: any) {
     };
   }, [handleScroll]);
 
+  // Entry animation for top nav
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+
+    // Desktop animation (1024px and above)
+    mm.add("(min-width: 1024px)", () => {
+      let tl = gsap.timeline({
+        ease: "power4.inOut",
+      });
+      tl.to('.home-link', {
+        y: 0,
+        autoAlpha: 1,
+      })
+      tl.to(".top-nav", {
+        y: 0,
+        stagger: 0.05,
+        autoAlpha: 1,
+      }, "<0.05");
+    });
+
+    // Mobile/tablet: reset any transforms
+    mm.add("(max-width: 1023px)", () => {
+      gsap.set(".top-nav", {
+        clearProps: "all" // Clears all GSAP-applied properties
+      });
+    });
+
+    // Clean up on unmount
+    return () => mm.kill();
+  }, [])
+
   return (
     <>
       <div
@@ -69,30 +90,34 @@ function Header({ }, ref: any) {
         className={`fixed z-50 flex flex-row justify-between items-center w-full px-16 py-8 ${isHeaderActive ? "active" : ""
           }`}
       >
-        <TransitionLink href="/" className="text-2xl home-link">
-          Luci3
-        </TransitionLink>
-        <div className="flex flex-row space-x-10">
+        <div className="flex overflow-hidden">
+          <TransitionLink href="/" className="text-2xl home-link">
+            Luci3
+          </TransitionLink>
+        </div>
+        <div className="flex flex-row space-x-10 overflow-hidden">
           <TransitionLink
-            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
+            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins top-nav"
             href="/work"
           >
             Work
           </TransitionLink>
           <TransitionLink
-            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
+            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins top-nav"
             href="/test"
           >
             Studio
           </TransitionLink>
+
           <TransitionLink
-            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
+            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins top-nav"
             href="#"
           >
             News
           </TransitionLink>
+
           <TransitionLink
-            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins"
+            className="text-white text-sm lg:text-base xl:text-lg nav_link underline-effect font-poppins top-nav"
             href="/contact"
           >
             Contact

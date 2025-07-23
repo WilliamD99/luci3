@@ -40,7 +40,7 @@ export default function LayoutClient({ children }: ILayoutClientProps) {
   const bodyId = generateBodyId(pathName);
 
   return (
-    <body id={bodyId} >
+    <div id={bodyId}>
       <Header ref={mainRef} />
       <div ref={mainRef} className="main relative">
         <ScrollSmootherWrapper smooth={0.75}>
@@ -52,6 +52,6 @@ export default function LayoutClient({ children }: ILayoutClientProps) {
         </ScrollSmootherWrapper>
         <CursorFollower />
       </div>
-    </body>
+    </div>
   );
 }

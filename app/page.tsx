@@ -10,6 +10,7 @@ export default function Home() {
     <>
       <div id="home" className={`relative `}>
         <Hero />
+
         <Work />
         <WorkInMotion />
         <InTheMedia />

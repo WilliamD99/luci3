@@ -4,6 +4,13 @@
     opacity: 0;
     visibility: hidden;
 
+    .top-nav,
+    .home-link {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(100px);
+    }
+
     &.active {
         opacity: 1;
         visibility: visible;

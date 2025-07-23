@@ -30,10 +30,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${poppins.variable} ${nunito.variable}`}>
-      <LayoutClient>
-        {children}
-      </LayoutClient>
-      <Analytics />
+      <body>
+        <LayoutClient>
+          {children}
+        </LayoutClient>
+        <Analytics />
+      </body>
     </html>
   );
 }

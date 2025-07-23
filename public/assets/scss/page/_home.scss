@@ -177,6 +177,8 @@
                 @include lg {
                   opacity: 0;
                   visibility: hidden;
+                  transform: translateY(50px); // ✨ Start 50px below
+                  transition: all 0.3s ease;
                 }
               }
 
@@ -201,8 +203,16 @@
               }
 
               &:hover {
-                .img {
-                  visibility: hidden;
+                @include lg {
+                  .img {
+                    visibility: hidden;
+                  }
+
+                  .title p {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                  }
                 }
               }
             }
@@ -216,6 +226,12 @@
                 &:hover {
                   .img {
                     visibility: hidden;
+                  }
+
+                  .title p {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
                   }
                 }
 
@@ -231,8 +247,16 @@
               height: 40vw;
 
               &:hover {
-                .img {
-                  visibility: hidden;
+                @include lg {
+                  .img {
+                    visibility: hidden;
+                  }
+
+                  .title p {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                  }
                 }
               }
             }
@@ -243,8 +267,16 @@
               margin-top: -10vw;
 
               &:hover {
-                .img {
-                  visibility: hidden;
+                @include lg {
+                  .img {
+                    visibility: hidden;
+                  }
+
+                  .title p {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                  }
                 }
               }
             }

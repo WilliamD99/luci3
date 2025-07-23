@@ -8,6 +8,7 @@ export interface ICursorFollowerProps { }
 
 export default function CursorFollower(props: ICursorFollowerProps) {
   const [isMouseOver, setMouseOver] = useState<boolean>(false)
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const followerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseOver = useCallback(debounce((e: any, xTo: any, yTo: any) => {
@@ -39,13 +40,18 @@ export default function CursorFollower(props: ICursorFollowerProps) {
     }
   }, 100), [followerRef, isMouseOver])
 
-  const handleMouseMove = React.useCallback(
+  const handleMouseMove = useCallback(
     (e: any, xTo: any, yTo: any) => {
       let { clientX, clientY } = e;
       xTo(clientX);
       yTo(clientY);
+
+      // Mark as initialized after first mouse move
+      if (!isInitialized) {
+        setIsInitialized(true);
+      }
     },
-    [followerRef]
+    [followerRef, isInitialized]
   );
 
   useEffect(() => {
@@ -70,27 +76,30 @@ export default function CursorFollower(props: ICursorFollowerProps) {
   }, [handleMouseMove, handleMouseOver]);
 
   // Showing the follower when the mouse is over the div
-  React.useEffect(() => {
-    gsap.fromTo(
-      followerRef.current,
-      {
-        autoAlpha: isMouseOver ? 0 : 1,
-        scale: isMouseOver ? 0 : 1,
-      },
-      {
-        autoAlpha: isMouseOver ? 1 : 0,
-        scale: isMouseOver ? 1 : 0,
-        duration: 0.4,
-        ease: "power3",
-      }
-    );
-  }, [isMouseOver])
+  // useEffect(() => {
+  //   // Only show the follower if it's initialized and mouse is over
+  //   const shouldShow = isInitialized && isMouseOver;
+
+  //   gsap.fromTo(
+  //     followerRef.current,
+  //     {
+  //       autoAlpha: shouldShow ? 0 : 1,
+  //       scale: shouldShow ? 0 : 1,
+  //     },
+  //     {
+  //       autoAlpha: shouldShow ? 1 : 0,
+  //       scale: shouldShow ? 1 : 0,
+  //       duration: 0.4,
+  //       ease: "power3",
+  //     }
+  //   );
+  // }, [isMouseOver, isInitialized])
 
   return (
     <div
       id="follower"
       ref={followerRef}
-      className="fixed z-50 rounded-full px-4 py-4 w-24 h-24 flex justify-center items-center"
+      className="fixed z-50 -left-100 rounded-full px-4 py-4 w-24 h-24 flex justify-center items-center"
       style={{
         backdropFilter: "blur(20px)",
         background: "rgba(0,0,0,.15)",
