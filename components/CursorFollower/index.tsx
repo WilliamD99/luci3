@@ -76,24 +76,24 @@ export default function CursorFollower(props: ICursorFollowerProps) {
   }, [handleMouseMove, handleMouseOver]);
 
   // Showing the follower when the mouse is over the div
-  // useEffect(() => {
-  //   // Only show the follower if it's initialized and mouse is over
-  //   const shouldShow = isInitialized && isMouseOver;
+  useEffect(() => {
+    // Only show the follower if it's initialized and mouse is over
+    const shouldShow = isInitialized && isMouseOver;
 
-  //   gsap.fromTo(
-  //     followerRef.current,
-  //     {
-  //       autoAlpha: shouldShow ? 0 : 1,
-  //       scale: shouldShow ? 0 : 1,
-  //     },
-  //     {
-  //       autoAlpha: shouldShow ? 1 : 0,
-  //       scale: shouldShow ? 1 : 0,
-  //       duration: 0.4,
-  //       ease: "power3",
-  //     }
-  //   );
-  // }, [isMouseOver, isInitialized])
+    gsap.fromTo(
+      followerRef.current,
+      {
+        autoAlpha: shouldShow ? 0 : 1,
+        scale: shouldShow ? 0 : 1,
+      },
+      {
+        autoAlpha: shouldShow ? 1 : 0,
+        scale: shouldShow ? 1 : 0,
+        duration: 0.4,
+        ease: "power3",
+      }
+    );
+  }, [isMouseOver, isInitialized])
 
   return (
     <div

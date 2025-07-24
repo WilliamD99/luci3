@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import gsap from "@/utils/gsap";
 import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
 import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
@@ -143,6 +144,32 @@ export default function Hero() {
 
   }, { scope: container, revertOnUpdate: true })
 
+  // Entry animation
+  useGSAP(() => {
+    const splitText = new SplitText(".text-1 p", { type: "lines", linesClass: "line-wrapper", mask: "lines" });
+
+    // Set initial state for split lines
+    gsap.set(splitText.lines, {
+      autoAlpha: 0,
+      y: 100,
+    });
+
+    // Animate lines
+    gsap.to(splitText.lines, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 1,
+      ease: "power4.inOut",
+      delay: 0.05,
+      stagger: 0.05,
+    });
+
+    // Cleanup function
+    return () => {
+      splitText.revert();
+    };
+  }, { scope: container });
+
   return (
     <>
       <div
@@ -150,14 +177,12 @@ export default function Hero() {
         id="home_hero"
         className="relative overflow-hidden"
         style={{
-          // Prevent initial layout shift
-          // minHeight: '160vh',
         }}
       >
         <div ref={backgroundRef} className="relative w-full h-full" data-speed="0.75">
           <div className="background"></div>
         </div>
-        <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20">
+        <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20 overflow-hidden">
           <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
             Global digital design studio partnering with brands and businesses
             that create exceptional experiences where people live, work, and

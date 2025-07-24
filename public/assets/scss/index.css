@@ -181,6 +181,10 @@ body {
 #home-page #home_hero .text-1 {
   top: 45vh;
 }
+#home-page #home_hero .text-1 p .line-wrapper {
+  visibility: hidden;
+  opacity: 0;
+}
 @media (min-width: 1024px) {
   #home-page #home_hero .text-1 {
     top: 70vh;
