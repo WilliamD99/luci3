@@ -200,6 +200,10 @@ body {
 #home-page #home_hero .text-2 {
   top: 65vh;
 }
+#home-page #home_hero .text-2 span {
+  opacity: 0;
+  visibility: hidden;
+}
 @media (min-width: 1024px) {
   #home-page #home_hero .text-2 {
     top: 110vh;

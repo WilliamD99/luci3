@@ -78,6 +78,11 @@
       .text-2 {
         top: 65vh;
 
+        span {
+          opacity: 0;
+          visibility: hidden;
+        }
+
         @include lg {
           top: 110vh // padding-top: 5vh;
         }

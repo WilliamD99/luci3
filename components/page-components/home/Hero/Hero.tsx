@@ -152,16 +152,33 @@ export default function Hero() {
     gsap.set(splitText.lines, {
       autoAlpha: 0,
       y: 100,
+      rotate: 6,
+    });
+
+    gsap.set(".text-2 span", {
+      autoAlpha: 0,
+      y: 100,
+      rotate: 6,
     });
 
     // Animate lines
     gsap.to(splitText.lines, {
       autoAlpha: 1,
       y: 0,
+      rotate: 0,
       duration: 1,
       ease: "power4.inOut",
       delay: 0.05,
       stagger: 0.05,
+    });
+
+    gsap.to(".text-2 span", {
+      autoAlpha: 1,
+      y: 0,
+      rotate: 0,
+      duration: 1,
+      ease: "power4.inOut",
+      stagger: 0.1,
     });
 
     // Cleanup function
