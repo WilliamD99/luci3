@@ -14,13 +14,14 @@
       height: 160vh;
 
       .background {
-        background: url("/assets/img/home_hero.webp");
+        background: url("/vancouver.jpg");
         // background-position: 50% 50%;
         background-size: cover;
         background-repeat: no-repeat;
         // background-attachment: fixed;
         height: 100%;
         width: 100%;
+        filter: brightness(0.8);
       }
 
       @include lg {
@@ -254,15 +255,12 @@
             }
 
             &:nth-child(3) {
-              margin-top: 20vh;
+              margin-top: 12vh;
               grid-column: 6/11;
-              height: 40vw;
+              height: 22vw;
 
               &:hover {
                 @include lg {
-                  .img {
-                    visibility: hidden;
-                  }
 
                   .title p {
                     opacity: 1;
@@ -270,6 +268,12 @@
                     transform: translateY(0);
                   }
                 }
+              }
+
+              @include xl2 {
+                margin-top: 18vh;
+                grid-column: 6/11;
+                height: 37vw;
               }
             }
 

@@ -43,12 +43,14 @@ export default function CursorFollower(props: ICursorFollowerProps) {
   const handleMouseMove = useCallback(
     (e: any, xTo: any, yTo: any) => {
       let { clientX, clientY } = e;
-      xTo(clientX);
-      yTo(clientY);
 
-      // Mark as initialized after first mouse move
+      // If not initialized yet, set position instantly without animation
       if (!isInitialized) {
+        gsap.set(followerRef.current, { x: clientX, y: clientY });
         setIsInitialized(true);
+      } else {
+        xTo(clientX);
+        yTo(clientY);
       }
     },
     [followerRef, isInitialized]
@@ -95,11 +97,13 @@ export default function CursorFollower(props: ICursorFollowerProps) {
     );
   }, [isMouseOver, isInitialized])
 
+
+
   return (
     <div
       id="follower"
       ref={followerRef}
-      className="fixed z-50 -left-100 rounded-full px-4 py-4 w-24 h-24 flex justify-center items-center"
+      className="fixed z-50 -left-100 rounded-full px-4 py-4 w-24 h-24 justify-center items-center flex"
       style={{
         backdropFilter: "blur(20px)",
         background: "rgba(0,0,0,.15)",

@@ -88,11 +88,9 @@ const AnimatedOnScroll = ({
     }, [direction, target]);
 
     return (
-        <>
-            <div className={`invisible overflow-hidden leading-none w-fit h-fit ${className}`} ref={ele}>
-                {children}
-            </div>
-        </>
+        <div className={`invisible overflow-hidden leading-none w-fit h-fit ${className}`} ref={ele}>
+            {children}
+        </div>
     )
 }
 

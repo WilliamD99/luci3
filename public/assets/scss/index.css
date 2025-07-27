@@ -137,11 +137,12 @@ body {
   height: 160vh;
 }
 #home-page #home_hero .background {
-  background: url("/assets/img/home_hero.webp");
+  background: url("/vancouver.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
+  filter: brightness(0.8);
 }
 @media (min-width: 1024px) {
   #home-page #home_hero {
@@ -358,18 +359,22 @@ body {
   }
 }
 #home-page #home_work .wrapper .projects .project:nth-child(3) {
-  margin-top: 20vh;
+  margin-top: 12vh;
   grid-column: 6/11;
-  height: 40vw;
+  height: 22vw;
 }
 @media (min-width: 1024px) {
-  #home-page #home_work .wrapper .projects .project:nth-child(3):hover .img {
-    visibility: hidden;
-  }
   #home-page #home_work .wrapper .projects .project:nth-child(3):hover .title p {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+}
+@media (min-width: 1920px) {
+  #home-page #home_work .wrapper .projects .project:nth-child(3) {
+    margin-top: 18vh;
+    grid-column: 6/11;
+    height: 37vw;
   }
 }
 #home-page #home_work .wrapper .projects .project:nth-child(4) {

@@ -188,80 +188,78 @@ export default function Hero() {
   }, { scope: container });
 
   return (
-    <>
-      <div
-        ref={container}
-        id="home_hero"
-        className="relative overflow-hidden"
-        style={{
-        }}
-      >
-        <div ref={backgroundRef} className="relative w-full h-full" data-speed="0.75">
-          <div className="background"></div>
+    <div
+      ref={container}
+      id="home_hero"
+      className="relative overflow-hidden"
+      style={{
+      }}
+    >
+      <div ref={backgroundRef} className="relative w-full h-full" data-speed="0.75">
+        <div className="background"></div>
+      </div>
+      <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20 overflow-hidden">
+        <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
+          Global digital design studio partnering with brands and businesses
+          that create exceptional experiences where people live, work, and
+          unwind.
+        </p>
+      </div>
+      <div className="text-2 text z-10 pl-6 lg:pl-20">
+        <div className="overflow-hidden">
+          <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[16rem] font-poppins tracking-wide leading-[1.2]`}>Digital</span>
         </div>
-        <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20 overflow-hidden">
-          <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
-            Global digital design studio partnering with brands and businesses
-            that create exceptional experiences where people live, work, and
-            unwind.
-          </p>
+        <div className="overflow-hidden">
+          <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[16rem] font-poppins tracking-wide leading-[1.2]`}>Design</span>
         </div>
-        <div className="text-2 text z-10 pl-6 lg:pl-20">
-          <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Digital</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Design</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[18rem] font-poppins tracking-wide leading-none`}>Experience</span>
-          </div>
-          {/* Arrow on mobile */}
-          <div className="flex md:hidden mt-6">
-            <ArrowDown className="h-5 w-5 text-white" />
-          </div>
+        <div className="overflow-hidden">
+          <span className={`text-white title inline-block font-medium text-6xl lg:text-[12rem] xl2:text-[16rem] font-poppins tracking-wide leading-[1.2]`}>Experience</span>
         </div>
-        <div className="text-3 text z-10 pl-6 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
-          <p className="text-white lg:text-2xl xl2:text-3xl font-nunito">
-            We help experience-driven companies thrive by making their audience
-            feel the refined intricacies of their brand and product in the
-            digital space. Unforgettable journeys start with a click.
-          </p>
+        {/* Arrow on mobile */}
+        <div className="flex md:hidden mt-6">
+          <ArrowDown className="h-5 w-5 text-white" />
         </div>
-        <div className=" pt-[8vh] bottom-[10vh] w-full pl-[200px] text z-10 hidden lg:flex flex-row justify-between items-start">
-          <p className="text-white font-nunito text-2xl xl2:text-3xl border-b-[1px] border-white">The Studio</p>
-          <div className="flex flex-row space-x-48">
-            <div className="flex flex-col space-y-8">
-              <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
-                Work
-              </Link>
-              <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
-                Studio
-              </Link>
-              <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
-                News
-              </Link>
-              <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
-                Contact
-              </Link>
-            </div>
-            <div className="flex flex-col space-y-8">
-              <Link
-                href="mailto:dnam310199@gmail.com"
-                className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit"
-              >
-                dnam310199@gmail.com
-              </Link>
-              <Link
-                href="tel:2365133956"
-                className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit"
-              >
-                (1) 236-513-3956
-              </Link>
-            </div>
+      </div>
+      <div className="text-3 text z-10 pl-6 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
+        <p className="text-white lg:text-2xl xl2:text-3xl font-nunito">
+          We help experience-driven companies thrive by making their audience
+          feel the refined intricacies of their brand and product in the
+          digital space. Unforgettable journeys start with a click.
+        </p>
+      </div>
+      <div className=" pt-[8vh] bottom-[10vh] w-full pl-[200px] text z-10 hidden lg:flex flex-row justify-between items-start">
+        <p className="text-white font-nunito text-2xl xl2:text-3xl border-b-[1px] border-white">The Studio</p>
+        <div className="flex flex-row space-x-48">
+          <div className="flex flex-col space-y-8">
+            <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
+              Work
+            </Link>
+            <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
+              Studio
+            </Link>
+            <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
+              News
+            </Link>
+            <Link href="#" className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit">
+              Contact
+            </Link>
+          </div>
+          <div className="flex flex-col space-y-8">
+            <Link
+              href="mailto:dnam310199@gmail.com"
+              className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit"
+            >
+              dnam310199@gmail.com
+            </Link>
+            <Link
+              href="tel:2365133956"
+              className="text-white text-2xl 2xl:text-3xl underline-effect font-nunito w-fit"
+            >
+              (1) 236-513-3956
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
