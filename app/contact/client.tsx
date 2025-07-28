@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HoverButton from "@/components/HoverButton";
 
-export default function ContactPage() {
+export default function ContactPageClient() {
     return (
         <div
             id="contact"

@@ -1,12 +1,13 @@
 import { Metadata } from "next";
+import ContactPageClient from "./client";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Contact me",
 }
 
-export default function ContactPage() {
+export default function Contact() {
   return (
-    <ContactPage />
+    <ContactPageClient />
   );
 }
