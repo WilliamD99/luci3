@@ -1,17 +1,17 @@
 export const WorkArr = [
     {
-        image: "/assets/img/home-news-4.webp",
-        title: "Pixelflakes",
-        slug: "pixelflakes",
-        subTitle: "Architectural marketing agency",
-        link: "/work/pixelflakes"
+        image: "/projects/District_Mural_Final_CMYK_Small-scaled.jpg",
+        title: "District Noodle House",
+        slug: "district-noodle-house",
+        subTitle: "A modern and stylish noodle house",
+        link: "/work/district-noodle-house"
     },
     {
-        image: "/assets/img/pixel-flakes-hero.webp",
-        title: "Plug Live",
-        slug: "plug-live",
-        subTitle: "Custom Made Live Shows",
-        link: "/work/plug-live"
+        image: "/projects/content_crew.jpg",
+        title: "Content Crew",
+        slug: "content-crew",
+        subTitle: "A professional, industry-leading logistics firm",
+        link: "/work/content-crew"
     },
     {
         image: "/assets/img/the-st-regis-venice-hero.webp",

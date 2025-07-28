@@ -48,6 +48,7 @@ const AnimatedOnScroll = ({
     useGSAP(() => {
         const startLocation: { [key: string]: number } = {
             [animDirectionFunc()]: direction === "down" || direction === "right" ? -200 : 200,
+            rotate: 6
         };
 
         const targetElement: any = target?.current ? gsap.utils.toArray(target.current) : [ele.current];
@@ -71,7 +72,9 @@ const AnimatedOnScroll = ({
                 gsap.to(validBatch, {
                     autoAlpha: 1,
                     ...startLocation,
+                    rotate: 0,
                     ease: "Sine.easeInOut",
+                    duration: 0.75,
                     stagger: animStagger,
                 });
             },

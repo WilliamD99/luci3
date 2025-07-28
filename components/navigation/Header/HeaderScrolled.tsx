@@ -558,8 +558,9 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                 <div ref={dropdownMenuImgRef} className="relative img">
                   <Image
                     fill
-                    src="/assets/img/contact-3.webp"
+                    src="/wd.jpeg"
                     alt="Dropdown image 1"
+                    className="brightness-75"
                   />
                 </div>
               </div>
@@ -610,40 +611,30 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                   <div className="link_wrapper overflow-hidden">
                     <div className="social_link overflow-hidden">
                       <Link
-                        href="#"
+                        href="https://www.linkedin.com/in/williamd99/"
                         className={`social_link link underline-effect font-nunito`}
                       >
-                        Behance
+                        LinkedIn
                       </Link>
                     </div>
                   </div>
                   <div className="link_wrapper overflow-hidden">
                     <div className="social_link overflow-hidden">
                       <Link
-                        href="#"
+                        href="https://github.com/WilliamD99"
                         className={`social_link link underline-effect font-nunito`}
                       >
-                        Dribble
+                        Github
                       </Link>
                     </div>
                   </div>
                   <div className="link_wrapper overflow-hidden">
                     <div className="social_link overflow-hidden">
                       <Link
-                        href="#"
+                        href="mailto:dnam310199@gmail.com"
                         className={`social_link link underline-effect font-nunito`}
                       >
-                        Twitter
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="link_wrapper overflow-hidden">
-                    <div className="social_link overflow-hidden">
-                      <Link
-                        href="#"
-                        className={`social_link link underline-effect font-nunito`}
-                      >
-                        Instagram
+                        Email
                       </Link>
                     </div>
                   </div>

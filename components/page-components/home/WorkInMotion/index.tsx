@@ -117,16 +117,15 @@ export default function WorkInMotion() {
       </div>
       <div className="center z-10 flex justify-between space-x-5 ">
         <p className={`font-poppins`} ref={text1Ref}>
-          Play
+          Digital
         </p>
         <p className={`font-poppins`} ref={text2Ref}>
-          Reel
+          Architect
         </p>
       </div>
       <div className="bottom z-10">
-        <p className="max-w-sm text-center text-sm lg:text-base xl2:text-lg px-5 font-nunito">
-          Our work is best experienced in motion. Don't forget to put on your
-          headphones
+        <p className="max-w-4xl text-center text-sm lg:text-base xl2:text-lg px-5 font-nunito">
+          As Digital Architects, I design and build engaging web experiences. I focus on crafting functional, beautiful, and user-centered solutions that bring ideas to life online.
         </p>
       </div>
       <div ref={videoRef} className="videoWrapper">

@@ -10,8 +10,8 @@ export default function Project3() {
                 <Image className='img object-cover' fill src="/projects/district_noodle_house.jpg" alt="Project 3" />
                 <div className='title relative'>
                     <p className='relative overflow-hidden font-poppins'>
-                        <strong>District Noodle House</strong>
-                        A modern and stylish noodle house
+                        <strong>Content Crew</strong>
+                        Simple and elegant
                     </p>
                 </div>
             </div>

@@ -103,9 +103,7 @@
     }
 
     .slider-content {
-      @include lg {
-        max-width: 350px;
-      }
+
 
       &--title {
         p {

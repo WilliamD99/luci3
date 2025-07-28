@@ -1,3 +1,4 @@
+'use client'
 import React, { useRef } from 'react'
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';

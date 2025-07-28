@@ -1,6 +1,5 @@
-'use client'
-
-import React, { useRef } from 'react'
+import React from 'react'
+import { Metadata } from 'next'
 
 import WorkHero from '@/components/page-components/project/Hero'
 import WorkObjective from '@/components/page-components/project/Objective'
@@ -14,9 +13,23 @@ type Props = {
     }
 }
 
-const ProjectPage = ({ params }: Props) => {
-    const containerRef = useRef<HTMLDivElement>(null)
+// Generate dynamic metadata based on the project
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const project = WorkArr.find(work => work.slug === params.slug)
 
+    if (!project) {
+        return {
+            title: 'Project Not Found'
+        }
+    }
+
+    return {
+        title: project.title,
+        description: project.subTitle
+    }
+}
+
+const ProjectPage = ({ params }: Props) => {
     // Find the project data based on the slug
     const project = WorkArr.find(work => work.slug === params.slug)
 
@@ -26,7 +39,7 @@ const ProjectPage = ({ params }: Props) => {
     }
 
     return (
-        <div id={`work-details`} ref={containerRef} className='work-detail min-h-screen project-page' >
+        <div id={`work-details`} className='work-detail min-h-screen project-page' >
             <WorkHero project={project} />
             <WorkObjective project={project} />
             <WorkSolution project={project} />

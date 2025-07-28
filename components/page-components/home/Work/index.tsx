@@ -20,12 +20,12 @@ export default function Work() {
                         <SparklesIcon className='h-4 w-4' />
                         <p className={`text-base font-nunito`}>Featured Projects</p>
                     </div>
-                    <AnimatedOnScroll target={titleRef} direction='up' className='mb-10'>
-                        <div ref={titleRef} className={`title title-main text-8xl md:text-[10rem] xl2:text-[18rem] font-poppins font-medium leading-none`}>
+                    <AnimatedOnScroll target={titleRef} direction='up' className='mb-5 mt-2 lg:mb-10'>
+                        <div ref={titleRef} className={`title title-main text-7xl md:text-[10rem] xl2:text-[18rem] font-poppins font-semibold leading-none`}>
                             Work
                         </div>
                     </AnimatedOnScroll>
-                    <p className='lg:hidden text-sm font-nunito'>Highlights of cases that we passionately built with forward-thinking clients and friends over the year</p>
+                    <p className='lg:hidden text-sm xl2:text-lg font-nunito'>Highlights of cases that we passionately built with forward-thinking clients and friends over the year</p>
                 </div>
 
                 <div className='projects lg:gap-10 mt-10 lg:mt-20'>

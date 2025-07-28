@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "@/public/assets/scss/index.css";
+import "@/styles/index.css";
 import LayoutClient from "./layoutClient";
 import { Poppins, Nunito } from 'next/font/google'
 import { Analytics } from "@vercel/analytics/next"

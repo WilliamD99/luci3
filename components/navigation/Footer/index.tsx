@@ -14,15 +14,13 @@ const FOOTER_LINKS = {
         { label: 'Contact', href: '/contact' },
     ],
     social: [
-        { label: 'Behance', href: 'https://behance.net', external: true },
-        { label: 'Dribbble', href: 'https://dribbble.com', external: true },
-        { label: 'Twitter', href: 'https://twitter.com', external: true },
-        { label: 'Instagram', href: 'https://instagram.com', external: true },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/williamd99/', external: true },
+        { label: 'Github', href: 'https://github.com/WilliamD99', external: true },
+        { label: 'Email', href: 'mailto:dnam310199@gmail.com', external: true },
     ],
     contact: {
         address: {
-            street: '2346 E 27th Ave',
-            city: 'Vancouver, BC',
+            street: 'Vancouver, BC',
             country: 'Canada',
         },
         email: 'dnam310199@gmail.com',
@@ -131,7 +129,6 @@ export default function Footer({ className = '' }: FooterProps) {
                                     aria-label="Visit our office location"
                                 >
                                     {FOOTER_LINKS.contact.address.street}<br />
-                                    {FOOTER_LINKS.contact.address.city}<br />
                                     {FOOTER_LINKS.contact.address.country}
                                 </Link>
                             </address>

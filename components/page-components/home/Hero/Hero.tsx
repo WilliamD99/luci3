@@ -162,13 +162,19 @@ export default function Hero() {
     });
 
     // Animate lines
+    gsap.to(".text-1 p", {
+      autoAlpha: 1,
+      duration: 0.01,
+      ease: "none",
+    });
+
     gsap.to(splitText.lines, {
       autoAlpha: 1,
       y: 0,
       rotate: 0,
       duration: 1,
       ease: "power4.inOut",
-      delay: 0.05,
+      // delay: 0.05,
       stagger: 0.05,
     });
 
@@ -178,6 +184,7 @@ export default function Hero() {
       rotate: 0,
       duration: 1,
       ease: "power4.inOut",
+      delay: 0.05,
       stagger: 0.1,
     });
 
@@ -200,9 +207,8 @@ export default function Hero() {
       </div>
       <div className="text-1 text z-10 pl-6 pr-5 lg:pl-20 overflow-hidden">
         <p className="text-white lg:text-2xl 2xl:text-3xl font-nunito">
-          Global digital design studio partnering with brands and businesses
-          that create exceptional experiences where people live, work, and
-          unwind.
+          Passionate web developer crafting digital experiences that blend
+          innovative design with cutting-edge technology to bring ideas to life.
         </p>
       </div>
       <div className="text-2 text z-10 pl-6 lg:pl-20">
@@ -222,9 +228,9 @@ export default function Hero() {
       </div>
       <div className="text-3 text z-10 pl-6 pr-5 pb-10 lg:pl-20 mb-44 lg:mb-0">
         <p className="text-white lg:text-2xl xl2:text-3xl font-nunito">
-          We help experience-driven companies thrive by making their audience
-          feel the refined intricacies of their brand and product in the
-          digital space. Unforgettable journeys start with a click.
+          I transform complex ideas into elegant digital solutions, creating
+          seamless user experiences that captivate and engage. Every pixel
+          tells a story, every interaction sparks connection.
         </p>
       </div>
       <div className=" pt-[8vh] bottom-[10vh] w-full pl-[200px] text z-10 hidden lg:flex flex-row justify-between items-start">

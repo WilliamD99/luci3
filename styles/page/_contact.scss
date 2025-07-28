@@ -80,13 +80,7 @@
             margin-bottom: 6.25vw;
           }
 
-          p {
-            font-size: 20px;
 
-            @include lg {
-              font-size: 14px;
-            }
-          }
         }
 
         .contact {
@@ -102,14 +96,6 @@
                 margin-bottom: 1.38889vw;
               }
             }
-
-            span {
-              font-size: 14px;
-            }
-
-            .circle {
-              top: -0.7vw;
-            }
           }
         }
       }
@@ -122,14 +108,6 @@
           left: 81.31944vw;
           bottom: 0;
           margin: 0;
-        }
-
-        a {
-          font-size: 14px;
-
-          @include lg {
-            margin-bottom: 2.77778vw;
-          }
         }
       }
     }

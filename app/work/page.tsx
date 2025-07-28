@@ -102,7 +102,7 @@ const Work = (props: Props) => {
                 reversed={true}
             />
             <div className='absolute hidden bottom-20 left-20 w-fit z-50 lg:flex flex-row items-center space-x-2 overflow-hidden h-6'>
-                <p className='text-white font-nunito text-sm'>Scroll</p>
+                <p className='text-white font-nunito text-sm xl2:text-lg'>Scroll</p>
                 <div className='relative h-4 w-4'>
                     <ArrowDown
                         className='w-full h-full text-white absolute arrow-bounce-down'
