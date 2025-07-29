@@ -58,7 +58,7 @@ export default function Marquee({
         </div>
       </>
     ));
-  }, []);
+  }, [children, fill, itemsPerView, childrenCount]);
 
   const handleMouseMove = () => {
     if (pauseOnHover) {
@@ -100,9 +100,8 @@ export default function Marquee({
       <div
         id={id}
         ref={containerRef}
-        className={`mrq-container overflow-hidden ${
-          className ? className : ""
-        }`}
+        className={`mrq-container overflow-hidden ${className ? className : ""
+          }`}
         onMouseEnter={handleMouseMove}
         onMouseLeave={handleMouseMove}
         onClick={handleClick}

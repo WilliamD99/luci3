@@ -104,35 +104,26 @@ export default function Hero() {
             start: "top top",
             end: "bottom+=35% bottom",
             scrub: true,
-            refreshPriority: -1,
           },
         });
 
         tl.fromTo(".background", {
-          backgroundPosition: () => `50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
           scale: 1
         }, {
           backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
           scale: 1,
           ease: "none",
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top+=50px bottom",
-            end: "bottom top",
-            scrub: true,
-            invalidateOnRefresh: true,
-            refreshPriority: -1,
-          }
+
         });
       });
 
       // Final ScrollTrigger refresh after all animations are set up
-      setTimeout(() => {
-        if ((window as any).ScrollTrigger) {
-          (window as any).ScrollTrigger.refresh();
-          console.log('Hero: Final ScrollTrigger refresh completed');
-        }
-      }, 100);
+      // setTimeout(() => {
+      //   if ((window as any).ScrollTrigger) {
+      //     (window as any).ScrollTrigger.refresh();
+      //     console.log('Hero: Final ScrollTrigger refresh completed');
+      //   }
+      // }, 100);
     };
 
     initializeAnimations();

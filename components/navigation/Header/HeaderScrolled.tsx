@@ -112,7 +112,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
     });
 
     themeTransitionRef.current = tl;
-  }, [theme]);
+  }, []);
 
   // Simplified theme change function with reliable boundary detection
   const handleChangeColor = useCallback(() => {
@@ -498,7 +498,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         setIsMenuOpen(false);
       }, 200)
     }
-  }, [pathName]);
+  }, [pathName, isMenuOpen, isAnimating]);
 
   return (
     <>

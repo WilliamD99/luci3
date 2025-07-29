@@ -5,10 +5,7 @@ import Footer from "@/components/navigation/Footer";
 import Header from "@/components/navigation/Header";
 import React, { useEffect, useState, useRef } from "react";
 
-import dynamic from "next/dynamic";
-const CursorFollower = dynamic(() => import("@/components/CursorFollower"), {
-  ssr: false,
-});
+import CursorFollower from "@/components/CursorFollower";
 
 import { usePathname } from "next/navigation";
 

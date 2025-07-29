@@ -160,7 +160,7 @@ function Slider(
       if (direction === "next") animate(1);
       else animate(-1);
     }, 200),
-    [index, setIndex]
+    [isAnimating]
   );
 
   useEffect(() => {
@@ -179,7 +179,7 @@ function Slider(
     }, 500);
 
     return () => observer?.kill();
-  }, []);
+  }, [navigate]);
 
   // this effect may be used to enable manually trigger the animation by click (instead of scroll like normal)
   useEffect(() => {
@@ -188,7 +188,7 @@ function Slider(
       if (actionDirection === 1) navigate("next");
       else if (actionDirection === -1) navigate("prev");
     }
-  }, [action]);
+  }, [action, actionDirection, navigate]);
 
   // Disable the main navigation when the page's route changing or during animations
   useEffect(() => {

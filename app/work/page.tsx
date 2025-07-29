@@ -32,7 +32,7 @@ const Work = (props: Props) => {
 
     // Memoize the navigation function to prevent recreation on every render
     const navigatePage = useCallback(
-        debounce(() => {
+        () => debounce(() => {
             setTransitioning(true)
 
             if (fgRef.current && bgRef.current) {

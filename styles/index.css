@@ -425,7 +425,7 @@ body {
   height: calc(100% - 2px);
 }
 #home-page #home_workInMotion .center p {
-  font-size: 54px;
+  font-size: 42px;
 }
 @media (min-width: 1280px) {
   #home-page #home_workInMotion .center p {
