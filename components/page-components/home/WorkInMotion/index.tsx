@@ -18,7 +18,7 @@ export default function WorkInMotion() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "bottom+=600px",
+          end: "bottom+=400px",
           scrub: 1,
           pin: true,
           pinType: "transform",

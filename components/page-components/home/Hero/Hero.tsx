@@ -29,28 +29,14 @@ export default function Hero() {
         gsap.set('.text-1', { autoAlpha: 1 })
         gsap.set('.text-2 .title', { autoAlpha: 1, y: 0, rotate: 0 })
 
-        gsap.fromTo(".background", {
-          backgroundPosition: () => `50% ${-window.innerHeight * getRatio(backgroundRef?.current) * 2}px`,
-          scale: 1
-        }, {
-          backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
-          scale: 1.2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: container.current,
-            start: () => "top+=50px bottom",
-            end: "bottom top",
-            scrub: true,
-            invalidateOnRefresh: true,
-          }
-        });
+
 
         // Mobile text animation ScrollTrigger
-        gsap.timeline({
+        let tl = gsap.timeline({
           scrollTrigger: {
             trigger: container.current,
-            start: "top+=8% top",
-            end: `bottom bottom`,
+            start: "top top",
+            end: `bottom+=800px bottom`,
             scrub: true,
             refreshPriority: -1,
             onEnter: () => {
@@ -92,6 +78,11 @@ export default function Hero() {
             }
           },
         });
+
+        tl.to(".background", {
+          backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
+          ease: "none",
+        });
       });
 
       // Desktop (769px and above)
@@ -107,9 +98,7 @@ export default function Hero() {
           },
         });
 
-        tl.fromTo(".background", {
-          scale: 1
-        }, {
+        tl.to(".background", {
           backgroundPosition: () => `50% ${window.innerHeight * 2 * (1 - getRatio(backgroundRef?.current))}px`,
           scale: 1,
           ease: "none",
