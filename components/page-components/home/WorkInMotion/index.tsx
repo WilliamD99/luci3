@@ -123,7 +123,7 @@ export default function WorkInMotion() {
           Architect
         </p>
       </div>
-      <div className="bottom z-10">
+      <div className="bottom z-10 mb-10">
         <p className="max-w-4xl text-center text-sm lg:text-base xl2:text-lg px-5 font-nunito">
           As Digital Architects, I design and build engaging web experiences. I focus on crafting functional, beautiful, and user-centered solutions that bring ideas to life online.
         </p>
