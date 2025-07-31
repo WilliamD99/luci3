@@ -40,8 +40,8 @@ export default function CursorFollower({ className = "" }: ICursorFollowerProps)
   const handleMouseEnter = useCallback(() => {
     setIsHovering(true);
     gsap.to(followerRef.current, {
-      scale: 1.5,
-      duration: 0.3,
+      scale: 0.6,
+      duration: 0.2,
       ease: "power2.out",
     });
   }, []);

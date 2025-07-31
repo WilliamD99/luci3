@@ -461,11 +461,6 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
 
       // Store both timelines
       timelineRef.current = { open: openTimeline, close: closeTimeline };
-
-      // Auto-start open animation if menu should be open
-      if (isMenuOpen && !isAnimating) {
-        openTimeline.restart();
-      }
     }
 
   }, { scope: headerScrolledRef, dependencies: [ref.current, shouldRenderDropdown] })
@@ -486,7 +481,13 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
       // Open the menu with open animation
       setShouldRenderDropdown(true); // Render dropdown before opening
       setIsMenuOpen(true);
-      // No need to refresh ScrollTrigger - it causes layout disruptions
+
+      // Use setTimeout to ensure the DOM is updated before starting animation
+      setTimeout(() => {
+        if (timelineRef.current?.open && !isAnimating) {
+          timelineRef.current.open.restart();
+        }
+      }, 0);
     }
   });
 
@@ -498,7 +499,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
         setIsMenuOpen(false);
       }, 200)
     }
-  }, [pathName, isMenuOpen, isAnimating]);
+  }, [pathName]); // Only run when pathName changes (navigation)
 
   return (
     <>
@@ -570,7 +571,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                     <div className="navigation_link overflow-hidden">
                       <Link
                         href="/work"
-                        className={`underline-effect font-poppins leading-none`}
+                        className={`underline-effect font-poppins`}
                       >
                         Work
                       </Link>
@@ -580,7 +581,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                     <div className="navigation_link overflow-hidden">
                       <Link
                         href="/work/test1"
-                        className={`underline-effect font-poppins leading-none`}
+                        className={`underline-effect font-poppins`}
                       >
                         Studio
                       </Link>
@@ -590,7 +591,7 @@ const HeaderScrolled = ({ isActive }: Props, ref: any) => {
                     <div className="navigation_link overflow-hidden">
                       <Link
                         href="#"
-                        className={`underline-effect font-poppins leading-none`}
+                        className={`underline-effect font-poppins`}
                       >
                         News
                       </Link>
