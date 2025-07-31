@@ -795,10 +795,45 @@ body {
   opacity: 0;
 }
 
-#follower {
+#customCursor {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  z-index: 9999 !important;
+}
+#customCursor.hovering {
+  transform: scale(1.5);
+}
+#customCursor.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: white;
+}
+#customCursor.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 2px solid white;
+  background: transparent;
+}
+#customCursor.cursor-cross::before, #customCursor.cursor-cross::after {
+  content: "";
+  position: absolute;
+  background: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#customCursor.cursor-cross::before {
+  width: 2px;
+  height: 16px;
+}
+#customCursor.cursor-cross::after {
+  width: 16px;
+  height: 2px;
 }
 
 .mrq-container {
@@ -1288,6 +1323,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none;
 }
 
 [data-support-yes],

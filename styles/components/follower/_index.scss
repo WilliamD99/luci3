@@ -1,5 +1,58 @@
-#follower {
+#customCursor {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+    will-change: transform;
+
+    // Ensure smooth animations
+    backface-visibility: hidden;
+    perspective: 1000px;
+
+    // Add a subtle shadow for better visibility
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+    // Ensure it's always on top
+    z-index: 9999 !important;
+
+    // Different states for interactive elements
+    &.hovering {
+        transform: scale(1.5);
+    }
+
+    // Alternative cursor styles (you can add these as CSS classes)
+    &.cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: white;
+    }
+
+    &.cursor-ring {
+        width: 32px;
+        height: 32px;
+        border: 2px solid white;
+        background: transparent;
+    }
+
+    &.cursor-cross {
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            background: white;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &::before {
+            width: 2px;
+            height: 16px;
+        }
+
+        &::after {
+            width: 16px;
+            height: 2px;
+        }
+    }
 }

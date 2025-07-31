@@ -2,114 +2,119 @@
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
-import { debounce } from "lodash";
 
-export interface ICursorFollowerProps { }
+export interface ICursorFollowerProps {
+  className?: string;
+}
 
-export default function CursorFollower(props: ICursorFollowerProps) {
-  const [isMouseOver, setMouseOver] = useState<boolean>(false)
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+export default function CursorFollower({ className = "" }: ICursorFollowerProps) {
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
   const followerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseOver = useCallback(debounce((e: any, xTo: any, yTo: any) => {
-    let { clientX, clientY } = e;
-
-    let parents = [
-      document.getElementById("home_hero"),
-      document.getElementById("home_workInMotion"),
-      document.getElementById("project1"),
-      document.getElementById("project2"),
-      document.getElementById("project3"),
-      document.getElementById("project4"),
-    ]
-
-    // Check if all null
-    let allNull = parents.every((parent) => parent === null);
-    if (allNull) return
-
-    // Get the current element from point
-    let elementOnPoint = document.elementFromPoint(clientX, clientY)
-
-    let isOver = parents.some((parent: any) => parent.contains(elementOnPoint))
-    if (isOver) {
-      if (!isMouseOver) {
-        setMouseOver(true)
-      }
-    } else {
-      setMouseOver(false)
-    }
-  }, 100), [followerRef, isMouseOver])
-
   const handleMouseMove = useCallback(
-    (e: any, xTo: any, yTo: any) => {
+    (e: MouseEvent) => {
       let { clientX, clientY } = e;
 
       // If not initialized yet, set position instantly without animation
       if (!isInitialized) {
-        gsap.set(followerRef.current, { x: clientX, y: clientY });
+        gsap.set(followerRef.current, {
+          x: clientX - 12, // Offset to center the cursor
+          y: clientY - 12,
+          autoAlpha: 1,
+          ease: "none",
+        });
         setIsInitialized(true);
       } else {
-        xTo(clientX);
-        yTo(clientY);
+        gsap.to(followerRef.current, {
+          x: clientX - 12,
+          y: clientY - 12,
+          duration: 0.01,
+          ease: "none",
+        });
       }
     },
-    [followerRef, isInitialized]
+    [isInitialized]
   );
 
-  useEffect(() => {
-    let xTo = gsap.quickTo(followerRef.current, "x", {
-      duration: 0.4,
-      ease: "power3",
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true);
+    gsap.to(followerRef.current, {
+      scale: 1.5,
+      duration: 0.3,
+      ease: "power2.out",
     });
-    let yTo = gsap.quickTo(followerRef.current, "y", {
-      duration: 0.4,
-      ease: "power3",
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false);
+    gsap.to(followerRef.current, {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }, []);
+
+  useEffect(() => {
+    // Add event listeners
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Add hover effects for interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, [role="button"], input, textarea, select');
+
+    interactiveElements.forEach(element => {
+      element.addEventListener("mouseenter", handleMouseEnter);
+      element.addEventListener("mouseleave", handleMouseLeave);
     });
 
-    window.addEventListener("mousemove", (e) => handleMouseOver(e, xTo, yTo));
-    window.addEventListener("mousemove", (e) => handleMouseMove(e, xTo, yTo));
+    // Cleanup function
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+
+      interactiveElements.forEach(element => {
+        element.removeEventListener("mouseenter", handleMouseEnter);
+        element.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+  }, [handleMouseMove, handleMouseEnter, handleMouseLeave]);
+
+  // Hide cursor when leaving the window
+  useEffect(() => {
+    const handleMouseLeaveWindow = () => {
+      gsap.to(followerRef.current, {
+        autoAlpha: 0,
+        duration: 0.2,
+      });
+    };
+
+    const handleMouseEnterWindow = () => {
+      if (isInitialized) {
+        gsap.to(followerRef.current, {
+          autoAlpha: 1,
+          duration: 0.2,
+        });
+      }
+    };
+
+    document.addEventListener("mouseleave", handleMouseLeaveWindow);
+    document.addEventListener("mouseenter", handleMouseEnterWindow);
 
     return () => {
-      window.removeEventListener("mousemove", (e) => handleMouseOver(e, xTo, yTo))
-      window.removeEventListener("mousemove", (e) => handleMouseMove(e, xTo, yTo))
-
-      handleMouseOver.cancel()
+      document.removeEventListener("mouseleave", handleMouseLeaveWindow);
+      document.removeEventListener("mouseenter", handleMouseEnterWindow);
     };
-  }, [handleMouseMove, handleMouseOver]);
-
-  // Showing the follower when the mouse is over the div
-  useEffect(() => {
-    // Only show the follower if it's initialized and mouse is over
-    const shouldShow = isInitialized && isMouseOver;
-
-    gsap.fromTo(
-      followerRef.current,
-      {
-        autoAlpha: shouldShow ? 0 : 1,
-        scale: shouldShow ? 0 : 1,
-      },
-      {
-        autoAlpha: shouldShow ? 1 : 0,
-        scale: shouldShow ? 1 : 0,
-        duration: 0.4,
-        ease: "power3",
-      }
-    );
-  }, [isMouseOver, isInitialized])
-
-
+  }, [isInitialized]);
 
   return (
     <div
-      id="follower"
+      id="customCursor"
       ref={followerRef}
-      className="fixed z-50 -left-100 rounded-full px-4 py-4 w-24 h-24 justify-center items-center flex"
+      className={`fixed z-[9999] w-6 h-6 rounded-full pointer-events-none bg-gray-200 mix-blend-difference ${className}`}
       style={{
-        backdropFilter: "blur(20px)",
-        background: "rgba(0,0,0,.15)",
+        transform: "translate(-50%, -50%)",
+        visibility: "hidden",
+        opacity: 0,
       }}
-    >
-      <p className="text-white">View</p>
-    </div>
+    />
   );
 }
